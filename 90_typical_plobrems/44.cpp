@@ -56,8 +56,11 @@ void solve(){
         }
         else if(query[0]==2){
             ll tmp=a.back();
-            a.insert(a.begin(),a.back());
-            a.pop_back();
+            deque<ll> ad(a.begin(),a.end());
+            ad.push_front(a.back());
+            ad.pop_back();
+            vector<ll> at(ad.begin(),ad.end());
+            a=at;
         }
         else{
             res.push_back(a[query[1]-1]);
