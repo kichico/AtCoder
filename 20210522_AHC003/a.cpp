@@ -110,7 +110,7 @@ struct position{
 
 int solve(){
     graph g(30 * 30);
-    grid<ll> field(30, vector<ll>(30, 10000));
+    grid<ll> field(30, vector<ll>(30, 1));
     g.gridgraph(field,g);
     //grid<ll> h(30, vector<ll>(30, 0));
     //grid<ll> v(30, vector<ll>(30, 0));
