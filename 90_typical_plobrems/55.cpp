@@ -4,7 +4,8 @@ using ll=int64_t;
 using ld=long double;
 using ull=unsigned long long;
 #define ALL(x) x.begin(),x.end()
-#define rep(i,N) for(ll i=0;i<N;++i)
+#define rep(i,from,to) for(ll i=from;i<to;++i)
+
 constexpr ll MOD=1e9+7;
 constexpr ll INF=1e16;
 template<class T>
@@ -39,19 +40,20 @@ void op(vector<vector<ll>> vec){
 }
 //########################################################################
 
-struct position{
-    ll x;
-    ll y;
-};
 
 void solve(){
-    ll T;
-    ll height;
-    position chokudai;
-    cin>>height>>chokudai.x>>chokudai.y;
-    ll query;
-    cin>>query;
-    
+    ll N,P,Q;
+    cin>>N>>P>>Q;
+    vector<ll> a(N);
+    rep(i,0,N) cin>>a[i];
+    ll ans=0;
+    rep(i,0,N) rep(j,0,i) rep(k,0,j) rep(l,0,k) rep(m,0,l){
+        ll cal=a[i]*a[j]%P*a[k]%P*a[l]%P*a[m]%P;
+        //cout<<"i,j,k,l,m:"<<i<<" "<<j<<" "<<k<<" "<<l<<" "<<m<<endl;
+        //cout<<"cal:"<<cal<<endl;
+        if(cal==Q) ans++;
+    }
+    cout<<ans<<endl;
 }
 
 int main(void){

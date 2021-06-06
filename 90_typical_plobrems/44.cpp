@@ -43,27 +43,32 @@ void op(vector<vector<ll>> vec){
 void solve(){
     ll N,q;
     cin>>N>>q;
-    vector<ll> a(N);
+    vector<ll> a;
     vector<ll> res;
-    rep(i,N) cin>>a[i];
+    ll shift=0;
+    rep(i,N) {
+        ll in;
+        cin>>in;
+        a.push_back(in);
+    }
     rep(i,q) {
         vector<ll> query(3);
         rep(j,3) cin>>query[j];
         if(query[0]==1){
-            iter_swap(a.begin()+(query[1]-1),a.begin()+(query[2]-1));
-            //for(auto x:a) cout<<x<<" ";
-            //cout<<endl;
+            ll d=shift;
+            if(d>=a.size()) d-=a.size();
+            if(query[1]-1-d<0) query[1]+=a.size();
+            if(query[2]-1-d<0) query[2]+=a.size();
+            iter_swap(a.begin()+query[1]-1-d,a.begin()+query[2]-1-d);
         }
         else if(query[0]==2){
-            ll tmp=a.back();
-            deque<ll> ad(a.begin(),a.end());
-            ad.push_front(a.back());
-            ad.pop_back();
-            vector<ll> at(ad.begin(),ad.end());
-            a=at;
+            shift++;
         }
         else{
-            res.push_back(a[query[1]-1]);
+            ll d=shift;
+            if(d>=a.size()) d-=a.size();
+            if(query[1]-1-d<0) query[1]+=a.size();
+            res.push_back(a[query[1]-1-d]);
         }
     }
     for(auto x:res) cout<<x<<endl;
