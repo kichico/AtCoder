@@ -103,25 +103,22 @@ struct graph{
 
 
 
-
+vector<ll> c,d;
 int solve(){
     ll N,road;
     cin>>N>>road;
     vector<ll> town(N);
     graph g(N);
+    c=d=vector<ll>(road,0);
     rep(i,0,road){
         ll from,to;
-        cin>>from>>to;
+        cin>>from>>to>>c[i]>>d[i];
         from--;to--;
-        g.add_edge(from,to,1);
+        g.add_edge(from,to,c[i]+d[i]);
     }
     ll sum=0;
     rep(i,0,N) {
-        auto res=g.dijkstra(i).first;
-        rep(j,0,res.size()) if(res[j]<=road) {
-            sum++;
-            //cout<<"from:"<<i+1<<",to:"<<j+1<<",res[j]:"<<res[j]<<endl;
-        }
+        
     }
     cout<<sum<<endl;
     return 0;

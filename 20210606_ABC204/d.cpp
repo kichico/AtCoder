@@ -47,6 +47,27 @@ void op(vector<vector<ll>> vec){
 int solve(){
     ll N;
     cin>>N;
+    vector<ll> dish(N);
+    ll range1=0,range2=0;
+    vector<ll> one,two;
+    rep(i,0,N) cin>>dish[i];
+    sort(ALL(dish));
+    while(!dish.empty()){
+        if(range1<=range2) {range1+=dish.back();one.push_back(dish.back());}
+        else {range2+=dish.back();two.push_back(dish.back());}
+        dish.pop_back();
+        if(dish.empty()) break;
+        else {
+            if(range1<=range2) {range1+=dish.back();one.push_back(dish.back());}
+            else {range2+=dish.back();two.push_back(dish.back());}
+            dish.pop_back();
+        }
+    }
+    cout<<"1 sum:"<<range1<<">";
+    op(one);
+    cout<<"2 sum:"<<range2<<">";
+    op(two);
+    cout<<max(range1,range2)<<endl;
     return 0;
 }
 

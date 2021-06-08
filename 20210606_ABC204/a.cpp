@@ -45,8 +45,14 @@ void op(vector<vector<ll>> vec){
 
 
 int solve(){
-    ll N;
-    cin>>N;
+    ll a,b;
+    cin>>a>>b;
+    set<ll> in{0,1,2};
+    if(a==b) cout<<a<<endl;
+    else{
+        in.erase(a); in.erase(b);
+        cout<<*in.rbegin()<<endl;
+    }
     return 0;
 }
 

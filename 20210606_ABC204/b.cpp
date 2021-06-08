@@ -47,6 +47,13 @@ void op(vector<vector<ll>> vec){
 int solve(){
     ll N;
     cin>>N;
+    vector<ll> tree(N);
+    ll sum=0;
+    rep(i,0,N) cin>>tree[i];
+    rep(i,0,N) {
+        if(tree[i]>10) sum+=abs(10-tree[i]);
+    }
+    cout<<sum<<endl;
     return 0;
 }
 
