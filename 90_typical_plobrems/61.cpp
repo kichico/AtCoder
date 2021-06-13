@@ -3,12 +3,13 @@ using namespace std;
 using ll=int64_t;
 using ld=long double;
 using ull=unsigned long long;
-typedef vector<vector<ll>> grid;
-typedef vector<vector<bool>> gridbool;
 #define ALL(x) x.begin(),x.end()
-#define rep(i,N) for(ll i=0;i<N;++i)
+#define rep(i,from,to) for(ll i=from;i<to;++i)
 
-const ll MOD=1e9+7;
+constexpr ll MOD=1e9+7;
+constexpr ll INF=1e16;
+template<class T>
+using grid=vector<vector<T>>;
 //#######################################################################
 vector<vector<ll>> input(ll N, ll width){
     string str;
@@ -40,31 +41,20 @@ void op(vector<vector<ll>> vec){
 //########################################################################
 
 
-
-
-
-int solve(){
-    ll N;
-    cin>>N;
-    vector<ll> num(N);
-    ll all=0;
-    rep(i,N) {
-        cin>>num[i];
-        all+=num[i];
-        all%=MOD;
-    }
-    vector<ll> s(N,0);
-    ll sum=0;
-    rep(i,N){
-        all-=num[i];
-        if(all<0) all+=MOD;
-        sum+=all*num[i]%MOD;
-        sum%=MOD;
-    }
-    cout<<sum<<endl;
-    return 0;
+void solve(){
+   deque<ll> deq;
+   ll q;
+   vector<ll> res;
+   cin>>q;
+   rep(i,0,q){
+       ll t,x;
+       cin>>t>>x;
+       if(t==1) deq.push_front(x);
+       else if(t==2) deq.push_back(x);
+       else res.emplace_back(deq[x-1]);
+   }
+   for(auto x:res) cout<<x<<endl;
 }
-
 
 int main(void){
     std::cin.tie(nullptr);
