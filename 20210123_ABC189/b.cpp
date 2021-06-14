@@ -1,25 +1,64 @@
 #include "bits/stdc++.h"
 using namespace std;
 using ll=int64_t;
+using ld=long double;
+using ull=unsigned long long;
+template <class T>
+using grid=vector<vector<T>>;
+#define ALL(x) x.begin(),x.end()
+#define rep(iter,from,to) for(ll iter=from;iter<to;++iter)
 
-int solve(){
-  ll N,limit;
-  cin>>N>>limit;
-  vector<ll> Osake(N),alc(N);
-  vector<long double> alcd(N);
-  long double get=0;
-  for(ll i=0;i<N;++i) {
-      cin>>Osake[i]>>alc[i];
-      alcd[i]=(long double)alc[i]/100.0;
-      get+=(long double)Osake[i]*alcd[i];
-      if(get>limit) {
-          cout<<i+1<<endl;
-          return 0;
-      }
-  }
-  cout<<"-1"<<endl;
-  
-  return 0;
+const ll MOD=1e9+7;
+const ll INF=1e17;
+//#######################################################################
+vector<vector<ll>> input(ll N, ll width){
+    string str;
+    vector<vector<ll>> vec(N,vector<ll>(width));
+    for(ll i=0;i<N;++i){
+        cin>>str;
+        reverse(ALL(str));
+        for(ll j=0;j<width;++j){
+            vec[i][j]=str.back();
+            str.pop_back();
+        }
+    }
+    return vec;
+}
+void op(vector<ll> vec){
+    ll size=(ll)vec.size();
+    for(ll i=0;i<size-1;++i) cout<<vec[i]<<" ";
+    cout<<vec.back()<<endl;
+}
+
+void op(vector<vector<ll>> vec){
+    ll height=(ll)vec.size();
+    ll width=(ll)vec[0].size();
+    for(ll i=0;i<height;++i) {
+        for(ll j=0;j<width-1;++j) cout<<vec[i][j]<<" ";
+        cout<<vec[i].back()<<endl;
+    }
+}
+//########################################################################
+
+
+
+
+
+void solve(){
+    ll N,limit;
+    cin>>N>>limit;
+    limit*=100;
+    ll sum=0;
+    rep(i,0,N){
+        ll v,al;
+        cin>>v>>al;
+        sum+=v*al;
+        if(sum>limit) {
+            cout<<i+1<<endl;
+            return;
+        }
+    }
+    cout<<-1<<endl;
 }
 
 

@@ -1,45 +1,67 @@
 #include "bits/stdc++.h"
 using namespace std;
 using ll=int64_t;
+using ld=long double;
+using ull=unsigned long long;
+template <class T>
+using grid=vector<vector<T>>;
+#define ALL(x) x.begin(),x.end()
+#define rep(iter,from,to) for(ll iter=from;iter<to;++iter)
 
-int solve(){
+const ll MOD=1e9+7;
+const ll INF=1e17;
+//#######################################################################
+vector<vector<ll>> input(ll N, ll width){
+    string str;
+    vector<vector<ll>> vec(N,vector<ll>(width));
+    for(ll i=0;i<N;++i){
+        cin>>str;
+        reverse(ALL(str));
+        for(ll j=0;j<width;++j){
+            vec[i][j]=str.back();
+            str.pop_back();
+        }
+    }
+    return vec;
+}
+void op(vector<ll> vec){
+    ll size=(ll)vec.size();
+    for(ll i=0;i<size-1;++i) cout<<vec[i]<<" ";
+    cout<<vec.back()<<endl;
+}
+
+void op(vector<vector<ll>> vec){
+    ll height=(ll)vec.size();
+    ll width=(ll)vec[0].size();
+    for(ll i=0;i<height;++i) {
+        for(ll j=0;j<width-1;++j) cout<<vec[i][j]<<" ";
+        cout<<vec[i].back()<<endl;
+    }
+}
+//########################################################################
+
+
+
+
+
+void solve(){
     ll N;
     cin>>N;
-    vector<ll> mikan(N);
-    set<ll> max;
-    ll sum=0;
-    for(ll i=0;i<N;++i) {
-        cin>>mikan[i];
-    }
-    for(ll i=0;i<N;++i) {
-        sum=0;
-        ll cnt=0;
-        ll minmikan=1e6;
-        for(ll j=0;i+j<N;++j) {
-            if(mikan[i+j]<minmikan) minmikan=mikan[i+j];
-            cnt++;
-            //cout<<"i=>"<<i<<", i+j=>"<<i+j<<endl;
+    vector<ll> a(N);
+    rep(i,0,N) cin>>a[i];
+    ll left=0,right=0;
+    ll orange=0;
+    rep(i,0,N){
+        ll x=a[i];
+        rep(j,i,N){
+            x=min(x,a[j]);
+            orange=max(x*(j-i+1),orange);
+            //cout<<"left,right:"<<i<<","<<j<<endl;
         }
-        sum=cnt*minmikan;
-        //cout<<"sum=>"<<sum<<endl;
-        max.insert(sum);
     }
-    for(ll i=0;i<N;++i){
-        ll minmikan=1e6;
-        sum=0;
-        ll cnt=0;
-        for(ll j=0;j<=i;++j) {
-            if(mikan[j]<minmikan) minmikan=mikan[j];
-            cnt++;
-            //cout<<"j=>"<<j<<", i=>"<<i<<endl;
-        }
-        sum=minmikan*cnt;
-        //cout<<"sum=>"<<sum<<endl;
-        max.insert(sum);
-    }
-    cout<<*max.rbegin()<<endl;
-    return 0;
+    cout<<orange<<endl;
 }
+
 
 int main(void){
     std::cin.tie(nullptr);

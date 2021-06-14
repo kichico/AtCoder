@@ -39,13 +39,39 @@ void op(vector<vector<ll>> vec){
     }
 }
 //########################################################################
-
-
+ll N,q;
 
 
 
 int solve(){
-   
+    cin>>N>>q;
+    vector<ll> a(N);
+    vector<ll> K(q);
+    rep(i,0,N) cin>>a[i];
+    rep(i,0,q) cin>>K[i];
+    vector<ll> res(q);
+    rep(i,0,q){
+        ll right=a.size()+1;
+        ll left=0;
+        cout<<"right,left,K[i]:"<<right<<","<<left<<","<<K[i]<<endl;
+        while(right-left>1){
+            ll mid=left+(right-left)/2;
+            if(mid>=a.size()) {
+                break;
+            }
+            //cout<<"a[mid]:"<<a[mid]<<endl;
+            if(K[i]>=a[mid]) left=mid;
+            else right=mid;
+        }
+        cout<<"left:"<<left<<endl;
+        if(left==0) res[i]==K[i];
+        else{
+            if(K[i]<a[left]){
+                
+            } 
+        }
+    }
+    return 0;
 }
 
 

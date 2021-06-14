@@ -1,29 +1,61 @@
 #include "bits/stdc++.h"
-//#include <boost/multiprecision/cpp_int.hpp>
 using namespace std;
 using ll=int64_t;
-//using lll=boost::multiprecision::cpp_int;
+using ld=long double;
+using ull=unsigned long long;
+template <class T>
+using grid=vector<vector<T>>;
+#define ALL(x) x.begin(),x.end()
+#define rep(iter,from,to) for(ll iter=from;iter<to;++iter)
 
-int solve(){
+const ll MOD=1e9+7;
+const ll INF=1e17;
+//#######################################################################
+vector<vector<ll>> input(ll N, ll width){
+    string str;
+    vector<vector<ll>> vec(N,vector<ll>(width));
+    for(ll i=0;i<N;++i){
+        cin>>str;
+        reverse(ALL(str));
+        for(ll j=0;j<width;++j){
+            vec[i][j]=str.back();
+            str.pop_back();
+        }
+    }
+    return vec;
+}
+void op(vector<ll> vec){
+    ll size=(ll)vec.size();
+    for(ll i=0;i<size-1;++i) cout<<vec[i]<<" ";
+    cout<<vec.back()<<endl;
+}
+
+void op(vector<vector<ll>> vec){
+    ll height=(ll)vec.size();
+    ll width=(ll)vec[0].size();
+    for(ll i=0;i<height;++i) {
+        for(ll j=0;j<width-1;++j) cout<<vec[i][j]<<" ";
+        cout<<vec[i].back()<<endl;
+    }
+}
+//########################################################################
+
+
+
+
+
+void solve(){
     ll N;
     cin>>N;
-    vector<string> str(N);
-    for(ll i=0;i<N;++i) cin>>str[i];
-    ll cnt=0;
-    for(ll i=0;i<(1<<3);++i){
-        bitset<61> s(i),check;
-        //cout<<"debug.."<<endl;
-        if(s[0]==1) check.set(0,1);
-        //cout<<"debug"<<endl;
-        for(ll j=1;j<=N;++j){
-            if(str[j-1]=="AND") check.set(j,s[j]&check[j-1]);
-            else check.set(j,s[j]|check[j-1]);
-        }
-        if(check[N]==1) cnt++;
-        cout<<"check[N]=>"<<check[N]<<endl;
+    vector<string> v(N);
+    ull ans=1;
+    rep(i,0,N) cin>>v[i];
+    rep(i,0,N){
+        if(v[i]=="AND") ans=ans;
+        else ans+=(ull)pow(2,i+1);
+        //cout<<"i:"<<i<<",ans:"<<ans<<endl;
     }
-    cout<<cnt<<endl;
-    return 0;
+    cout<<ans<<endl;
 }
 
 

@@ -44,10 +44,9 @@ void op(vector<vector<ll>> vec){
 
 
 
-int solve(){
+void solve(){
     ll N;
     cin>>N;
-    return 0;
 }
 
 

@@ -45,7 +45,20 @@ void op(vector<vector<ll>> vec){
 
 
 int solve(){
-    
+    ll N;
+    cin>>N;
+    vector<ll> a(N);
+    rep(i,0,N) cin>>a[i];
+    sort(ALL(a));
+    rep(i,0,N){
+        ll c=i+1;
+        if(c!=a[i]){
+            cout<<"No"<<endl;
+            return 0;
+        }
+    }
+    cout<<"Yes"<<endl;
+    return 0;
 }
 
 

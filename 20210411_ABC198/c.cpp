@@ -3,12 +3,13 @@ using namespace std;
 using ll=int64_t;
 using ld=long double;
 using ull=unsigned long long;
-typedef vector<vector<ll>> grid;
-typedef vector<vector<bool>> gridbool;
+template <class T>
+using grid=vector<vector<T>>;
 #define ALL(x) x.begin(),x.end()
-#define rep(i,N) for(ll i=0;i<N;++i)
+#define rep(iter,from,to) for(ll iter=from;iter<to;++iter)
 
 const ll MOD=1e9+7;
+const ll INF=1e17;
 //#######################################################################
 vector<vector<ll>> input(ll N, ll width){
     string str;
@@ -43,10 +44,15 @@ void op(vector<vector<ll>> vec){
 
 
 
-int solve(){
-    ll N;
-    cin>>N;
-    return 0;
+void solve(){
+    ld R,X,Y;
+    cin>>R>>X>>Y;
+    ld a=Y/X;
+    ld d=sqrt(pow(X,2)+pow(Y,2));
+    ld num=d/R;
+    ll ans=ceil(num);
+    if(ans==1&&d!=R) ans++;
+    cout<<ans<<endl;
 }
 
 

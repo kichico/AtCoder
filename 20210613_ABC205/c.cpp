@@ -39,10 +39,46 @@ void op(vector<vector<ll>> vec){
     }
 }
 //########################################################################
+ll betterpow(ll x, ll n){
+    ll ans=1;
+    while(n>0) {
+        if(n&1) ans*=x;
+        x*=x;
+        n>>=1;
+    }
+    return ans;
+}
+
+ll modpow(ll x, ll n){
+    ll ans=1;
+    while(n>0) {
+        if(n&1) ans=ans*x%MOD;
+        x=x*x%MOD;
+        n>>=1;
+    }
+    return ans;
+}
 
 
 int solve(){
-    
+    ll a,b,c;
+    cin>>a>>b>>c;
+    if(c%2==0){
+        if(abs(a)>abs(b)) cout<<">"<<endl;
+        else if(abs(a)<abs(b)) cout<<"<"<<endl;
+        else cout<<"="<<endl;
+    }
+    else {
+        if(a>b&&abs(a)!=abs(b)) cout<<">"<<endl;
+        else if(a<b&&abs(a)!=abs(b)) cout<<"<"<<endl;
+        else if(abs(a)==abs(b)) {
+            if(a>b) cout<<">"<<endl;
+            else if(a<b) cout<<"<"<<endl;
+            else cout<<"="<<endl;
+        }
+        else cout<<"="<<endl;
+    }
+    return 0;
 }
 
 

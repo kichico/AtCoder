@@ -45,7 +45,11 @@ void op(vector<vector<ll>> vec){
 
 
 int solve(){
-    
+    ld N,cal;
+    cin>>N>>cal;
+    ld v=(cal/100)*N;
+    cout<<v<<endl;
+    return 0;
 }
 
 
