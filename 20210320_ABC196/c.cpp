@@ -47,11 +47,6 @@ void op(vector<vector<ll>> vec){
 void solve(){
     ll N;
     cin>>N;
-    ll cnt=0;
-    rep(a,1,N) {
-        cnt+=(ll)floor((N-1)/a);        
-    }
-    cout<<cnt<<endl;
 }
 
 
