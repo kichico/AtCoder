@@ -45,15 +45,10 @@ void op(vector<vector<ll>> vec){
 
 
 void solve(){
-    ll a,b,c,d;
-    cin>>a>>b;
-    cin>>c>>d;
-    set<ll> v;
-    v.insert(a-c);
-    v.insert(b-c);
-    v.insert(b-d);
-    v.insert(a-d);
-    cout<<*v.rbegin()<<endl;
+    ll M,H;
+    cin>>M>>H;
+    if(H%M==0) cout<<"Yes"<<endl;
+    else cout<<"No"<<endl;
 }
 
 

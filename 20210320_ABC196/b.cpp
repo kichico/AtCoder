@@ -45,8 +45,34 @@ void op(vector<vector<ll>> vec){
 
 
 void solve(){
-    ll N;
-    cin>>N;
+    string s;
+    cin>>s;
+    ll check=2000;
+    ll cnt=0;
+    reverse(ALL(s));
+    if(s.size()>102) rep(i,0,102) {
+        //cout<<"s["<<i<<"]:"<<s[i]<<endl;
+        if(s[i]=='.') {
+            check=i+1;
+            break;
+        }
+    }
+    else rep(i,0,s.size()){
+        //cout<<"s["<<i<<"]:"<<s[i]<<endl;
+        if(s[i]=='.') {
+            check=i+1;
+            break;
+        }
+    }
+    if(check==2000) {
+        reverse(ALL(s));
+        cout<<s<<endl;
+    }
+    else {
+        reverse(ALL(s));
+        rep(i,0,check) s.pop_back();
+        cout<<s<<endl;
+    }
 }
 
 

@@ -45,15 +45,25 @@ void op(vector<vector<ll>> vec){
 
 
 void solve(){
-    ll a,b,c,d;
-    cin>>a>>b;
-    cin>>c>>d;
-    set<ll> v;
-    v.insert(a-c);
-    v.insert(b-c);
-    v.insert(b-d);
-    v.insert(a-d);
-    cout<<*v.rbegin()<<endl;
+    ll low,high,w;
+    cin>>low>>high>>w;
+    pair<ll,ll> res;
+    res.first=INF;
+    res.second=0;
+    w*=1000;
+    bool flg=false;
+    rep(i,1,w+1){
+        ld orange=(ld)w/i;
+        if(orange<low) break;
+        //cout<<"orange:"<<orange<<endl;
+        if(orange>=low&&orange<=high) {
+            res.first=min(res.first,i);
+            res.second=max(res.second,i);
+            flg=true;
+        }
+    }
+    if(flg) cout<<res.first<<" "<<res.second<<endl;
+    else cout<<"UNSATISFIABLE"<<endl;
 }
 
 
