@@ -40,24 +40,57 @@ void op(vector<vector<ll>> vec){
 }
 //########################################################################
 
+
+
+
+
 void solve(){
-    ll N;
-    cin>>N;
-    ll lim=sqrt(N)+1;
-    ll cnt=N;
-    set<ll> res;
-    rep(i,2,lim) {
-        ll j=2;
-        while(true) {
-            ll v=pow(i,j);
-            if(v<=N) {
-                res.insert(v);
-                j++;
-            }
-            else break;
+    ll N,M;
+    cin>>N>>M;
+    vector<ll> a(M+1);
+    ll minv=INF;
+    if(M==0) {
+        cout<<1<<endl;
+        return;
+    }
+    rep(i,0,M) {
+        cin>>a[i];
+    }
+    a[M]=N+1;
+    sort(ALL(a));
+    if(a[0]!=1) minv=a[0]-1;
+    rep(i,0,M) {
+        if(a[i+1]-a[i]-1==0) continue;
+        minv=min(minv,a[i+1]-a[i]-1);
+    }
+    ll ans=0;
+    ll now=1;
+    //cout<<"minv:"<<minv<<endl;
+    if(minv==INF) {
+        cout<<0<<endl;
+        return;
+    }
+    rep(i,0,M+1){
+        ll to=a[i];
+        if(to!=1) {
+            ans+=ceil((ld)(to-now-1)/minv);
+            /*
+            cout<<"now->to:"<<now<<"->"<<to<<endl;
+            cout<<"len:"<<to-now-1<<endl;
+            cout<<"ans:"<<ans<<",minv:"<<minv<<endl;
+            cout<<"a["<<i<<"]:"<<a[i]<<endl;
+            */
+            now=to;
+            
+        }
+        else{
+            now=to;
+            continue;
         }
     }
-    cout<<cnt-res.size()<<endl;
+    //cout<<N-now-1<<endl;
+    //if(N!=a.back()) ans+=ceil((ld)(N-now)/minv);
+    cout<<ans<<endl;
 }
 
 

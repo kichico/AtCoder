@@ -1,4 +1,4 @@
-﻿#include "bits/stdc++.h"
+#include "bits/stdc++.h"
 using namespace std;
 using ll=int64_t;
 using ld=long double;
@@ -40,24 +40,30 @@ void op(vector<vector<ll>> vec){
 }
 //########################################################################
 
+
+
+
+
 void solve(){
     ll N;
     cin>>N;
-    ll lim=sqrt(N)+1;
-    ll cnt=N;
-    set<ll> res;
-    rep(i,2,lim) {
-        ll j=2;
-        while(true) {
-            ll v=pow(i,j);
-            if(v<=N) {
-                res.insert(v);
-                j++;
-            }
-            else break;
-        }
+    vector<ll> a(N);
+    ll sum=0;
+    rep(i,0,N) {
+        cin>>a[i];
+        sum+=a[i];
     }
-    cout<<cnt-res.size()<<endl;
+    ll ans=0;
+    ll i=0;
+    sort(ALL(a));
+    reverse(ALL(a));
+    while(N-(i+1)>0){
+        sum-=a[i];
+        ans+=a[i]*(N-(i+1))-sum;
+        //cout<<"ans:"<<ans<<endl;
+        i++;
+    }
+    cout<<ans<<endl;
 }
 
 
