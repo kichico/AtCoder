@@ -45,17 +45,15 @@ void op(vector<vector<ll>> vec){
 
 
 void solve(){
-    ll N;
-    cin>>N;
-    ll lim=sqrt(N)+1;
-    ll ans=0;
-    rep(i,1,lim){
-        string s=to_string(i);
-        ll num=i;
-        rep(j,0,s.size()) num*=10;
-        if(num+i<=N) ans++;
+    string s;
+    cin>>s;
+    string res;
+    rep(i,0,s.size()){
+        if(s[i]=='1') res.push_back('1');
+        else if(s[i]=='0') res.push_back('0');
+        else if(!res.empty()) res.pop_back();
     }
-    cout<<ans<<endl;
+    cout<<res<<endl;
 }
 
 

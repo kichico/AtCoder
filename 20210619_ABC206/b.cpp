@@ -47,15 +47,6 @@ void op(vector<vector<ll>> vec){
 void solve(){
     ll N;
     cin>>N;
-    ll lim=sqrt(N)+1;
-    ll ans=0;
-    rep(i,1,lim){
-        string s=to_string(i);
-        ll num=i;
-        rep(j,0,s.size()) num*=10;
-        if(num+i<=N) ans++;
-    }
-    cout<<ans<<endl;
 }
 
 

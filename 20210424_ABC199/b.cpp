@@ -47,15 +47,17 @@ void op(vector<vector<ll>> vec){
 void solve(){
     ll N;
     cin>>N;
-    ll lim=sqrt(N)+1;
-    ll ans=0;
-    rep(i,1,lim){
-        string s=to_string(i);
-        ll num=i;
-        rep(j,0,s.size()) num*=10;
-        if(num+i<=N) ans++;
+    vector<ll> a(N),b(N);
+    rep(i,0,N) cin>>a[i];
+    rep(i,0,N) cin>>b[i];
+    ll low=-1,high=INF;
+    rep(i,0,N) {
+        low=max(a[i],low);
+        high=min(b[i],high);
     }
-    cout<<ans<<endl;
+    //cout<<"low,high:"<<low<<","<<high<<endl;
+    if(high-low+1>0) cout<<high-low+1<<endl;
+    else cout<<0<<endl;
 }
 
 
