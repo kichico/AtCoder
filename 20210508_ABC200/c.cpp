@@ -44,20 +44,28 @@ void op(vector<vector<ll>> vec){
 
 
 
-int solve(){
+void solve(){
     ll N;
     cin>>N;
     vector<ll> a(N,0);
+    map<ll,ll> num;
     ll sum=0,diff=0;
     rep(i,0,N) {
         ll in;
         cin>>in;
+        in%=200;
+        if(num.count(in)==0) num.emplace(in,1);
+        else num[in]++;
         a[i]=in;
-        sum+=in;
-        diff-=in;
     }
-
-    return 0;
+    ll res=0;
+    rep(i,0,N){
+        num[a[i]]--;
+        res+=num[a[i]];
+        //cout<<"i:"<<i<<",num[a[i]]:"<<num[a[i]]<<endl;
+        //cout<<"res:"<<res<<endl;
+    }
+    cout<<res<<endl;
 }
 
 
