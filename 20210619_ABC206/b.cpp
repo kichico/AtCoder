@@ -47,6 +47,16 @@ void op(vector<vector<ll>> vec){
 void solve(){
     ll N;
     cin>>N;
+    ll chokin=0;
+    ll inc=1;
+    while(true){
+        chokin+=inc;
+        if(chokin>=N) {
+            cout<<inc<<endl;
+            break;
+        }
+        inc++;
+    }
 }
 
 

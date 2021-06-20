@@ -47,6 +47,28 @@ void op(vector<vector<ll>> vec){
 void solve(){
     ll N;
     cin>>N;
+    vector<ll> kaibun(N);
+    map<ll,ll> num;
+    rep(i,0,N){
+        cin>>kaibun[i];
+        if(num.count(kaibun[i])==0) num.emplace(kaibun[i],1);
+        else num[kaibun[i]]+=1;
+    }
+    ll res=0;
+    set<ll> cnt;
+    rep(i,0,(N/2)+1) {
+        if(kaibun[i]!=kaibun[N-1-i]){
+            res++;
+            //cout<<"now:"<<i<<endl;
+            if(cnt.count(kaibun[i])!=0&&cnt.count(kaibun[N-1-i])!=0) {
+                res--;
+                //cout<<kaibun[i]<<" and "<<kaibun[N-i-1]<<" is already changed"<<endl; 
+            }
+            cnt.insert(kaibun[N-1-i]);
+            cnt.insert(kaibun[i]);
+        }
+    }
+    cout<<res<<endl;
 }
 
 

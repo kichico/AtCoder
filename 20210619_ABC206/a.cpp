@@ -45,8 +45,12 @@ void op(vector<vector<ll>> vec){
 
 
 void solve(){
-    ll N;
+    ld N;
     cin>>N;
+    ll num=(ll)floor(N*1.08);
+    if(num<206) cout<<"Yay!"<<endl;
+    else if(num==206) cout<<"so-so"<<endl;
+    else cout<<":("<<endl;
 }
 
 

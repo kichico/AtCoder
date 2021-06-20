@@ -39,26 +39,23 @@ void op(vector<vector<ll>> vec){
     }
 }
 //########################################################################
+ll a,b,c,d,lc;
 
+ll countM(ll r,ll div, ll mod){
+    if(r==0) return 0;
+    ll res=r/div;
+    if(mod<=r%mod && mod>0) res++;
+    return res;
+}
 
-
+ll f(ll x){
+    return x-(countM(x,c,0)+countM(x,d,0)-countM(x,lc,0));
+}
 
 void solve(){
-    ll N;
-    cin>>N;
-    ll lim=1e9+1;
-    vector<ll> a(N);
-    map<ll,ll> num;
-    rep(i,0,N){
-        cin>>a[i];
-        if(num.count(a[i])==0) num.emplace(a[i],1);
-        else num[a[i]]+=1;
-    }
-    ll res=0;
-    rep(i,0,N){
-        res+=N-num[a[i]];
-    }
-    cout<<res/2<<endl;
+    cin>>a>>b>>c>>d;
+    lc=std::lcm(c,d);
+    cout<<f(b)-f(a-1)<<endl;
 }
 
 
