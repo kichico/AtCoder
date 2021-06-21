@@ -40,33 +40,40 @@ void op(vector<vector<ll>> vec){
 }
 //########################################################################
 
-
-
-
+struct UnionFind {
+    vector<ll> parents;
+    UnionFind(int size) { parents.assign(size, -1); }
+    ll findRoot(ll x) {
+        if (parents[x] < 0) return x;
+        return parents[x] = findRoot(parents[x]);
+    }
+    bool unite(ll x, ll y) {
+        x = findRoot(x);
+        y = findRoot(y);
+        if (x == y) return false;
+        if (parents[x] > parents[y]) swap(x, y);
+        parents[x] += parents[y];
+        parents[y] = x;
+        return true;
+    }
+    ll size(ll x) { return -parents[findRoot(x)]; }
+    bool isSameGroup(ll x, ll y) { return findRoot(x) == findRoot(y); }
+};
 
 void solve(){
     ll N;
     cin>>N;
     vector<ll> kaibun(N);
-    map<ll,ll> num;
-    rep(i,0,N){
-        cin>>kaibun[i];
-        if(num.count(kaibun[i])==0) num.emplace(kaibun[i],1);
-        else num[kaibun[i]]+=1;
-    }
+    rep(i,0,N) cin>>kaibun[i];
     ll res=0;
-    set<ll> cnt;
-    rep(i,0,(N/2)+1) {
-        if(kaibun[i]!=kaibun[N-1-i]){
-            res++;
-            //cout<<"now:"<<i<<endl;
-            if(cnt.count(kaibun[i])!=0&&cnt.count(kaibun[N-1-i])!=0) {
-                res--;
-                //cout<<kaibun[i]<<" and "<<kaibun[N-i-1]<<" is already changed"<<endl; 
-            }
-            cnt.insert(kaibun[N-1-i]);
-            cnt.insert(kaibun[i]);
-        }
+    UnionFind uf(N);
+    set<ll> roots;
+    rep(i,0,(N/2)){
+        uf.unite(kaibun[i],kaibun[N-1-i]);
+    }
+    //rep(i,0,N) cout<<i<<":"<<uf.parents[i]<<endl;
+    rep(i,0,N){
+        if(uf.parents[i]<-1) res+=uf.size(i)-1;
     }
     cout<<res<<endl;
 }
