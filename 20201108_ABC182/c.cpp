@@ -45,34 +45,26 @@ void op(vector<vector<ll>> vec){
 
 
 void solve(){
-    ll N;
+    string N;
     cin>>N;
-    string s;
-    cin>>s;
-    ll q;
-    cin>>q;
-    bool turned=false;
-    rep(i,0,q){
-        ll t,a,b;
-        cin>>t>>a>>b;
-        a--; b--;
-        if(t==1) {
-            if(turned) {
-                a+=N; b+=N;
-                if(a>=2*N) a-=2*N;
-                if(b>=2*N) b-=2*N;
-            }
-            iter_swap(s.begin()+a,s.begin()+b);
-        }
-        else {
-            if(turned) turned=false;
-            else turned=true;
-        }
+    ll res=0;
+    ll three=0;
+    vector<ll> check(3,0);
+    rep(i,0,N.size()){
+        ll num=N[i]-'0';
+        three+=num;
+        check[num%3]++;
     }
-    string l,r;
-    rep(i,0,N){ l.push_back(s[i]); r.push_back(s[i+N]); }
-    if(!turned) cout<<l+r<<endl;
-    else cout<<r+l<<endl; 
+    bool flg=false;
+    if(three%3==0) { cout<<0<<endl; return; }
+    if(three%3==1) {
+        if(check[1]>=1) { cout<<1<<endl; return; } 
+        else if(check[2]>=2){ cout<<2<<endl; return; } 
+    }
+    else if(three%3==2) {
+        if(check[2]>=1) { cout<<1<<endl; return; }
+        else if(check[1]>=2) { cout<<2<<endl; return; }
+    }
 }
 
 

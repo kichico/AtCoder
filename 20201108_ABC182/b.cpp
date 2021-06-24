@@ -47,32 +47,22 @@ void op(vector<vector<ll>> vec){
 void solve(){
     ll N;
     cin>>N;
-    string s;
-    cin>>s;
-    ll q;
-    cin>>q;
-    bool turned=false;
-    rep(i,0,q){
-        ll t,a,b;
-        cin>>t>>a>>b;
-        a--; b--;
-        if(t==1) {
-            if(turned) {
-                a+=N; b+=N;
-                if(a>=2*N) a-=2*N;
-                if(b>=2*N) b-=2*N;
+    vector<ll> a(N);
+    rep(i,0,N) cin>>a[i];
+    vector<pair<ll,ll>> res;
+    rep(i,2,1001){
+        auto pr=make_pair(0,i);
+        rep(j,0,N){
+            if(a[j]%i==0) {
+                pr.first++;
+                cout<<"a["<<j<<"]/"<<i<<"="<<a[j]/i<<endl;
             }
-            iter_swap(s.begin()+a,s.begin()+b);
         }
-        else {
-            if(turned) turned=false;
-            else turned=true;
-        }
+        res.push_back(pr);
     }
-    string l,r;
-    rep(i,0,N){ l.push_back(s[i]); r.push_back(s[i+N]); }
-    if(!turned) cout<<l+r<<endl;
-    else cout<<r+l<<endl; 
+    sort(ALL(res));
+    //for(auto& a:res) cout<<a.first<<" "<<a.second<<endl;
+    cout<<res.back().second<<endl;
 }
 
 

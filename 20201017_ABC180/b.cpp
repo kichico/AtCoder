@@ -47,32 +47,19 @@ void op(vector<vector<ll>> vec){
 void solve(){
     ll N;
     cin>>N;
-    string s;
-    cin>>s;
-    ll q;
-    cin>>q;
-    bool turned=false;
-    rep(i,0,q){
-        ll t,a,b;
-        cin>>t>>a>>b;
-        a--; b--;
-        if(t==1) {
-            if(turned) {
-                a+=N; b+=N;
-                if(a>=2*N) a-=2*N;
-                if(b>=2*N) b-=2*N;
-            }
-            iter_swap(s.begin()+a,s.begin()+b);
-        }
-        else {
-            if(turned) turned=false;
-            else turned=true;
-        }
+    vector<ll> x(N);
+    rep(i,0,N) cin>>x[i];
+    vector<ll> res(3);
+    vector<ld> out;
+    rep(i,0,N){
+        res[0]+=abs(x[i]);
+        res[1]+=x[i]*x[i];
+        res[2]=max(abs(x[i]),res[2]);
     }
-    string l,r;
-    rep(i,0,N){ l.push_back(s[i]); r.push_back(s[i+N]); }
-    if(!turned) cout<<l+r<<endl;
-    else cout<<r+l<<endl; 
+    ld o=sqrt(res[1]);
+    rep(i,0,3) out.emplace_back(ld(res[i]));
+    out[1]=o;
+    rep(i,0,3) cout<<out[i]<<endl;
 }
 
 

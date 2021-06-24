@@ -51,9 +51,11 @@ struct UnionFind {
         x = findRoot(x);
         y = findRoot(y);
         if (x == y) return false;
+        //cout<<"debug"<<endl;
         if (parents[x] > parents[y]) swap(x, y);
         parents[x] += parents[y];
         parents[y] = x;
+        //cout<<"debug1"<<endl;
         return true;
     }
     ll size(ll x) { return -parents[findRoot(x)]; }
@@ -66,13 +68,15 @@ void solve(){
     vector<ll> kaibun(N);
     rep(i,0,N) cin>>kaibun[i];
     ll res=0;
-    UnionFind uf(N);
-    set<ll> roots;
+    //if(N==1) {cout<<0<<endl; return;}
+    ll lim=2e5+1;
+    UnionFind uf(lim);
     rep(i,0,(N/2)){
+        //cout<<"i:"<<i<<","<<"N-1-i:"<<N-1-i<<endl;
         uf.unite(kaibun[i],kaibun[N-1-i]);
     }
-    //rep(i,0,N) cout<<i<<":"<<uf.parents[i]<<endl;
-    rep(i,0,N){
+    //rep(i,0,N) cout<<kaibun[i]<<":"<<uf.parents[i]<<endl;
+    rep(i,0,lim){
         if(uf.parents[i]<-1) res+=uf.size(i)-1;
     }
     cout<<res<<endl;

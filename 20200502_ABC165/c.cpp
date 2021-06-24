@@ -40,39 +40,26 @@ void op(vector<vector<ll>> vec){
 }
 //########################################################################
 
+struct num{
+    ll a;
+    ll b;
+    ll c;
+    ll d;
+};
 
-
-
+bool compare(num& fr, num& se){
+    if(fr.d!=se.d) return fr.d>se.d;
+    else return fr.c>se.c;
+}
 
 void solve(){
-    ll N;
-    cin>>N;
-    string s;
-    cin>>s;
-    ll q;
-    cin>>q;
-    bool turned=false;
-    rep(i,0,q){
-        ll t,a,b;
-        cin>>t>>a>>b;
-        a--; b--;
-        if(t==1) {
-            if(turned) {
-                a+=N; b+=N;
-                if(a>=2*N) a-=2*N;
-                if(b>=2*N) b-=2*N;
-            }
-            iter_swap(s.begin()+a,s.begin()+b);
-        }
-        else {
-            if(turned) turned=false;
-            else turned=true;
-        }
-    }
-    string l,r;
-    rep(i,0,N){ l.push_back(s[i]); r.push_back(s[i+N]); }
-    if(!turned) cout<<l+r<<endl;
-    else cout<<r+l<<endl; 
+    ll N,M,Q;
+    cin>>N>>M>>Q;
+    vector<num> nums(Q);
+    rep(i,0,Q) cin>>nums[i].a>>nums[i].b>>nums[i].c>>nums[i].d;
+    sort(ALL(nums),compare);
+    cout<<"--------------"<<endl;
+    for(auto&& c:nums) cout<<c.a<<" "<<c.b<<" "<<c.c<<" "<<c.d<<endl;
 }
 
 

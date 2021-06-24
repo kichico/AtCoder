@@ -45,34 +45,9 @@ void op(vector<vector<ll>> vec){
 
 
 void solve(){
-    ll N;
-    cin>>N;
-    string s;
-    cin>>s;
-    ll q;
-    cin>>q;
-    bool turned=false;
-    rep(i,0,q){
-        ll t,a,b;
-        cin>>t>>a>>b;
-        a--; b--;
-        if(t==1) {
-            if(turned) {
-                a+=N; b+=N;
-                if(a>=2*N) a-=2*N;
-                if(b>=2*N) b-=2*N;
-            }
-            iter_swap(s.begin()+a,s.begin()+b);
-        }
-        else {
-            if(turned) turned=false;
-            else turned=true;
-        }
-    }
-    string l,r;
-    rep(i,0,N){ l.push_back(s[i]); r.push_back(s[i+N]); }
-    if(!turned) cout<<l+r<<endl;
-    else cout<<r+l<<endl; 
+    ll a,b;
+    cin>>a>>b;
+    cout<<2*a+100-b<<endl;
 }
 
 
