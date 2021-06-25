@@ -39,33 +39,41 @@ void op(vector<vector<ll>> vec){
     }
 }
 //########################################################################
-
-
-
+vector<pair<ll,ll>> prime_factorize(ll Num){
+    vector<pair<ll,ll>> pr; //pair<primenumber(素数),Exponentiation(べき数)>
+    vector<bool> listprime(Num);
+    for(ll i=0;i<Num;++i) listprime[i]=true;
+    ll root=sqrt(Num);
+    ll res=Num;
+    for(ll i=2;i<=root;++i){
+        ll expnum=0;
+        if(listprime[i]) {
+            while(res%i==0) {
+                res/=i;
+                expnum++;
+            }
+            for(ll j=i*2;j<=root;j+=i) listprime[j]=false;
+        }
+        if(expnum!=0) pr.emplace_back(make_pair(i,expnum));
+    }
+    if(res!=1) pr.emplace_back(make_pair(res,1));
+    return pr;
+}
 
 
 void solve(){
-    string N;
+    ll N;
     cin>>N;
-    ll res=-1;
-    ll three=0;
-    vector<ll> check(3,0);
-    ll k=N.size();
-    rep(i,0,N.size()){
-        ll num=N[i]-'0';
-        three+=num;
-        check[num%3]++;
+    ll th=3;
+    rep(a,0,38) {
+        ll fv=5;
+        rep(b,0,26) {
+            if(th+fv==N) { cout<<a+1<<" "<<b+1<<endl; return;}
+            fv*=5;
+        }
+        th*=3;
     }
-    if(three%3==0) res=0;
-    if(three%3==1) {
-        if(check[1]>=1&&k>1) res=1;
-        else if(check[2]>=2&&k>2) res=2; 
-    }
-    else if(three%3==2) {
-        if(check[2]>=1&&k>1) res=1;
-        else if(check[1]>=2&&k>2) res=2;
-    }
-    cout<<res<<endl;
+    cout<<-1<<endl;
 }
 
 

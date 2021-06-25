@@ -45,25 +45,20 @@ void op(vector<vector<ll>> vec){
 
 
 void solve(){
-    string N;
+    ll N;
     cin>>N;
-    ll res=-1;
-    ll three=0;
-    vector<ll> check(3,0);
-    ll k=N.size();
-    rep(i,0,N.size()){
-        ll num=N[i]-'0';
-        three+=num;
-        check[num%3]++;
+    ll res=0;
+    vector<ll> sum(1,0);
+    ll lim=2e6;
+    ll v=sum[0];
+    rep(i,1,lim) {
+        v+=i;
+        sum.push_back(v);
     }
-    if(three%3==0) res=0;
-    if(three%3==1) {
-        if(check[1]>=1&&k>1) res=1;
-        else if(check[2]>=2&&k>2) res=2; 
-    }
-    else if(three%3==2) {
-        if(check[2]>=1&&k>1) res=1;
-        else if(check[1]>=2&&k>2) res=2;
+    rep(i,0,N){
+        ll a,b;
+        cin>>a>>b;
+        res+=sum[b]-sum[a-1];
     }
     cout<<res<<endl;
 }

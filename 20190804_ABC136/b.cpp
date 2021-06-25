@@ -45,25 +45,12 @@ void op(vector<vector<ll>> vec){
 
 
 void solve(){
-    string N;
+    ll N;
     cin>>N;
-    ll res=-1;
-    ll three=0;
-    vector<ll> check(3,0);
-    ll k=N.size();
-    rep(i,0,N.size()){
-        ll num=N[i]-'0';
-        three+=num;
-        check[num%3]++;
-    }
-    if(three%3==0) res=0;
-    if(three%3==1) {
-        if(check[1]>=1&&k>1) res=1;
-        else if(check[2]>=2&&k>2) res=2; 
-    }
-    else if(three%3==2) {
-        if(check[2]>=1&&k>1) res=1;
-        else if(check[1]>=2&&k>2) res=2;
+    ll res=0;
+    rep(i,1,N+1){
+        string s=to_string(i);
+        if(s.size()%2!=0) res++;
     }
     cout<<res<<endl;
 }
