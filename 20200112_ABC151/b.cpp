@@ -45,22 +45,17 @@ void op(vector<vector<ll>> vec){
 
 
 void solve(){
-    ll N;
-    ld m;
-    cin>>N>>m;
-    m*=100;
-    ld value=(ld)N*m/100;
-    string str=to_string(value);
-    string s=str;
-    while(!s.empty()) {
-        if(s.back()!='.') s.pop_back();
-        else {
-            s.pop_back();
-            break;
-        }
-    }
-    if(s.empty()) cout<<str<<endl;
-    else cout<<s<<endl;
+    ll N,maxv,ave;
+    cin>>N>>maxv>>ave;
+    vector<ll> score(N);
+    rep(i,0,N-1) cin>>score[i];
+    ll need=ave*N;
+    ll ans=0;
+    rep(i,0,N-1) ans+=score[i];
+    ll res=need-ans;
+    if(res<0) res=0;
+    if(res<=maxv) cout<<res<<endl;
+    else cout<<"-1"<<endl;
 }
 
 

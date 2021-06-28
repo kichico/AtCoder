@@ -41,26 +41,53 @@ void op(vector<vector<ll>> vec){
 //########################################################################
 
 
-
+struct kukan{
+    ll kind;
+    ll from;
+    ll to;
+};
 
 
 void solve(){
     ll N;
-    ld m;
-    cin>>N>>m;
-    m*=100;
-    ld value=(ld)N*m/100;
-    string str=to_string(value);
-    string s=str;
-    while(!s.empty()) {
-        if(s.back()!='.') s.pop_back();
+    cin>>N;
+    vector<kukan> a(N);
+    rep(i,0,N) cin>>a[i].kind>>a[i].from>>a[i].to;
+    ll cnt=0;
+    rep(i,0,N-1) rep(j,i+1,N){
+        auto fr=a[i];
+        auto se=a[j];
+        if(a[i].from>a[j].from) swap(fr,se);
+        else if(a[i].from==a[j].from&&a[i].to>a[j].to) swap(fr,se);
+        else if(a[i].to==a[i].to&&a[i].from>a[j].from) swap(fr,se);
+        if(fr.to>se.from&&fr.from<se.from) {
+            cnt++;
+        }
+        else if(fr.from==se.from&&fr.to==se.to) cnt++;
         else {
-            s.pop_back();
-            break;
+            if(fr.to==se.from){
+                if(fr.kind==1||fr.kind==3) if(se.kind==2||se.kind==1) {
+                    cnt++;
+                }
+            }
+            else if(fr.from==se.from) {
+                if(fr.kind=1||fr.kind==2) if(se.kind==1||se.kind==2) {
+                    cnt++;
+                }
+                else if(fr.to<se.to) cnt++;
+            }
+            else if(fr.to==se.to) {
+                if(fr.kind==1||fr.kind==3) if(se.kind==1||se.kind==3) {
+                    cnt++;
+                }
+                else if(fr.from<se.from) cnt++;
+            }
+            else if(fr.from<se.from&&fr.to>se.to) {
+                cnt++;
+            }
         }
     }
-    if(s.empty()) cout<<str<<endl;
-    else cout<<s<<endl;
+    cout<<cnt<<endl;
 }
 
 

@@ -45,22 +45,24 @@ void op(vector<vector<ll>> vec){
 
 
 void solve(){
-    ll N;
-    ld m;
-    cin>>N>>m;
-    m*=100;
-    ld value=(ld)N*m/100;
-    string str=to_string(value);
-    string s=str;
-    while(!s.empty()) {
-        if(s.back()!='.') s.pop_back();
-        else {
-            s.pop_back();
-            break;
-        }
+    ll N,M;
+    cin>>N>>M;
+    vector<ll> check(N);
+    vector<bool> solved(N,false);
+    rep(i,0,M){
+        ll pro;
+        string str;
+        cin>>pro>>str;
+        pro--;
+        if(str=="WA"&&solved[pro]==false) check[pro]++;
+        else if(str=="AC") solved[pro]=true;
     }
-    if(s.empty()) cout<<str<<endl;
-    else cout<<s<<endl;
+    ll ac=0,wa=0;
+    rep(i,0,N) if(solved[i]){
+        wa+=check[i];
+        ac++;
+    }
+    cout<<ac<<" "<<wa<<endl;
 }
 
 

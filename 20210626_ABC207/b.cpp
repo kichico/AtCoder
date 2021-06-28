@@ -45,22 +45,26 @@ void op(vector<vector<ll>> vec){
 
 
 void solve(){
-    ll N;
-    ld m;
-    cin>>N>>m;
-    m*=100;
-    ld value=(ld)N*m/100;
-    string str=to_string(value);
-    string s=str;
-    while(!s.empty()) {
-        if(s.back()!='.') s.pop_back();
-        else {
-            s.pop_back();
-            break;
-        }
+    ll a,b,c,d;
+    cin>>a>>b>>c>>d;
+    pair<ll,ll> box;
+    box.first=a;
+    if(b>=c*d)  {
+        cout<<-1<<endl;
+        return;
     }
-    if(s.empty()) cout<<str<<endl;
-    else cout<<s<<endl;
+    else{
+        ll cnt=0;
+        ll get=c*d;
+        box.second=0;
+        while(box.first>box.second) {
+            box.first+=b;
+            box.second+=get;
+            //cout<<box.first<<" "<<box.second<<endl;
+            cnt++;
+        }
+        cout<<cnt<<endl;
+    }
 }
 
 

@@ -40,27 +40,35 @@ void op(vector<vector<ll>> vec){
 }
 //########################################################################
 
+struct position{
+    ll x;
+    ll y;
+};
 
 
 
 
 void solve(){
     ll N;
-    ld m;
-    cin>>N>>m;
-    m*=100;
-    ld value=(ld)N*m/100;
-    string str=to_string(value);
-    string s=str;
-    while(!s.empty()) {
-        if(s.back()!='.') s.pop_back();
-        else {
-            s.pop_back();
-            break;
+    cin>>N;
+    vector<ll> town(N);
+    rep(i,0,N) town[i]=i;
+    vector<position> where(N);
+    rep(i,0,N) cin>>where[i].x>>where[i].y;
+    vector<ld> res;
+    do{
+        ld dist=0;
+        rep(i,0,N-1){
+            position way;
+            way.x=where[town[i+1]].x-where[town[i]].x;
+            way.y=where[town[i+1]].y-where[town[i]].y;
+            dist+=sqrt(pow(way.x,2)+pow(way.y,2));
         }
-    }
-    if(s.empty()) cout<<str<<endl;
-    else cout<<s<<endl;
+        res.emplace_back(dist);
+    }while(next_permutation(ALL(town)));
+    ld ans=0;
+    rep(i,0,res.size()) ans+=res[i];
+    cout<<ans/res.size()<<endl;
 }
 
 

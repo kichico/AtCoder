@@ -41,26 +41,16 @@ void op(vector<vector<ll>> vec){
 //########################################################################
 
 
-
-
+map<char,ll> alpha;
+string str="abcdefghijklmnopqrstuvwxyz";
 
 void solve(){
-    ll N;
-    ld m;
-    cin>>N>>m;
-    m*=100;
-    ld value=(ld)N*m/100;
-    string str=to_string(value);
-    string s=str;
-    while(!s.empty()) {
-        if(s.back()!='.') s.pop_back();
-        else {
-            s.pop_back();
-            break;
-        }
-    }
-    if(s.empty()) cout<<str<<endl;
-    else cout<<s<<endl;
+    rep(i,0,26) alpha.emplace(str[i],i);
+    char in;
+    cin>>in;
+    ll v=alpha[in]+1;
+    //cout<<v<<endl;
+    cout<<str[v]<<endl;
 }
 
 

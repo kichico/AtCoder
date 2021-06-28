@@ -45,22 +45,17 @@ void op(vector<vector<ll>> vec){
 
 
 void solve(){
-    ll N;
-    ld m;
-    cin>>N>>m;
-    m*=100;
-    ld value=(ld)N*m/100;
-    string str=to_string(value);
-    string s=str;
-    while(!s.empty()) {
-        if(s.back()!='.') s.pop_back();
-        else {
-            s.pop_back();
-            break;
-        }
-    }
-    if(s.empty()) cout<<str<<endl;
-    else cout<<s<<endl;
+    string s;
+    cin>>s;
+    ll ans=0;
+    vector<bool> check(3,false);
+    rep(i,0,3) if(s[i]=='R') check[i]=true;
+    if(check[0]&&check[1]&&check[2]) ans=3;
+    else if(check[0]&&check[1]) ans=2;
+    else if(check[1]&&check[2]) ans=2;
+    else if(check[0]||check[1]||check[2]) ans=1;
+    else ans=0;
+    cout<<ans<<endl;
 }
 
 

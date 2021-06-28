@@ -45,22 +45,24 @@ void op(vector<vector<ll>> vec){
 
 
 void solve(){
+    string s;
     ll N;
-    ld m;
-    cin>>N>>m;
-    m*=100;
-    ld value=(ld)N*m/100;
-    string str=to_string(value);
-    string s=str;
-    while(!s.empty()) {
-        if(s.back()!='.') s.pop_back();
-        else {
-            s.pop_back();
-            break;
+    cin>>N;
+    cin>>s;
+    if(s.size()%2!=0) {
+        cout<<"No"<<endl;
+        return;
+    }
+    ll half=N/2;
+    //string pre,po;
+    rep(i,0,half) {
+        if(s[i]!=s[i+half]) {
+            cout<<"No"<<endl;
+            return;
         }
     }
-    if(s.empty()) cout<<str<<endl;
-    else cout<<s<<endl;
+    cout<<"Yes"<<endl;
+    return;
 }
 
 

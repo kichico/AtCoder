@@ -46,21 +46,23 @@ void op(vector<vector<ll>> vec){
 
 void solve(){
     ll N;
-    ld m;
-    cin>>N>>m;
-    m*=100;
-    ld value=(ld)N*m/100;
-    string str=to_string(value);
-    string s=str;
-    while(!s.empty()) {
-        if(s.back()!='.') s.pop_back();
-        else {
-            s.pop_back();
-            break;
+    cin>>N;
+    vector<ll> tree(N);
+    rep(i,0,N) cin>>tree[i];
+    ll ans=0;
+    rep(i,0,N-2) rep(j,i+1,N-1) rep(k,j+1,N){
+        if(tree[i]==tree[j]||tree[i]==tree[k]||tree[j]==tree[k]) continue;
+        vector<ll> th;
+        th.push_back(tree[i]); 
+        th.push_back(tree[j]);
+        th.push_back(tree[k]);
+        sort(ALL(th));
+        if(th[0]+th[1]>th[2]) {
+            ans++;
+            //cout<<"("<<i+1<<","<<j+1<<","<<k+1<<")"<<endl;
         }
     }
-    if(s.empty()) cout<<str<<endl;
-    else cout<<s<<endl;
+    cout<<ans<<endl;
 }
 
 
