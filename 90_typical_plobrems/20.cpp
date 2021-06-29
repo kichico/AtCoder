@@ -3,13 +3,13 @@ using namespace std;
 using ll=int64_t;
 using ld=long double;
 using ull=unsigned long long;
-template <class T>
-using grid=vector<vector<T>>;
 #define ALL(x) x.begin(),x.end()
-#define rep(iter,from,to) for(ll iter=from;iter<to;++iter)
+#define rep(i,from,to) for(ll i=from;i<to;++i)
 
-const ll MOD=1e9+7;
-const ll INF=1e17;
+constexpr ll MOD=1e9+7;
+constexpr ll INF=1e16;
+template<class T>
+using grid=vector<vector<T>>;
 //#######################################################################
 vector<vector<ll>> input(ll N, ll width){
     string str;
@@ -41,19 +41,17 @@ void op(vector<vector<ll>> vec){
 //########################################################################
 
 
-
-
 void solve(){
-    ll x,k,d;
-    cin>>x>>k>>d;
-    x=abs(x);
-    ll dist=min(k,x/d);
-    k-=dist;
-    x-=dist*d;
-    if(k%2==0) cout<<x<<endl;
-    else cout<<d-x<<endl;
+    ll a,b,c;
+    cin>>a>>b>>c;
+    ll v=1;
+    rep(i,0,b) {
+        v*=c;
+        if(v>a) { cout<<"Yes"<<endl;return;}
+        //cout<<a<<" "<<v<<endl;
+    }
+    cout<<"No"<<endl;
 }
-
 
 int main(void){
     std::cin.tie(nullptr);
