@@ -47,17 +47,20 @@ void op(vector<vector<ll>> vec){
 void solve(){
     ll N;
     cin>>N;
-    ll comma=0;
-    ll left=1,right=10;
+    vector<ll> height(N),diff(N);
+    rep(i,0,N) cin>>height[i];
+    for(int i=N-1;i>0;i--) diff[i]=height[i-1]-height[i];
+    //for(auto x:diff) cout<<x<<endl;
     ll ans=0;
-    rep(i,0,16){
-        if(N>=right) ans+=(right-left)*comma;
-        else if(left<=N&&N<right) ans+=(N-left+1)*comma;
-        if(i%3==2) comma++;
-        left*=10;
-        right*=10;
+    ll check=0;
+    rep(i,0,N) {
+        if(diff[i]<0) {
+            ans=max(check,ans);
+            check=0;
+        }
+        else if(i>0) check++;
     }
-    cout<<ans<<endl;
+    cout<<max(ans,check)<<endl;
 }
 
 

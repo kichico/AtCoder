@@ -45,17 +45,14 @@ void op(vector<vector<ll>> vec){
 
 
 void solve(){
-    ll N;
-    cin>>N;
-    ll comma=0;
-    ll left=1,right=10;
-    ll ans=0;
-    rep(i,0,16){
-        if(N>=right) ans+=(right-left)*comma;
-        else if(left<=N&&N<right) ans+=(N-left+1)*comma;
-        if(i%3==2) comma++;
-        left*=10;
-        right*=10;
+    ll socket,need;
+    cin>>socket>>need;
+    ll avail=socket;
+    ll ans=1;
+    if(need==1) ans=0;
+    while(avail<need) {
+        ans++;
+        avail+=socket-1;
     }
     cout<<ans<<endl;
 }

@@ -45,17 +45,16 @@ void op(vector<vector<ll>> vec){
 
 
 void solve(){
-    ll N;
-    cin>>N;
-    ll comma=0;
-    ll left=1,right=10;
+    ll N,d;
+    cin>>N>>d;
     ll ans=0;
-    rep(i,0,16){
-        if(N>=right) ans+=(right-left)*comma;
-        else if(left<=N&&N<right) ans+=(N-left+1)*comma;
-        if(i%3==2) comma++;
-        left*=10;
-        right*=10;
+    rep(i,0,N){
+        ll x,y;
+        cin>>x>>y;
+        ld dist;
+        x*=x; y*=y;
+        dist=sqrt(x+y);
+        if(dist<=d) ans++;
     }
     cout<<ans<<endl;
 }
