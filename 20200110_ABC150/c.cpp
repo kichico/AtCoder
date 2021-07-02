@@ -44,22 +44,41 @@ void op(vector<vector<ll>> vec){
 
 
 
-int solve(){
+void solve(){
     ll N;
     cin>>N;
-    vector<ll> a(N),b(N),c(N);
-    ll lim=1e5+1;
-    vector<ll> num(lim,0);
-    rep(i,0,N) cin>>a[i];
-    rep(i,0,N) cin>>b[i];
-    rep(i,0,N) { cin>>c[i];c[i]--; }
+    ll p,q;
+    cin.ignore();
+    string s,g;
+    getline(cin,s);
+    //reverse(ALL(s));
+    rep(i,0,s.size()) if(s[i]!=' ') g.push_back(s[i]);
+    p=stoll(g);
+    //cout<<p<<endl;
+    g="";
+    string t;
+    getline(cin,t);
+    //reverse(ALL(s));
+    //cout<<t<<endl;
+    rep(i,0,t.size()) if(t[i]!=' ') g.push_back(t[i]);
+    q=stoll(g);
     //cout<<"here"<<endl;
-    rep(i,0,N) num[b[c[i]]]++;
-    ll ans=0;
-    //cout<<"here"<<endl;
-    rep(i,0,N) ans+=num[a[i]];
-    cout<<ans<<endl;
-    return 0;
+    vector<ll> ref(N);
+    rep(i,0,N) ref[i]=i+1;
+    vector<ll> dic;
+    do {
+        string in;
+        //for(auto x:ref) cout<<x<<endl;
+        rep(i,0,ref.size()) in.push_back((ref[i]+'0'));
+        dic.push_back(stoll(in)); 
+    } while (next_permutation(ALL(ref)));
+    sort(ALL(dic));
+    ll qv,pv;
+    rep(i,0,dic.size()){
+        if(dic[i]==p) pv=i+1;
+        if(dic[i]==q) qv=i+1;
+    }
+    cout<<abs(qv-pv)<<endl;
 }
 
 

@@ -44,22 +44,11 @@ void op(vector<vector<ll>> vec){
 
 
 
-int solve(){
-    ll N;
-    cin>>N;
-    vector<ll> a(N),b(N),c(N);
-    ll lim=1e5+1;
-    vector<ll> num(lim,0);
-    rep(i,0,N) cin>>a[i];
-    rep(i,0,N) cin>>b[i];
-    rep(i,0,N) { cin>>c[i];c[i]--; }
-    //cout<<"here"<<endl;
-    rep(i,0,N) num[b[c[i]]]++;
-    ll ans=0;
-    //cout<<"here"<<endl;
-    rep(i,0,N) ans+=num[a[i]];
-    cout<<ans<<endl;
-    return 0;
+void solve(){
+    ll N,x;
+    cin>>N>>x;
+    if(500*N>=x) cout<<"Yes"<<endl;
+    else cout<<"No"<<endl;
 }
 
 

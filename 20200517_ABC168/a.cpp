@@ -44,22 +44,14 @@ void op(vector<vector<ll>> vec){
 
 
 
-int solve(){
-    ll N;
-    cin>>N;
-    vector<ll> a(N),b(N),c(N);
-    ll lim=1e5+1;
-    vector<ll> num(lim,0);
-    rep(i,0,N) cin>>a[i];
-    rep(i,0,N) cin>>b[i];
-    rep(i,0,N) { cin>>c[i];c[i]--; }
-    //cout<<"here"<<endl;
-    rep(i,0,N) num[b[c[i]]]++;
-    ll ans=0;
-    //cout<<"here"<<endl;
-    rep(i,0,N) ans+=num[a[i]];
+void solve(){
+    string s,ans;
+    cin>>s;
+    char c=s.back();
+    if(c=='2'||c=='4'||c=='5'||c=='7'||c=='9') ans="hon";
+    else if(c=='0'||c=='1'||c=='6'||c=='8') ans="pon";
+    else ans="bon";
     cout<<ans<<endl;
-    return 0;
 }
 
 

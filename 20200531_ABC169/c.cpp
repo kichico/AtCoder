@@ -46,21 +46,19 @@ void op(vector<vector<ll>> vec){
 
 void solve(){
     ll N;
-    ld m;
+    string m;
     cin>>N>>m;
-    m*=100;
-    ld value=(ld)N*m/100;
-    string str=to_string(value);
-    string s=str;
-    while(!s.empty()) {
-        if(s.back()!='.') s.pop_back();
-        else {
-            s.pop_back();
-            break;
-        }
+    stringstream ss;
+    ss<<m;
+    vector<string> s;
+    string a;
+    while(getline(ss,a,'.')){
+        s.push_back(a);
     }
-    if(s.empty()) cout<<str<<endl;
-    else cout<<s<<endl;
+    //for(auto x:s) cout<<x<<endl;
+    ld v=N*(100*stoll(s[0])+stold(s[1]));
+    v/=100;
+    cout<<(ll)v<<endl;
 }
 
 

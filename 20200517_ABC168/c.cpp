@@ -44,22 +44,20 @@ void op(vector<vector<ll>> vec){
 
 
 
-int solve(){
-    ll N;
-    cin>>N;
-    vector<ll> a(N),b(N),c(N);
-    ll lim=1e5+1;
-    vector<ll> num(lim,0);
-    rep(i,0,N) cin>>a[i];
-    rep(i,0,N) cin>>b[i];
-    rep(i,0,N) { cin>>c[i];c[i]--; }
-    //cout<<"here"<<endl;
-    rep(i,0,N) num[b[c[i]]]++;
-    ll ans=0;
-    //cout<<"here"<<endl;
-    rep(i,0,N) ans+=num[a[i]];
-    cout<<ans<<endl;
-    return 0;
+void solve(){
+    ll hour,minutes,a,b;
+    cin>>a>>b>>hour>>minutes;
+    ld tanshin=360*(((ld)hour+(ld)minutes/60)/12);
+    ld chosin=360*(ld)minutes/60;
+    //cout<<"chosin:"<<chosin<<" tanshin:"<<tanshin<<endl;
+    ld arg=max(chosin,tanshin)-min(chosin,tanshin);
+    if(arg>=180) arg=360-arg;
+    //cout<<"arg:"<<arg<<endl;
+    ld pi=4*atan(1);
+    arg=arg*pi/180;
+    ld res=a*a+b*b-2*a*b*cosl(arg);
+    //cout<<res<<endl;
+    cout<<sqrt(res)<<endl;
 }
 
 

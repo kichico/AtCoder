@@ -46,11 +46,11 @@ ll com(ll n,ll r){
     for(ll i=n;cnt!=r;i--) {
         up*=i;
         cnt++;
-        cout<<"i:"<<i<<endl;
+        //cout<<"i:"<<i<<endl;
     }
     for(ll i=1;i<=r;i++) {
         low*=i;
-        cout<<"i:"<<i<<endl;
+        //cout<<"i:"<<i<<endl;
     }
     return up/low; 
 }
@@ -59,21 +59,25 @@ ll com(ll n,ll r){
 
 
 int solve(){
-    string str;
-    cin>>str;
-    set<ll> res,kakutei;
-    rep(i,0,10) if(str[i]=='o') kakutei.insert(i);
-    ll cnt=0;
-    if(kakutei.size()>4) {
-        cout<<"0"<<endl;
-        return 0;
+    string s;
+    cin>>s;
+    ll maru=0,hatena=0;
+    rep(i,0,s.size()) {
+        if(s[i]=='o') maru++;
+        else if(s[i]=='?') hatena++;
     }
-    else{
-        rep(i,0,4-kakutei.size()){
-            rep(j,0,10) if(str[j]=='?') cnt++;
-        }
+    if(maru>4) {cout<<0<<endl;return 0;}
+    ll ans=0;
+    rep(u,0,hatena+1){
+        ll use=maru+u;
+        if(use>4) continue;
+        if(use==0) continue;
+        if(use==1)  ans+=com(hatena,u);
+        else if(use==2) ans+=(2*4+com(4,2))*com(hatena,u);
+        else if(use==3) ans+=3*4*3*com(hatena,u);
+        else ans+=24*com(hatena,u);
     }
-    cout<<cnt<<endl;
+    cout<<ans<<endl;
     return 0;
 }
 
