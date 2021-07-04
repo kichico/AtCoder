@@ -47,18 +47,8 @@ void op(vector<vector<ll>> vec){
 void solve(){
     ll N;
     cin>>N;
-    map<ll,ll> v;
-    ll A;
-    rep(x,-1001,1001) v.emplace(x*x*x*x*x,x);
-    rep(i,-1001,1001) {
-        ll B=i*i*i*i*i;
-        if(v.count(B+N)) {
-            A=v[B+N];
-            cout<<A<<" "<<i<<endl;
-            return;   
-        } 
-    }
-    cout<<"Not"<<endl;
+    while(N>1000) N-=1000;
+    cout<<1000-N<<endl;
 }
 
 

@@ -45,11 +45,12 @@ void op(vector<vector<ll>> vec){
 
 
 void solve(){
-    ll N;
-    cin>>N;
+    ll a,b;
+    cin>>a>>b;
+    if(b%(a*6)!=0&&b/(a*6)>0) cout<<"No"<<endl;
+    else cout<<"Yes"<<endl;
+
 }
-
-
 int main(void){
     std::cin.tie(nullptr);
 	std::ios_base::sync_with_stdio(false);

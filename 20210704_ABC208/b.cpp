@@ -47,6 +47,38 @@ void op(vector<vector<ll>> vec){
 void solve(){
     ll N;
     cin>>N;
+    vector<ll> coin;
+    ll v=1;
+    ll sum=1;
+    if(N==1) {
+        cout<<1<<endl;
+        return;
+    }
+    while(sum<N){
+        sum*=v;
+        coin.emplace_back(sum);
+        v++;
+        if(sum>N) {
+            coin.pop_back();
+            break;
+        }
+    }
+    ll ans=0;
+    while(N>0) {
+        for(ll i=coin.size()-1;i>=0;i--){
+            //cout<<" "<<coin[i]<<endl;
+            if(N-coin[i]>=0) {
+                while(N-coin[i]>=0) {
+                    N-=coin[i];
+                    ans++;
+                }
+                coin.pop_back();
+                //getchar();
+                break;
+            }
+        } 
+    }
+    cout<<ans<<endl;
 }
 
 

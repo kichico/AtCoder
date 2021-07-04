@@ -87,17 +87,9 @@ void solve(){
     g.inputAndAddEdge(road);
     ll ans=0;
     rep(i,0,N) {
-        ll h=height[i];
-        ll minh=h;
-        if(g.graph[i].empty()) {
-            ans++;
-            continue;
-        }
-        rep(j,0,g.graph[i].size()) {
-            h=max(h,height[g.graph[i][j]]);
-            minh=min(minh,height[g.graph[i][j]]);
-        }
-        if(h==height[i]&&minh!=height[i]) ans++;
+        bool flg=true;
+        rep(j,0,g.graph[i].size()) if(height[i]<=height[g.graph[i][j]]) flg=false;
+        if(flg) ans++; 
     }
     //g.showGrapgh();
     cout<<ans<<endl;

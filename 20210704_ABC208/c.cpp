@@ -45,8 +45,26 @@ void op(vector<vector<ll>> vec){
 
 
 void solve(){
-    ll N;
-    cin>>N;
+    ll N,okashi;
+    cin>>N>>okashi;
+    vector<pair<ll,ll>> p(N);
+    rep(i,0,N) {
+        ll v;
+        cin>>v;
+        p[i]=make_pair(v,i);
+    }
+    vector<ll> res(N,0);
+    sort(ALL(p));
+    ll v=okashi/N;
+    if(v>0) {
+        rep(i,0,N) res[i]+=v;
+        okashi%=N;
+    }
+    ll lim=okashi;
+    rep(i,0,lim) res[p[i].second]++;
+    okashi-=lim; 
+    //cout<<okashi<<endl;
+    for(auto x:res) cout<<x<<endl;
 }
 
 

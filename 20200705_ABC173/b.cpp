@@ -47,18 +47,19 @@ void op(vector<vector<ll>> vec){
 void solve(){
     ll N;
     cin>>N;
-    map<ll,ll> v;
-    ll A;
-    rep(x,-1001,1001) v.emplace(x*x*x*x*x,x);
-    rep(i,-1001,1001) {
-        ll B=i*i*i*i*i;
-        if(v.count(B+N)) {
-            A=v[B+N];
-            cout<<A<<" "<<i<<endl;
-            return;   
-        } 
+    ll ac=0,wa=0,tle=0,re=0;
+    rep(i,0,N){
+        string s;
+        cin>>s;
+        if(s=="AC") ac++;
+        else if(s=="WA") wa++;
+        else if(s=="TLE")tle++;
+        else re++;
     }
-    cout<<"Not"<<endl;
+    cout<<"AC x "<<ac<<endl;
+    cout<<"WA x "<<wa<<endl;
+    cout<<"TLE x "<<tle<<endl;
+    cout<<"RE x "<<re<<endl;
 }
 
 
