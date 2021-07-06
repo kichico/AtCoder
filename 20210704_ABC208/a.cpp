@@ -47,7 +47,7 @@ void op(vector<vector<ll>> vec){
 void solve(){
     ll a,b;
     cin>>a>>b;
-    if(b%(a*6)!=0&&b/(a*6)>0) cout<<"No"<<endl;
+    if(a<=b&&b<=a*6) cout<<"No"<<endl;
     else cout<<"Yes"<<endl;
 
 }
