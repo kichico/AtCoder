@@ -45,27 +45,26 @@ void op(vector<vector<ll>> vec){
 
 
 void solve(){
-    ll N,M,lim;
-    cin>>N>>M>>lim;
-    deque<ll> a(N),b(N);
-    rep(i,0,N) cin>>a[i];
-    rep(i,0,M) cin>>b[i];
-    ll now=0;
-    ll ans=0;
-    while(lim-now>0){
-        if(now+a.front()>lim&&now+b.front()>lim) break;
-        if(a.front()>=b.front()){
-            now+=b.front();
-            b.pop_front();
-            ans++;
-        }
-        else {
-            now+=a.front();
-            a.pop_front();
-            ans++;
-        }
+    set<ll> p;
+    ll N;
+    cin>>N;
+    vector<ll> a(N);
+    rep(i,0,N){
+        cin>>a[i];
+        p.insert(a[i]);
     }
-    cout<<ans<<endl;
+    ll maxv=p.size()-1;
+    map<ll,ll> taiou;
+    auto here=p.begin();
+    rep(i,0,p.size()){
+        taiou.emplace(*here,i);
+        here++;
+    }
+    vector<ll> res(N);
+    rep(i,0,N){
+        res[i]=taiou[a[i]];
+    }
+    rep(i,0,N) cout<<res[i]<<endl;
 }
 
 

@@ -47,6 +47,7 @@ void op(vector<vector<ll>> vec){
 void solve(){
     ll N;
     cin>>N;
+    cout<<N+N*N+N*N*N<<endl;
 }
 
 

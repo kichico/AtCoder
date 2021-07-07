@@ -45,27 +45,23 @@ void op(vector<vector<ll>> vec){
 
 
 void solve(){
-    ll N,M,lim;
-    cin>>N>>M>>lim;
-    deque<ll> a(N),b(N);
-    rep(i,0,N) cin>>a[i];
-    rep(i,0,M) cin>>b[i];
-    ll now=0;
-    ll ans=0;
-    while(lim-now>0){
-        if(now+a.front()>lim&&now+b.front()>lim) break;
-        if(a.front()>=b.front()){
-            now+=b.front();
-            b.pop_front();
-            ans++;
-        }
-        else {
-            now+=a.front();
-            a.pop_front();
-            ans++;
-        }
+    ll N;
+    cin>>N;
+    grid<char> in(N,vector<char>(N));
+    rep(i,0,N) rep(j,0,N) cin>>in[i][j];
+    grid<char> out=in;
+    vector<string> trans(N);
+    
+    rep(i,0,N) rep(j,0,N) trans[i]+=in[j][i];
+    //
+    //cout<<"--------"<<trans[0]<<endl;
+    //reverse(ALL(trans));
+    rep(i,0,N) reverse(ALL(trans[i]));
+    //cout<<"--------"<<trans[0]<<endl;
+    rep(i,0,N) {
+        for(int j=0;j<N;++j) cout<<trans[i][j];
+        cout<<endl;
     }
-    cout<<ans<<endl;
 }
 
 

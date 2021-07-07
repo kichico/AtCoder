@@ -40,32 +40,18 @@ void op(vector<vector<ll>> vec){
 }
 //########################################################################
 
-
+struct position{
+    ll x;
+    ll y;
+};
 
 
 
 void solve(){
-    ll N,M,lim;
-    cin>>N>>M>>lim;
-    deque<ll> a(N),b(N);
-    rep(i,0,N) cin>>a[i];
-    rep(i,0,M) cin>>b[i];
-    ll now=0;
-    ll ans=0;
-    while(lim-now>0){
-        if(now+a.front()>lim&&now+b.front()>lim) break;
-        if(a.front()>=b.front()){
-            now+=b.front();
-            b.pop_front();
-            ans++;
-        }
-        else {
-            now+=a.front();
-            a.pop_front();
-            ans++;
-        }
-    }
-    cout<<ans<<endl;
+    position start,goal;
+    cin>>start.y>>start.x;
+    cin>>goal.y>>goal.x;
+    
 }
 
 

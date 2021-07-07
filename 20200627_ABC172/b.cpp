@@ -45,8 +45,21 @@ void op(vector<vector<ll>> vec){
 
 
 void solve(){
-    ll N;
-    cin>>N;
+    string s,t;
+    cin>>s>>t;
+    reverse(ALL(s));
+    reverse(ALL(t));
+    string sc,tc;
+    ll len=s.size();
+    ll ans=0;
+    rep(i,0,len){
+        sc.push_back(s.back());
+        tc.push_back(t.back());
+        if(sc.back()!=tc.back()) ans++;
+        s.pop_back();
+        t.pop_back();
+    }
+    cout<<ans<<endl;
 }
 
 

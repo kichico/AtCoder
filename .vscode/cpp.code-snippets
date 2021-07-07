@@ -98,8 +98,8 @@
 		"prefix": "position",
 		"body": [
             "struct position{",
-            "    \tll x;",
-            "    \tll y;",
+            "   ll x;",
+            "   ll y;",
             "};",
         ],
     },
