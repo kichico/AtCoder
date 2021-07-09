@@ -45,8 +45,17 @@ void op(vector<vector<ll>> vec){
 
 
 void solve(){
-    ll N;
-    cin>>N;
+    ll N,K;
+    cin>>N>>K;
+    vector<ll> a(N),b(N);
+    rep(i,0,N) cin>>a[i];
+    rep(i,0,N) cin>>b[i];
+    ll diff=0;
+    rep(i,0,N) {
+        diff+=abs(a[i]-b[i]);
+    }
+    if(diff<=K&&diff%2==K%2) cout<<"Yes"<<endl;
+    else cout<<"No"<<endl;
 }
 
 

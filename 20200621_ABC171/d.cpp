@@ -47,6 +47,28 @@ void op(vector<vector<ll>> vec){
 void solve(){
     ll N;
     cin>>N;
+    vector<ll> a(N);
+    ll lim=1e5+1;
+    vector<ll> num(lim);
+    ll sum=0;
+    rep(i,0,N) { 
+        cin>>a[i];
+        num[a[i]]++;
+        sum+=a[i];
+    }
+    ll q;
+    cin>>q;
+    vector<ll> res(q);
+    rep(i,0,q){
+        ll b,c;
+        cin>>b>>c;
+        ll inc=(c-b)*num[b];
+        num[c]+=num[b];
+        num[b]=0;
+        sum+=inc;
+        res[i]=sum;
+    }
+    for(auto x:res) cout<<x<<endl;
 }
 
 

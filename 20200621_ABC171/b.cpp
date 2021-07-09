@@ -45,8 +45,14 @@ void op(vector<vector<ll>> vec){
 
 
 void solve(){
-    ll N;
-    cin>>N;
+    ll N,k;
+    cin>>N>>k;
+    vector<ll> a(N);
+    rep(i,0,N) cin>>a[i];
+    sort(ALL(a));
+    ll ans=0;
+    rep(i,0,k) ans+=a[i];
+    cout<<ans<<endl;
 }
 
 

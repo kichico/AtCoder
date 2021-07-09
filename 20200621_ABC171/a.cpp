@@ -45,8 +45,11 @@ void op(vector<vector<ll>> vec){
 
 
 void solve(){
-    ll N;
-    cin>>N;
+    char a;
+    cin>>a;
+    //cout<<"v:"<<a+'0'<<endl;
+    if(a+'0'<=138) cout<<"A"<<endl;
+    else cout<<"a"<<endl;
 }
 
 
