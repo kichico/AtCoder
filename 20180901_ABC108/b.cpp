@@ -41,13 +41,23 @@ void op(vector<vector<ll>> vec){
 //########################################################################
 
 
-
+struct position{
+   ll x;
+   ll y;
+};
 
 
 void solve(){
-    ll teihen,takasa,x;
-    cin>>teihen>>takasa>>x;
-    
+    position one,two,three,four;
+    cin>>one.x>>one.y>>two.x>>two.y;
+    position bekutoru;
+    bekutoru.x=two.x-one.x;
+    bekutoru.y=two.y-one.y;
+    three.x=two.x-bekutoru.y;
+    three.y=two.y+bekutoru.x;
+    four.x=three.x-bekutoru.x;
+    four.y=three.y-bekutoru.y;
+    cout<<three.x<<" "<<three.y<<" "<<four.x<<" "<<four.y<<endl;
 }
 
 

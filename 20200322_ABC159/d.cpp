@@ -45,9 +45,8 @@ void op(vector<vector<ll>> vec){
 
 
 void solve(){
-    ll teihen,takasa,x;
-    cin>>teihen>>takasa>>x;
-    
+    ll N;
+    cin>>N;
 }
 
 

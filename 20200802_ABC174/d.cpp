@@ -47,6 +47,18 @@ void op(vector<vector<ll>> vec){
 void solve(){
     ll N;
     cin>>N;
+    string s;
+    cin>>s;
+    ll w=0,r=0,ans=INF;
+    rep(i,0,N) if(s[i]=='R') r++;
+    if(r==0) {cout<<0<<endl;return;}
+    rep(i,1,N+1){
+        if(s[i-1]=='W') w++;
+        else if(s[i-1]=='R') r--;
+        //cout<<"r:"<<r<<" w:"<<w<<endl;
+        ans=min(ans,max(w,r));
+    }
+    cout<<ans<<endl;
 }
 
 

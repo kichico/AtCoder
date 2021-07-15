@@ -45,9 +45,26 @@ void op(vector<vector<ll>> vec){
 
 
 void solve(){
-    ll teihen,takasa,x;
-    cin>>teihen>>takasa>>x;
-    
+    ll X,N;
+    cin>>X>>N;
+    vector<ll> a(N);
+    set<ll> v;
+    rep(i,0,N) cin>>a[i];
+    if(a.size()!=0){
+        rep(i,-100,110) v.emplace(i);
+        rep(i,0,a.size()) v.erase(a[i]);
+        vector<ll> all{ALL(v)};
+        vector<pair<ll,ll>> res;
+        rep(i,0,v.size()){
+            auto vpr=make_pair(abs(X-all[i]),all[i]);
+            res.push_back(vpr);
+        }
+        sort(ALL(res));
+        if(!res.empty()) cout<<res[0].second<<endl;
+        else cout<<X<<endl;
+        //for(auto x:res) cout<<x.first<<" "<<x.second<<endl;
+    }
+    else cout<<X<<endl;
 }
 
 

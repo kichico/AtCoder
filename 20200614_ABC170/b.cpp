@@ -45,9 +45,17 @@ void op(vector<vector<ll>> vec){
 
 
 void solve(){
-    ll teihen,takasa,x;
-    cin>>teihen>>takasa>>x;
-    
+    ll sum,leg;
+    cin>>sum>>leg;
+    rep(i,0,sum+1) {
+        ll j=sum-i;
+        //cout<<"i,j "<<i<<" "<<j<<endl;
+        if(i*4+j*2==leg) {
+            cout<<"Yes"<<endl;
+            return;
+        }
+    } 
+    cout<<"No"<<endl;
 }
 
 

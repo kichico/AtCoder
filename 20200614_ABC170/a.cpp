@@ -45,9 +45,11 @@ void op(vector<vector<ll>> vec){
 
 
 void solve(){
-    ll teihen,takasa,x;
-    cin>>teihen>>takasa>>x;
-    
+    string N;
+    getline(cin,N);
+    string s;
+    rep(i,0,N.size()) if(N[i]!=' ') s.push_back(N[i]);
+    rep(i,0,s.size()) if(s[i]=='0') cout<<i+1<<endl;
 }
 
 

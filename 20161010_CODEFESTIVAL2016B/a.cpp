@@ -45,9 +45,12 @@ void op(vector<vector<ll>> vec){
 
 
 void solve(){
-    ll teihen,takasa,x;
-    cin>>teihen>>takasa>>x;
-    
+    string s,t;
+    cin>>s;
+    t="CODEFESTIVAL2016";
+    ll ans=0;
+    rep(i,0,s.size()) if(s[i]!=t[i]) ans++;
+    cout<<ans<<endl;
 }
 
 

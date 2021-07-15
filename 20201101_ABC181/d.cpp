@@ -45,8 +45,31 @@ void op(vector<vector<ll>> vec){
 
 
 void solve(){
-    ll N;
-    cin>>N;
+    string s;
+    cin>>s;
+    set<ll> num;
+    rep(i,0,s.size()) num.insert(s[i]-'0');
+    vector<ll> all{num.begin(),num.end()};
+    if(s.size()>=3){
+        vector<ll> check(10,0);
+        rep(i,0,s.size()) check[s[i]-'0']++;
+        for(int i=104;i<=1000;i+=8) {
+            bool flg=true;
+            vector<ll> cnt(10,0);
+            string c=to_string(i);
+            rep(k,0,c.size()) cnt[c[k]-'0']++;
+            rep(k,0,10) if(check[k]<cnt[k]) flg=false;
+            if(flg) {cout<<"Yes"<<endl;return;}
+        }
+    }
+    else if(s.size()==2) {
+        rep(i,0,2){
+            if(stoi(s)%8==0) {cout<<"Yes"<<endl;return;}
+            swap(s[0],s[1]);
+        }
+    }
+    else if(s.size()==1) if((s[0]-'0')%8==0) {cout<<"Yes"<<endl;return;}
+    cout<<"No"<<endl;
 }
 
 

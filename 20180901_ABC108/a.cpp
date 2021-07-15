@@ -45,9 +45,14 @@ void op(vector<vector<ll>> vec){
 
 
 void solve(){
-    ll teihen,takasa,x;
-    cin>>teihen>>takasa>>x;
-    
+    ll N;
+    cin>>N;
+    if(N%2==0) cout<<(N/2)*(N/2)<<endl;
+    else {
+        ll odd=(N+1)/2;
+        ll even=(N-1)/2;
+        cout<<odd*even<<endl;
+    }
 }
 
 

@@ -45,9 +45,36 @@ void op(vector<vector<ll>> vec){
 
 
 void solve(){
-    ll teihen,takasa,x;
-    cin>>teihen>>takasa>>x;
-    
+    ll N,a,b;
+    cin>>N>>a>>b;
+    string s;
+    cin>>s;
+    ll abroad=b;
+    ll passed=0;
+    vector<string> res(N);
+    rep(i,0,N){
+        char status=s[i];
+        if(status=='c') {
+            res.push_back("No");
+            continue;
+        }
+        else if(status=='a'){
+            if(passed<a+b) {
+                res.push_back("Yes");
+                passed++;
+            }
+            else res.push_back("No");
+        }
+        else {
+            if(passed<(a+b)&&abroad>0) {
+                res.push_back("Yes");
+                passed++;
+                abroad--;
+            }
+            else res.push_back("No");
+        }
+    }
+    for(auto a:res) cout<<a<<endl;
 }
 
 
