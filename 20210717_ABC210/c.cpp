@@ -45,25 +45,26 @@ void op(vector<vector<ll>> vec){
 
 
 void solve(){
-    ll tax,N;
-    cin>>tax>>N;
-    ll diff=0;
-    ll v=(int)floor((double)(100+tax)/100*1);
-    ll now=1;
-    ll newv=1;
-    while(diff<=1){
-        v=newv;
-        now++;
-        newv=(int)floor((double)(100+tax)/100*now);
-        diff=newv-v;
+    ll N,k;
+    cin>>N>>k;
+    vector<ll> candy(N);
+    map<ll,ll> num;
+    set<ll> get;
+    rep(i,0,N) {
+        cin>>candy[i];
     }
-    ll iter=v+1;
-    ll ans=0;
-    rep(i,0,N) ans+=iter;
-    if(N%tax!=0) ans+=N/tax;
-    else ans+=N/tax-1;
-    cout<<ans<<endl;
+    ll most=0;
+    rep(i,0,k) num[candy[i]]++;
+    most=num.size();
+    rep(i,k,N){
+        num[candy[i]]++;
+        num[candy[i-k]]--;
+        if(num[candy[i-k]]==0) num.erase(candy[i-k]);
+        most=max((ll)num.size(),most);
+    }
+    cout<<most<<endl;
 }
+
 
 int main(void){
     std::cin.tie(nullptr);

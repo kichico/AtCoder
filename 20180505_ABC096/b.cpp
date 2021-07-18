@@ -45,25 +45,17 @@ void op(vector<vector<ll>> vec){
 
 
 void solve(){
-    ll tax,N;
-    cin>>tax>>N;
-    ll diff=0;
-    ll v=(int)floor((double)(100+tax)/100*1);
-    ll now=1;
-    ll newv=1;
-    while(diff<=1){
-        v=newv;
-        now++;
-        newv=(int)floor((double)(100+tax)/100*now);
-        diff=newv-v;
-    }
-    ll iter=v+1;
+    vector<ll> v(3);
+    rep(i,0,3) cin>>v[i];
+    ll k;
+    cin>>k;
+    sort(ALL(v));
+    rep(i,0,k) v[2]*=2;
     ll ans=0;
-    rep(i,0,N) ans+=iter;
-    if(N%tax!=0) ans+=N/tax;
-    else ans+=N/tax-1;
+    rep(i,0,3) ans+=v[i];
     cout<<ans<<endl;
 }
+
 
 int main(void){
     std::cin.tie(nullptr);

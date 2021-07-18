@@ -1,4 +1,5 @@
 ﻿#include "bits/stdc++.h"
+#include <sstream>
 using namespace std;
 using ll=int64_t;
 using ld=long double;
@@ -45,25 +46,34 @@ void op(vector<vector<ll>> vec){
 
 
 void solve(){
-    ll tax,N;
-    cin>>tax>>N;
-    ll diff=0;
-    ll v=(int)floor((double)(100+tax)/100*1);
-    ll now=1;
-    ll newv=1;
-    while(diff<=1){
-        v=newv;
-        now++;
-        newv=(int)floor((double)(100+tax)/100*now);
-        diff=newv-v;
+    string s,t;
+    getline(cin,s);
+    reverse(ALL(s));
+    ll len=s.size();
+    rep(i,0,len) {
+        if(s.back()==' ') t.push_back(',');
+        else t.push_back(s.back());
+        s.pop_back();
     }
-    ll iter=v+1;
-    ll ans=0;
-    rep(i,0,N) ans+=iter;
-    if(N%tax!=0) ans+=N/tax;
-    else ans+=N/tax-1;
-    cout<<ans<<endl;
+    stringstream ss;
+    ss<<t;
+    string str;
+    set<string> user;
+    while(getline(ss,str,',')){
+        reverse(ALL(str));
+        string inserter="";
+        rep(i,0,str.size()) {
+            if(str[i]!='@') inserter+=str[i];
+            else{
+                reverse(ALL(inserter));
+                user.insert(inserter);
+                inserter="";
+            }
+        }
+    }
+    for(auto x:user) cout<<x<<endl;
 }
+
 
 int main(void){
     std::cin.tie(nullptr);

@@ -45,25 +45,21 @@ void op(vector<vector<ll>> vec){
 
 
 void solve(){
-    ll tax,N;
-    cin>>tax>>N;
-    ll diff=0;
-    ll v=(int)floor((double)(100+tax)/100*1);
-    ll now=1;
-    ll newv=1;
-    while(diff<=1){
-        v=newv;
-        now++;
-        newv=(int)floor((double)(100+tax)/100*now);
-        diff=newv-v;
+    ll N;
+    cin>>N;
+    if(N<105) cout<<0<<endl;
+    else{
+        ll ans=0;
+        rep(i,1,N+1){
+            ll yakusu=0;
+            if(i%2==0) continue;
+            rep(j,1,i+1) if(i%j==0) yakusu++;
+            if(yakusu==8) ans++;
+        }
+        cout<<ans<<endl;
     }
-    ll iter=v+1;
-    ll ans=0;
-    rep(i,0,N) ans+=iter;
-    if(N%tax!=0) ans+=N/tax;
-    else ans+=N/tax-1;
-    cout<<ans<<endl;
 }
+
 
 int main(void){
     std::cin.tie(nullptr);

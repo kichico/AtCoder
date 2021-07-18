@@ -40,30 +40,34 @@ void op(vector<vector<ll>> vec){
 }
 //########################################################################
 
+ll height,width;
+grid<char> field;
 
-
+vector<ll> dx{1,0,-1,0};
+vector<ll> dy{0,-1,0,1};
+bool check(ll x, ll y){
+    rep(i,0,4) {
+        ll nx=x+dx[i];
+        ll ny=y+dy[i];
+        if(nx>=width||nx<0||ny>=height||ny<0) continue;
+        else if(field[ny][nx]=='#') return true;
+    }
+    return false;
+}
 
 
 void solve(){
-    ll tax,N;
-    cin>>tax>>N;
-    ll diff=0;
-    ll v=(int)floor((double)(100+tax)/100*1);
-    ll now=1;
-    ll newv=1;
-    while(diff<=1){
-        v=newv;
-        now++;
-        newv=(int)floor((double)(100+tax)/100*now);
-        diff=newv-v;
+    cin>>height>>width;
+    field=grid<char>(height,vector<char>(width));
+    rep(i,0,height) rep(j,0,width) cin>>field[i][j];
+    rep(i,0,height) rep(j,0,width) {
+        if(field[i][j]=='#'){
+            if(!check(j,i)) {cout<<"No"<<endl;return;}
+        } 
     }
-    ll iter=v+1;
-    ll ans=0;
-    rep(i,0,N) ans+=iter;
-    if(N%tax!=0) ans+=N/tax;
-    else ans+=N/tax-1;
-    cout<<ans<<endl;
+    cout<<"Yes"<<endl;
 }
+
 
 int main(void){
     std::cin.tie(nullptr);

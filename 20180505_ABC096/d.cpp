@@ -45,25 +45,27 @@ void op(vector<vector<ll>> vec){
 
 
 void solve(){
-    ll tax,N;
-    cin>>tax>>N;
-    ll diff=0;
-    ll v=(int)floor((double)(100+tax)/100*1);
-    ll now=1;
-    ll newv=1;
-    while(diff<=1){
-        v=newv;
-        now++;
-        newv=(int)floor((double)(100+tax)/100*now);
-        diff=newv-v;
+    ll N;
+    cin>>N;
+    set<ll> prime;
+    rep(i,2,55556){
+        ll lim=sqrt(i)+1;
+        bool flg=true;
+        rep(j,2,lim) if(i!=j&&i%j==0) {flg=false;break;}
+        if(flg) prime.insert(i);
     }
-    ll iter=v+1;
-    ll ans=0;
-    rep(i,0,N) ans+=iter;
-    if(N%tax!=0) ans+=N/tax;
-    else ans+=N/tax-1;
-    cout<<ans<<endl;
+    //for(auto x:prime) cout<<x<<endl;
+    vector<int> v;
+    for(auto x:prime){
+        if(v.size()==N) break;
+        if(x%5==1) v.push_back(x);
+    }
+    string s="";
+    for(auto x:v) s+=to_string(x)+" ";
+    s.pop_back();
+    cout<<s<<endl;
 }
+
 
 int main(void){
     std::cin.tie(nullptr);

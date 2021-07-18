@@ -40,29 +40,32 @@ void op(vector<vector<ll>> vec){
 }
 //########################################################################
 
-
+struct hougaku{
+    ll N=0;
+    ll S=0;
+    ll W=0;
+    ll E=0;
+};
 
 
 
 void solve(){
-    ll tax,N;
-    cin>>tax>>N;
-    ll diff=0;
-    ll v=(int)floor((double)(100+tax)/100*1);
-    ll now=1;
-    ll newv=1;
-    while(diff<=1){
-        v=newv;
-        now++;
-        newv=(int)floor((double)(100+tax)/100*now);
-        diff=newv-v;
+    string s;
+    cin>>s;
+    hougaku in;
+    rep(i,0,s.size()){
+        if(s[i]=='S') in.S++;
+        else if(s[i]=='W') in.W++;
+        else if(s[i]=='E') in.E++;
+        else in.N++;
     }
-    ll iter=v+1;
-    ll ans=0;
-    rep(i,0,N) ans+=iter;
-    if(N%tax!=0) ans+=N/tax;
-    else ans+=N/tax-1;
-    cout<<ans<<endl;
+    pair<ll,ll> check=make_pair(min(in.S,in.N),max(in.S,in.N));
+    bool flgv=false,flgh=false;
+    if((check.first==0&&check.second==0)||(check.first!=0&&check.second!=0)) flgv=true;
+    check=make_pair(min(in.E,in.W),max(in.E,in.W));
+    if((check.first==0&&check.second==0)||(check.first!=0&&check.second!=0)) flgh=true;
+    if(flgv&&flgh) cout<<"Yes"<<endl;
+    else cout<<"No"<<endl;
 }
 
 int main(void){

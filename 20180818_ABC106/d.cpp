@@ -45,25 +45,31 @@ void op(vector<vector<ll>> vec){
 
 
 void solve(){
-    ll tax,N;
-    cin>>tax>>N;
-    ll diff=0;
-    ll v=(int)floor((double)(100+tax)/100*1);
-    ll now=1;
-    ll newv=1;
-    while(diff<=1){
-        v=newv;
-        now++;
-        newv=(int)floor((double)(100+tax)/100*now);
-        diff=newv-v;
+    ll N,way,q;
+    cin>>N>>way>>q;
+    vector<vector<ll>> cnt(510,vector<ll>(510,0));
+    rep(i,0,way){
+        ll L,R;cin>>L>>R;
+        cnt[L][R]++;
     }
-    ll iter=v+1;
-    ll ans=0;
-    rep(i,0,N) ans+=iter;
-    if(N%tax!=0) ans+=N/tax;
-    else ans+=N/tax-1;
-    cout<<ans<<endl;
+    rep(L,1,N+1) rep(R,2,N+1) {
+        cnt[L][R]+=cnt[L][R-1];
+        cout<<"cnt["<<L<<"]["<<R<<"]:"<<cnt[L][R]<<endl;
+    }
+    vector<ll> res;
+    rep(i,0,q){
+        ll ans=0;
+        ll from,to; cin>>from>>to;
+        cout<<i<<"th---------"<<endl;
+        rep(L,from,to+1) {
+            ans+=cnt[L][to];
+            cout<<ans<<endl;
+        }
+        res.emplace_back(ans);
+    }
+    for(auto x:res) cout<<x<<endl;
 }
+
 
 int main(void){
     std::cin.tie(nullptr);
