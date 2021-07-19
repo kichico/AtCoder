@@ -45,33 +45,32 @@ void op(vector<vector<ll>> vec){
 
 
 void solve(){
-    grid<ll> bingo(3,vector<ll>(3,0));
-    rep(i,0,3) rep(j,0,3) cin>>bingo[i][j];
-    grid<bool> field(3,vector<bool>(3,false));
-    ll N;
-    cin>>N;
-    vector<ll> b(N);
-    rep(i,0,N) cin>>b[i];
-    rep(k,0,N) {
-        rep(i,0,3) rep(j,0,3) if(bingo[i][j]==b[k]) field[i][j]=true; 
-    }
-    rep(i,0,3) {
+    ll h,w;
+    cin>>h>>w;
+    grid<char> field(h,vector<char>(w));
+    rep(i,0,h) rep(j,0,w) cin>>field[i][j];
+    rep(i,0,field.size()) {
         bool flg=true;
-        rep(j,0,3) if(!field[i][j]) flg=false;
-        if(flg) {cout<<"Yes"<<endl;return;}
+        rep(j,0,w) if(field[i][j]=='#') flg=false;
+        if(flg) {
+            field.erase(field.begin()+i);
+            i=-1;
+        }
     }
-    rep(j,0,3){
+    rep(j,0,field[0].size()) {
         bool flg=true;
-        rep(i,0,3) if(!field[i][j]) flg=false;
-        if(flg) {cout<<"Yes"<<endl;return;}
+        rep(i,0,field.size()) if(field[i][j]=='#') flg=false;
+        if(flg) {
+            rep(k,0,field.size()){
+                field[k].erase(field[k].begin()+j);
+            }
+            j=-1;
+        }
     }
-    bool flg=true;
-    rep(i,0,3) if(!field[i][i]) flg=false;
-    if(flg) {cout<<"Yes"<<endl;return;}
-    flg=true;
-    for(ll i=2;i>=0;i--) if(!field[2-i][i]) flg=false;
-    if(flg) {cout<<"Yes"<<endl;return;}
-    cout<<"No"<<endl;
+    rep(i,0,field.size()) {
+        rep(j,0,field[0].size()) cout<<field[i][j];
+        cout<<endl;
+    }
 }
 
 

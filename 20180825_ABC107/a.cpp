@@ -45,33 +45,9 @@ void op(vector<vector<ll>> vec){
 
 
 void solve(){
-    grid<ll> bingo(3,vector<ll>(3,0));
-    rep(i,0,3) rep(j,0,3) cin>>bingo[i][j];
-    grid<bool> field(3,vector<bool>(3,false));
-    ll N;
-    cin>>N;
-    vector<ll> b(N);
-    rep(i,0,N) cin>>b[i];
-    rep(k,0,N) {
-        rep(i,0,3) rep(j,0,3) if(bingo[i][j]==b[k]) field[i][j]=true; 
-    }
-    rep(i,0,3) {
-        bool flg=true;
-        rep(j,0,3) if(!field[i][j]) flg=false;
-        if(flg) {cout<<"Yes"<<endl;return;}
-    }
-    rep(j,0,3){
-        bool flg=true;
-        rep(i,0,3) if(!field[i][j]) flg=false;
-        if(flg) {cout<<"Yes"<<endl;return;}
-    }
-    bool flg=true;
-    rep(i,0,3) if(!field[i][i]) flg=false;
-    if(flg) {cout<<"Yes"<<endl;return;}
-    flg=true;
-    for(ll i=2;i>=0;i--) if(!field[2-i][i]) flg=false;
-    if(flg) {cout<<"Yes"<<endl;return;}
-    cout<<"No"<<endl;
+    ll N,koko;
+    cin>>N>>koko;
+    cout<<N-koko+1<<endl;
 }
 
 
