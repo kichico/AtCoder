@@ -45,28 +45,8 @@ void op(vector<vector<ll>> vec){
 
 
 void solve(){
-    ll keta,M;
-    cin>>keta>>M;
-    multiset<pair<ll,ll>> num;
-    rep(i,0,M) {
-        ll a,b;
-        cin>>a>>b;
-        a--;
-        num.emplace(a,b);
-    }
-    rep(v,0,1000) {
-        string s=to_string(v);
-        if(s.size()!=keta) continue;
-        bool flg=true;
-        for(auto x:num){
-            if(s[x.first]-'0'!=x.second) {
-                flg=false;
-                break;
-            }
-        }
-        if(flg) {cout<<s<<endl; return;}
-    }
-    cout<<-1<<endl;
+    ll N;
+    cin>>N;
 }
 
 

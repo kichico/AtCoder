@@ -45,28 +45,22 @@ void op(vector<vector<ll>> vec){
 
 
 void solve(){
-    ll keta,M;
-    cin>>keta>>M;
-    multiset<pair<ll,ll>> num;
-    rep(i,0,M) {
-        ll a,b;
-        cin>>a>>b;
-        a--;
-        num.emplace(a,b);
-    }
-    rep(v,0,1000) {
-        string s=to_string(v);
-        if(s.size()!=keta) continue;
-        bool flg=true;
-        for(auto x:num){
-            if(s[x.first]-'0'!=x.second) {
-                flg=false;
-                break;
-            }
+    ll R,G,B;
+    cin>>R>>G>>B;
+    ll k;
+    cin>>k;
+    while(k>0){
+        if(R<G&&G<B) {cout<<"Yes"<<endl;return;}
+        else{
+            if(R>=G) G*=2;
+            else if(G>=B) B*=2;
+            else if(R>=B) B*=2;  
         }
-        if(flg) {cout<<s<<endl; return;}
+        //cout<<"R G B:"<<R<<" "<<G<<" "<<B<<endl;
+        k--;
+        if(R<G&&G<B) {cout<<"Yes"<<endl;return;}
     }
-    cout<<-1<<endl;
+    cout<<"No"<<endl;
 }
 
 

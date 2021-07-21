@@ -40,13 +40,60 @@ void op(vector<vector<ll>> vec){
 }
 //########################################################################
 
-
-
+struct UnionFind {
+    vector<ll> parents;
+    UnionFind(int size) { parents.assign(size, -1); }
+    ll findRoot(ll x) {
+        if (parents[x] < 0) return x;
+        return parents[x] = findRoot(parents[x]);
+    }
+    bool unite(ll x, ll y) {
+        x = findRoot(x);
+        y = findRoot(y);
+        if (x == y) return false;
+        if (parents[x] > parents[y]) swap(x, y);
+        parents[x] += parents[y];
+        parents[y] = x;
+        return true;
+    }
+    ll size(ll x) { return -parents[findRoot(x)]; }
+    bool isSameGroup(ll x, ll y) { return findRoot(x) == findRoot(y); }
+};
 
 
 void solve(){
-    ll N;
-    cin>>N;
+    ll N,M,K;
+    cin>>N>>M>>K;
+    UnionFind uf(N);
+    vector<set<ll>> friends(N);
+    vector<ll> canditate(N,0);
+    vector<ll> A(M,0),B(M,0),C(K,0),D(K,0);
+    rep(i,0,M){
+        ll a,b;
+        cin>>a>>b;
+        a--;b--;
+        uf.unite(a,b);
+        A[i]=a;B[i]=b;
+    }
+    rep(i,0,K){
+        ll a,b;
+        cin>>a>>b;
+        a--;b--;
+        C[i]=a;
+        D[i]=b;
+    }
+    rep(i,0,N) canditate[i]=uf.size(i)-1;
+    rep(i,0,M){
+        canditate[A[i]]--;
+        canditate[B[i]]--;
+        friends[A[i]].insert(B[i]);
+        friends[B[i]].insert(A[i]);
+    }
+    rep(i,0,K) if(friends[C[i]].count(D[i])==0&&uf.isSameGroup(C[i],D[i])) {
+        canditate[C[i]]--;
+        canditate[D[i]]--;
+    }
+    op(canditate);
 }
 
 
