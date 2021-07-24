@@ -47,7 +47,10 @@ void op(vector<vector<ll>> vec){
 void solve(){
     ll N,M;
     cin>>N>>M;
-
+    ll n=0,m=0;
+    if(N>=2) n=N*(N-1)/2;
+    if(M>=2) m=M*(M-1)/2;
+    cout<<n+m<<endl;
 }
 
 

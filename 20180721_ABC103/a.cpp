@@ -45,9 +45,12 @@ void op(vector<vector<ll>> vec){
 
 
 void solve(){
-    double N;
-    cin>>N;
-    cout<<N/3*N/3*N/3<<endl;
+    vector<ll> a(3);
+    rep(i,0,3) cin>>a[i];
+    sort(ALL(a));
+    ll ans=0;
+    rep(i,0,2) ans+=a[i+1]-a[i];
+    cout<<ans<<endl;
 }
 
 

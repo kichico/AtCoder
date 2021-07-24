@@ -1,4 +1,5 @@
 ﻿#include "bits/stdc++.h"
+#include <numeric>
 using namespace std;
 using ll=int64_t;
 using ld=long double;
@@ -40,14 +41,26 @@ void op(vector<vector<ll>> vec){
 }
 //########################################################################
 
+ll gcd(ll a,ll b){
+    if(b==0) return a;
+    else return gcd(b,a%b);
+}
 
-
+ll lcm(ll a,ll b){ return a/gcd(a,b)*b;}
 
 
 void solve(){
-    double N;
+    ll N;
     cin>>N;
-    cout<<N/3*N/3*N/3<<endl;
+    vector<ll> a(N);
+    rep(i,0,N) cin>>a[i];
+    ll r=a[0];
+    //rep(i,1,N) r=lcm(r,a[i]);
+    //r--; 
+    //cout<<"r:"<<r<<endl;
+    ll ans=0;
+    rep(i,0,N) ans+=a[i]-1;
+    cout<<ans<<endl;
 }
 
 

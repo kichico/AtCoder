@@ -45,9 +45,14 @@ void op(vector<vector<ll>> vec){
 
 
 void solve(){
-    double N;
-    cin>>N;
-    cout<<N/3*N/3*N/3<<endl;
+    map<string,ll> boal;
+    string s,t;
+    cin>>s>>t;
+    cin>>boal[s]>>boal[t];
+    string in;
+    cin>>in;
+    boal[in]--;
+    cout<<boal[s]<<" "<<boal[t]<<endl;
 }
 
 

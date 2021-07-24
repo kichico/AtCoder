@@ -45,9 +45,9 @@ void op(vector<vector<ll>> vec){
 
 
 void solve(){
-    double N;
-    cin>>N;
-    cout<<N/3*N/3*N/3<<endl;
+    ll h1,h2;
+    cin>>h1>>h2;
+    cout<<h1-h2<<endl;
 }
 
 

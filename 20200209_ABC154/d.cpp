@@ -45,9 +45,24 @@ void op(vector<vector<ll>> vec){
 
 
 void solve(){
-    double N;
-    cin>>N;
-    cout<<N/3*N/3*N/3<<endl;
+    ll N,k;
+    cin>>N>>k;
+    double kitaichi=0;
+    vector<ll> a(N);
+    rep(i,0,N) cin>>a[i];
+    map<ll,ll> num;
+    num[0]=0;
+    rep(i,1,1001) num[i]=num[i-1]+i;
+    rep(i,0,k) kitaichi+=(double)num[a[i]]/a[i];
+    double ans=kitaichi;
+    //for(auto x:num) cout<<x.second<<endl;
+    rep(i,k,N) {
+        kitaichi+=(double)num[a[i]]/a[i];
+        kitaichi-=(double)num[a[i-k]]/a[i-k];
+        //cout<<"num["<<i<<"]:"<<num[i]<<endl;
+        ans=max(kitaichi,ans);
+    }  
+    cout<<ans<<endl;
 }
 
 

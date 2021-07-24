@@ -45,9 +45,10 @@ void op(vector<vector<ll>> vec){
 
 
 void solve(){
-    double N;
+    string N,s;
     cin>>N;
-    cout<<N/3*N/3*N/3<<endl;
+    rep(i,0,N.size()) s+="x";
+    cout<<s<<endl; 
 }
 
 

@@ -45,11 +45,33 @@ void op(vector<vector<ll>> vec){
 
 
 void solve(){
-    double N;
+    ll N;
     cin>>N;
-    cout<<N/3*N/3*N/3<<endl;
+    if(N<100) {cout<<"00"<<endl;return;}
+    else if(100<=N&&N<1000){
+        string s="0"+to_string(N);
+        s.pop_back();
+        s.pop_back();
+        cout<<s<<endl;
+        return;
+    }
+    else if(1000<=N&&N<=5000) {
+        cout<<N/100<<endl;
+        return;
+    }
+    else if(6000<=N&&N<=30000){
+        cout<<N/1000+50<<endl;
+        return;
+    }
+    else if(35000<=N&&N<=70000){
+        N/=1000;
+        N-=30;
+        N/=5;
+        cout<<N+80<<endl;
+        return;
+    }
+    else {cout<<89<<endl;return;}
 }
-
 
 int main(void){
     std::cin.tie(nullptr);

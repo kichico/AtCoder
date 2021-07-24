@@ -47,6 +47,24 @@ void op(vector<vector<ll>> vec){
 void solve(){
     ll N;
     cin>>N;
+    vector<ll> a(N);
+    map<ll,ll> num;
+    ll all=0;
+    rep(i,0,N) {
+        cin>>a[i];
+        num[a[i]]++;
+    }
+    for(auto x:num) all+=x.second*(x.second-1)/2;
+    vector<ll> ans(N,0);
+    map<ll,ll> checked;
+    set<ll> checker;
+    rep(i,0,N) {
+        ll now=all;
+        now-=(num[a[i]]*(num[a[i]]-1))/2;
+        now+=(num[a[i]]-1)*(num[a[i]]-2)/2;
+        ans[i]=now;
+    }
+    for(auto x:ans) cout<<x<<endl;
 }
 
 

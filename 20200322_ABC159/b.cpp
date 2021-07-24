@@ -45,8 +45,25 @@ void op(vector<vector<ll>> vec){
 
 
 void solve(){
-    ll N;
-    cin>>N;
+    string s;
+    cin>>s;
+    string r=s;
+    reverse(ALL(s));
+    if(s!=r) {cout<<"No"<<endl;return;}
+    ll fr=(s.size()-1)/2;
+    string t;
+    rep(i,0,fr) t.push_back(s[i]);
+    r=t;
+    reverse(ALL(r));
+    if(r!=t) {cout<<"No"<<endl;return;}
+    fr=(s.size()+3)/2;
+    t="";
+    rep(i,fr-1,s.size()) t.push_back(s[i]);
+    r=t;
+    reverse(ALL(t));
+    if(r!=t) cout<<"No"<<endl;
+    else cout<<"Yes"<<endl;
+
 }
 
 

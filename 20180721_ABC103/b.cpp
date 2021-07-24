@@ -45,9 +45,25 @@ void op(vector<vector<ll>> vec){
 
 
 void solve(){
-    double N;
-    cin>>N;
-    cout<<N/3*N/3*N/3<<endl;
+    string s,t;
+    cin>>s;cin>>t;
+    deque<char> rot;
+    reverse(ALL(t));
+    rep(i,0,s.size()) {
+        rot.push_back(t.back());
+        t.pop_back();
+    }
+    rep(i,0,s.size()){
+        auto n=rot.front();
+        rot.pop_front(); rot.push_back(n);
+        string comp="";
+        rep(j,0,rot.size()) comp.push_back(rot[j]);
+        if(comp==s) {
+            cout<<"Yes"<<endl;
+            return;
+        }
+    }
+    cout<<"No"<<endl;
 }
 
 

@@ -45,9 +45,16 @@ void op(vector<vector<ll>> vec){
 
 
 void solve(){
-    double N;
+    ll N;
     cin>>N;
-    cout<<N/3*N/3*N/3<<endl;
+    set<ll> a;
+    rep(i,0,N) {
+        ll in;
+        cin>>in;
+        a.insert(in);
+    }
+    if(N!=a.size()) cout<<"NO"<<endl;
+    else cout<<"YES"<<endl;
 }
 
 
