@@ -45,8 +45,10 @@ void op(vector<vector<ll>> vec){
 
 
 void solve(){
-    ll N;
-    cin>>N;
+    ll A,B,N;
+    cin>>A>>B>>N;
+    ll left=min(B-1,N);
+    cout<<(A*left)/B<<endl;
 }
 
 

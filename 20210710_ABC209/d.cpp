@@ -42,33 +42,39 @@ void op(vector<vector<ll>> vec){
 
 ll maxcost = 0;
 vector<string> ans; 
-
-struct Edge{
-    ll to,cost;
-    Edge() {}
-    Edge(ll to, ll cost = 0) : to(to), cost(cost) {}
-};
-
-struct WF{
-    grid<Edge> graph;
-    WF(ll n) { graph.resize((size_t)n); }
-    void addEdge(ll from, ll to, ll cost) {
-        graph[from].emplace_back(to, cost);
+struct createGraph{
+    vector<vector<ll>> graph;
+    createGraph(ll N) {
+        graph.resize(N);
     }
-    //cout << "N:" << graph.size() << endl;
-    grid<ll> WarshallFloyd() {
-        ll N = graph.size();
-        grid<ll> dist(N, vector<ll>(N, INF));
-        rep(i, 0, N) {
-            dist[i][i] = 0;
-            rep(j, 0, graph[i].size()) {
-                dist[i][graph[i][j].to] = graph[i][j].cost;
+    void addEdge(ll from, ll to){
+        graph[from].emplace_back(to);
+    }
+    void addEdge(pair<ll,ll> pr){
+        graph[pr.first].emplace_back(pr.second);
+        graph[pr.second].emplace_back(pr.first);
+    }
+    void inputAndAddEdge(ll M){
+        set<pair<ll,ll>> checker;
+        pair<ll,ll> inserter;
+        rep(i,0,M){
+            ll from,to;
+            cin>>from>>to;
+            from--;to--;
+            inserter=make_pair(min(from,to),max(from,to));
+            if(checker.count(inserter)==0) {
+                addEdge(inserter);
+                checker.insert(inserter);
             }
         }
-        rep(k, 0, N) {
-            rep(i, 0, N) rep(j, 0, N) dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j]);
+    }
+    void showGrapgh(){
+        rep(i,0,graph.size()){
+            string out=to_string(i)+":";
+            rep(j,0,graph[i].size()) out+=to_string(graph[i][j])+" ";
+            if(out.back()!=':') out.pop_back();
+            cout<<out<<endl;
         }
-        return dist;
     }
 };
 
@@ -77,24 +83,30 @@ struct WF{
 void solve() {
     ll N, q;
     cin >> N >> q;
-    WF wf(N);
-    rep(i, 0, N-1) {
-        ll a, b;
-        cin >> a >> b;
-        a--; b--;
-        wf.addEdge(a, b, 1);
-        wf.addEdge(b,a,1);
-    }
-    auto res=wf.WarshallFloyd();
-    rep(i,0,q){
+    createGraph g(N);
+    rep(i,0,N-1){
         ll from,to;
         cin>>from>>to;
-        from--;to--;
-        ll dist=res[from][to];
-        if(dist%2==0) ans.push_back("Town");
-        else ans.push_back("Road");
+        auto pr=make_pair(from-1,to-1);
+        g.addEdge(pr);
     }
-    for(auto a:ans) cout<<a<<endl;
+    vector<ll> dist(N,-1);
+    queue<ll> que;
+    dist[0]=0;
+    que.push(0);
+    while(!que.empty()){
+        ll now=que.front();que.pop();
+        for(auto x:g.graph[now]) if(dist[x]==-1) {
+            dist[x]=dist[now]+1;
+            que.push(x);
+        }
+    }
+    rep(i,0,q){
+        ll a,b;
+        cin>>a>>b;a--;b--;
+        if(dist[a]%2!=dist[b]%2) cout<<"Road"<<endl;
+        else cout<<"Town"<<endl;
+    }
 }
 
 
