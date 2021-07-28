@@ -40,43 +40,35 @@ void op(vector<vector<ll>> vec){
 }
 //########################################################################
 
-
+struct hougaku{
+    ll N=0;
+    ll S=0;
+    ll W=0;
+    ll E=0;
+};
 
 
 
 void solve(){
-    ll h,w,k;
-    cin>>h>>w>>k;
-    grid<char> field(h,vector<char>(w,'.'));
-    rep(i,0,h) {
-        string s;
-        cin>>s;
-        rep(j,0,w) field[i][j]=s[j];
+    ll N;
+    cin>>N;
+    vector<ll> a(N);
+    rep(i,0,N) cin>>a[i];
+    set<ll> num;
+    vector<ll> sum(N);
+    vector<ll> current(N);
+    sum[0]=a[0];
+    rep(i,0,N) {
+        num.insert(a[i]);
+        current[i]=*num.rbegin();
+        if(i>0) sum[i]+=sum[i-1]+a[i];
     }
-    set<string> checker;
-    ll ans=0;
-    for(int tmph=0;tmph<(1<<7);++tmph){
-        bitset<6> hori(tmph);
-        for(int tmpw=0;tmpw<(1<<7);++tmpw) {
-            auto nowfield=field;
-            bitset<6> ver(tmpw);
-            //cout<<"hori:"<<hori<<endl;
-            //cout<<"ver:"<<ver<<endl;
-            for(int i=0;i<h;++i) if(ver.test(i)) rep(k,0,w) nowfield[i][k]='R';
-            for(int i=0;i<w;++i) if(hori.test(i)) rep(k,0,h) nowfield[k][i]='R';
-            ll cnt=0;
-            string str;
-            rep(i,0,h) rep(j,0,w) str+=nowfield[i][j];
-            if(checker.count(str)==0) {
-                rep(i,0,str.size()) if(str[i]=='#') cnt++;
-                checker.insert(str);
-            }
-            if(cnt==k) ans++;
-        }
+    vector<ll> ans(N);
+    rep(i,0,N){
+        ans[i]=sum[i]+current[i]*(i+1);
     }
-    cout<<ans<<endl;
+    for(auto x:ans) cout<<x<<endl;
 }
-
 
 int main(void){
     std::cin.tie(nullptr);

@@ -8,7 +8,7 @@ using grid=vector<vector<T>>;
 #define ALL(x) x.begin(),x.end()
 #define rep(iter,from,to) for(ll iter=from;iter<to;++iter)
 
-const ll MOD=1e9+7;
+const ll MOD=998244353;
 const ll INF=1e17;
 //#######################################################################
 vector<vector<ll>> input(ll N, ll width){
@@ -45,35 +45,31 @@ void op(vector<vector<ll>> vec){
 
 
 void solve(){
-    ll h,w,k;
-    cin>>h>>w>>k;
-    grid<char> field(h,vector<char>(w,'.'));
-    rep(i,0,h) {
-        string s;
-        cin>>s;
-        rep(j,0,w) field[i][j]=s[j];
+    ll N,K;
+    cin>>N>>K;
+    vector<set<ll>> card(N);
+    vector<pair<char,ll>> seiyaku(K);
+    rep(i,0,K) {
+        cin>>seiyaku[i].first>>seiyaku[i].second;
+        seiyaku[i].second--;
     }
-    set<string> checker;
-    ll ans=0;
-    for(int tmph=0;tmph<(1<<7);++tmph){
-        bitset<6> hori(tmph);
-        for(int tmpw=0;tmpw<(1<<7);++tmpw) {
-            auto nowfield=field;
-            bitset<6> ver(tmpw);
-            //cout<<"hori:"<<hori<<endl;
-            //cout<<"ver:"<<ver<<endl;
-            for(int i=0;i<h;++i) if(ver.test(i)) rep(k,0,w) nowfield[i][k]='R';
-            for(int i=0;i<w;++i) if(hori.test(i)) rep(k,0,h) nowfield[k][i]='R';
-            ll cnt=0;
-            string str;
-            rep(i,0,h) rep(j,0,w) str+=nowfield[i][j];
-            if(checker.count(str)==0) {
-                rep(i,0,str.size()) if(str[i]=='#') cnt++;
-                checker.insert(str);
+    rep(i,0,N) rep(k,0,K) card[i].emplace(k);
+    rep(i,0,K) {
+        if(seiyaku[i].first=='R') {
+            card[seiyaku[i].second].clear();
+            card[seiyaku[i].second].insert(i);
+            rep(k,seiyaku[i].second+1,N){
+                card[k].erase(i);
             }
-            if(cnt==k) ans++;
+        }
+        else {
+            card[seiyaku[i].second].clear();
+            card[seiyaku[i].second].insert(i);
+            rep(k,0,seiyaku[i].second) card[k].erase(i);
         }
     }
+    ll ans=1;
+    rep(i,0,N) {ans*=card[i].size()%MOD;ans%=MOD;}
     cout<<ans<<endl;
 }
 

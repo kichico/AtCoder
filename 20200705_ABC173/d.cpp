@@ -47,6 +47,16 @@ void op(vector<vector<ll>> vec){
 void solve(){
     ll N;
     cin>>N;
+    vector<ll> a(N),res(2*N);
+    rep(i,0,N) cin>>a[i];
+    sort(ALL(a),greater<ll>());
+    res[0]=a[0];
+    rep(i,1,N) rep(j,0,2) res[2*i+j]=a[i];
+    res.erase(res.begin()+1);
+    ll ans=0;
+    rep(i,0,N-1) ans+=res[i];
+    //op(res);
+    cout<<ans<<endl;
 }
 
 

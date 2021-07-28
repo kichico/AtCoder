@@ -43,35 +43,32 @@ ll N,q;
 
 
 
-int solve(){
+void solve(){
     cin>>N>>q;
+    vector<ll> remain(N);
     vector<ll> a(N);
-    vector<ll> K(q);
     rep(i,0,N) cin>>a[i];
-    rep(i,0,q) cin>>K[i];
+    remain[0]=max((ll)0,a[0]-1);
     vector<ll> res(q);
+    rep(i,1,N) remain[i]=a[i]-a[i-1]-1+remain[i-1];
     rep(i,0,q){
-        ll right=a.size()+1;
-        ll left=0;
-        cout<<"right,left,K[i]:"<<right<<","<<left<<","<<K[i]<<endl;
+        ll x;
+        cin>>x;
+        ll left=0,right=N+1;
         while(right-left>1){
             ll mid=left+(right-left)/2;
-            if(mid>=a.size()) {
-                break;
-            }
-            //cout<<"a[mid]:"<<a[mid]<<endl;
-            if(K[i]>=a[mid]) left=mid;
+            if(mid>=N) break;
+            //cout<<"mid:"<<mid<<endl;
+            //cout<<"remain["<<mid<<"]:"<<remain[mid]<<endl;
+            if(remain[mid]<x) left=mid;
             else right=mid;
         }
-        cout<<"left:"<<left<<endl;
-        if(left==0) res[i]==K[i];
-        else{
-            if(K[i]<a[left]){
-                
-            } 
-        }
+        //cout<<"left:"<<left<<" right:"<<right<<endl;
+        if(left+1==N&&remain[left]<x) res[i]=x+N;
+        else if(remain[left]<x) res[i]=x+right;
+        else res[i]=x+left;
     }
-    return 0;
+    for(auto x:res) cout<<x<<endl;
 }
 
 

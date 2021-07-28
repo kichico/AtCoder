@@ -45,36 +45,26 @@ void op(vector<vector<ll>> vec){
 
 
 void solve(){
-    ll h,w,k;
-    cin>>h>>w>>k;
-    grid<char> field(h,vector<char>(w,'.'));
-    rep(i,0,h) {
+    ll a,b;
+    cin>>a>>b;
+    if(a==b) {
         string s;
-        cin>>s;
-        rep(j,0,w) field[i][j]=s[j];
+        rep(i,0,a) s+=to_string(b);
+        cout<<s<<endl;
+        return;
     }
-    set<string> checker;
-    ll ans=0;
-    for(int tmph=0;tmph<(1<<7);++tmph){
-        bitset<6> hori(tmph);
-        for(int tmpw=0;tmpw<(1<<7);++tmpw) {
-            auto nowfield=field;
-            bitset<6> ver(tmpw);
-            //cout<<"hori:"<<hori<<endl;
-            //cout<<"ver:"<<ver<<endl;
-            for(int i=0;i<h;++i) if(ver.test(i)) rep(k,0,w) nowfield[i][k]='R';
-            for(int i=0;i<w;++i) if(hori.test(i)) rep(k,0,h) nowfield[k][i]='R';
-            ll cnt=0;
-            string str;
-            rep(i,0,h) rep(j,0,w) str+=nowfield[i][j];
-            if(checker.count(str)==0) {
-                rep(i,0,str.size()) if(str[i]=='#') cnt++;
-                checker.insert(str);
-            }
-            if(cnt==k) ans++;
-        }
+    else if(a<b){
+        string s;
+        rep(i,0,b) s+=to_string(a);
+        cout<<s<<endl;
+        return;
     }
-    cout<<ans<<endl;
+    else{
+        string s;
+        rep(i,0,a) s+=to_string(b);
+        cout<<s<<endl;
+        return;
+    }
 }
 
 
