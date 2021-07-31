@@ -45,14 +45,31 @@ void op(vector<vector<ll>> vec){
 
 
 void solve(){
-    ll N,K;
-    cin>>N>>K;
-    vector<ll> a(N);
-    rep(i,0,N) cin>>a[i];
-    vector<ll> res(N-K+1,1);
-    rep(i,K,N){
-        if(a[i]>a[i-K]) cout<<"Yes"<<endl;
-        else cout<<"No"<<endl;
+    ll N;
+    cin>>N;
+    vector<ll> h(N);
+    rep(i,0,N) cin>>h[i];
+    vector<map<ll,ll>> kouho(1);
+    ll iter=0;
+    rep(i,0,N){
+        if(h[i]==0) {
+            iter++;
+            kouho.emplace_back();
+        }
+        else{
+            kouho[iter][h[i]]++;
+        }
+    }
+    ll ans=0;
+    while(true){
+        bool flg=true;
+        rep(i,0,kouho.size()) if(kouho[i].size()!=0) flg=false;
+        if(flg) break;
+        rep(i,0,kouho.size()) {
+            auto mini=*kouho[i].begin();
+            ans+=mini.first;
+        }
+        
     }
 }
 

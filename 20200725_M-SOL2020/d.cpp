@@ -47,6 +47,18 @@ void op(vector<vector<ll>> vec){
 void solve(){
     ll N;
     cin>>N;
+    vector<ll> a(N),dp(N+1);
+    dp[0]=1000;
+    rep(i,0,N) cin>>a[i];
+    rep(i,1,N+1){
+        dp[i]=dp[i-1];
+        rep(j,0,i) {
+            ll v=dp[j]/a[j];
+            ll money=dp[j]+(a[i]-a[j])*v;
+            dp[i]=max(dp[i],money);
+        }
+    }
+    cout<<dp[N-1]<<endl;
 }
 
 

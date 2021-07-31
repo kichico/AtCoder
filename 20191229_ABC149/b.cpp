@@ -45,15 +45,17 @@ void op(vector<vector<ll>> vec){
 
 
 void solve(){
-    ll N,K;
-    cin>>N>>K;
-    vector<ll> a(N);
-    rep(i,0,N) cin>>a[i];
-    vector<ll> res(N-K+1,1);
-    rep(i,K,N){
-        if(a[i]>a[i-K]) cout<<"Yes"<<endl;
-        else cout<<"No"<<endl;
+    ll takahashi,aoki,k;
+    cin>>takahashi>>aoki>>k;
+    if(k<takahashi){
+        takahashi-=k;
+        cout<<takahashi<<" "<<aoki<<endl;
+        return;
     }
+    k-=takahashi;
+    takahashi=0;
+    if(k>0) aoki=max((ll)0,aoki-k);
+    cout<<takahashi<<" "<<aoki<<endl;
 }
 
 

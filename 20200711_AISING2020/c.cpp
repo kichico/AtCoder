@@ -45,15 +45,16 @@ void op(vector<vector<ll>> vec){
 
 
 void solve(){
-    ll N,K;
-    cin>>N>>K;
-    vector<ll> a(N);
-    rep(i,0,N) cin>>a[i];
-    vector<ll> res(N-K+1,1);
-    rep(i,K,N){
-        if(a[i]>a[i-K]) cout<<"Yes"<<endl;
-        else cout<<"No"<<endl;
+    ll N;
+    cin>>N;
+    ll lim=101;
+    vector<ll> ans(2*N,0);
+    rep(x,1,lim) rep(y,1,lim) rep(z,1,lim){
+        ll f=x*x+y*y+z*z+x*z+x*y+z*y;
+        //cout<<"x,y,z:"<<x<<" "<<y<<" "<<z<<endl;
+        if(f<=N) ans[f-1]++;
     }
+    rep(i,0,N) cout<<ans[i]<<endl;
 }
 
 

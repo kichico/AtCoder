@@ -45,15 +45,33 @@ void op(vector<vector<ll>> vec){
 
 
 void solve(){
-    ll N,K;
-    cin>>N>>K;
-    vector<ll> a(N);
-    rep(i,0,N) cin>>a[i];
-    vector<ll> res(N-K+1,1);
-    rep(i,K,N){
-        if(a[i]>a[i-K]) cout<<"Yes"<<endl;
-        else cout<<"No"<<endl;
+    ll N,seigen;
+    cin>>N>>seigen;
+    map<char,ll> hand;
+    vector<char> c{'r','s','p'};
+    rep(i,0,3){
+        ll v;
+        hand.emplace(c[i],v);
     }
+    string s;
+    cin>>s;
+    ll ans=0;
+    rep(i,0,3){
+        ll current=0;
+        ll met=0;
+        rep(j,0,N) if(c[i]==s[j]) {current=j;break;}
+        if(current=N-1) break;
+        ll cnt=1;
+        rep(j,current+1,N){
+            if(c[i]==s[j]){
+                cnt++;
+                if(s[j]!=[])
+            }
+        }
+    }
+    string t;
+    cin>>t;
+
 }
 
 

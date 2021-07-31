@@ -45,15 +45,11 @@ void op(vector<vector<ll>> vec){
 
 
 void solve(){
-    ll N,K;
-    cin>>N>>K;
-    vector<ll> a(N);
-    rep(i,0,N) cin>>a[i];
-    vector<ll> res(N-K+1,1);
-    rep(i,K,N){
-        if(a[i]>a[i-K]) cout<<"Yes"<<endl;
-        else cout<<"No"<<endl;
-    }
+    ll l,r,k;
+    cin>>l>>r>>k;
+    ll ans=0;
+    rep(i,l,r+1) if(i%k==0) ans++;
+    cout<<ans<<endl;
 }
 
 

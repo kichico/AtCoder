@@ -45,15 +45,10 @@ void op(vector<vector<ll>> vec){
 
 
 void solve(){
-    ll N,K;
-    cin>>N>>K;
-    vector<ll> a(N);
-    rep(i,0,N) cin>>a[i];
-    vector<ll> res(N-K+1,1);
-    rep(i,K,N){
-        if(a[i]>a[i-K]) cout<<"Yes"<<endl;
-        else cout<<"No"<<endl;
-    }
+    vector<ll> sankaku(3);
+    rep(i,0,3) cin>>sankaku[i];
+    sort(ALL(sankaku));
+    cout<<sankaku[0]*sankaku[1]/2<<endl;
 }
 
 
