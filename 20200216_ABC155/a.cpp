@@ -48,8 +48,13 @@ struct grid{
 //#########################################################################
 
 void solve(){
-    ll N;
-    cin>>N;
+    set<ll> num;
+    ll h,w;
+    rep(i,0,3){
+        ll x; cin>>x;
+        num.emplace(x);
+    }
+    twoText(num.size()==2);
 }
 
 

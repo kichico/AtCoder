@@ -3,12 +3,27 @@ using namespace std;
 using ll=int64_t;
 using ld=long double;
 using ull=unsigned long long;
+template <class T>
+using grid=vector<vector<T>>;
 #define ALL(x) x.begin(),x.end()
 #define rep(iter,from,to) for(ll iter=from;iter<to;++iter)
 
 const ll MOD=1e9+7;
 const ll INF=1e17;
 //#######################################################################
+vector<vector<ll>> input(ll N, ll width){
+    string str;
+    vector<vector<ll>> vec(N,vector<ll>(width));
+    for(ll i=0;i<N;++i){
+        cin>>str;
+        reverse(ALL(str));
+        for(ll j=0;j<width;++j){
+            vec[i][j]=str.back();
+            str.pop_back();
+        }
+    }
+    return vec;
+}
 void op(vector<ll> vec){
     ll size=(ll)vec.size();
     for(ll i=0;i<size-1;++i) cout<<vec[i]<<" ";
@@ -23,33 +38,29 @@ void op(vector<vector<ll>> vec){
         cout<<vec[i].back()<<endl;
     }
 }
+//########################################################################
 
-void twoText(bool identifier, string outTrue, string outFalse) {
-    if (identifier) cout << outTrue << endl;
-    else cout << outFalse << endl;
-}
-
-void twoText(bool identifier){
-    if(identifier) cout<<"Yes"<<endl;
-    else cout<<"No"<<endl;
-}
-
-void counter(ll& num,ll& increaser,bool checker){
-    if(checker) num+=increaser;
-}
-
-template <class T>
-struct grid{
-    vector<vector<T>> field;
-    grid(ll height,ll width){field=vector<vector<T>>(height,vector<T>(width,(T)0));}
-    input(){rep(i,0,field.size()) rep(j,0,field[i].size()) cin>>field[i][j];}
+struct store{
+    string name;
+    ll score;
+    ll num;
 };
 
-//#########################################################################
+bool compare(const store& fr, const store& se){
+    if(fr.name!=se.name) return fr.name<se.name;
+    else return fr.score>se.score;
+}
 
 void solve(){
     ll N;
     cin>>N;
+    vector<store> s(N);
+    rep(i,0,N){
+        cin>>s[i].name>>s[i].score;
+        s[i].num=i+1;
+    }
+    sort(ALL(s),compare);
+    for(auto x:s) cout<<x.num<<endl;
 }
 
 
