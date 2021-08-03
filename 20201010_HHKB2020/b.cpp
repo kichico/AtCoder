@@ -48,21 +48,16 @@ struct grid{
 //#########################################################################
 
 void solve(){
-    ll x,y,a,b;
-    cin>>x>>y>>a>>b;
-    ll now=x;
-    ll cnt=0;
-    while(now<y) {
-        if(now*a<=1e18+1&&now*a<y&&now*a<=now+b) {now*=a;cnt++;}
-        else break;
-    }
-    if(now+b<y){
-        ll avail=(y-now+b-1)/b;
-        cnt+=avail;
-        if(now+b*avail==y) cnt--;
-    }
-    cout<<cnt<<endl;
-    
+    ll h,w;
+    cin>>h>>w;
+    vector<ll> dx{1,0,-1,0},dy{0,1,0,-1};
+    grid<char> room(h,w);
+    room.input();
+    ll ans=0;
+    auto g=room.field;
+    rep(i,0,h) rep(j,0,w-1) if(g[i][j]=='.'&&g[i][j+1]=='.') ans++;
+    rep(i,0,h-1) rep(j,0,w) if(g[i][j]=='.'&&g[i+1][j]=='.') ans++;
+    cout<<ans<<endl;
 }
 
 

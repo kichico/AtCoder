@@ -48,21 +48,20 @@ struct grid{
 //#########################################################################
 
 void solve(){
-    ll x,y,a,b;
-    cin>>x>>y>>a>>b;
-    ll now=x;
-    ll cnt=0;
-    while(now<y) {
-        if(now*a<=1e18+1&&now*a<y&&now*a<=now+b) {now*=a;cnt++;}
-        else break;
+    ll N;
+    cin>>N;
+    set<ll> beki;
+    ll ini=2;
+    if(N==1) {cout<<1<<endl;return;}
+    while(ini<40){
+        ll v=ini;
+        while(v*ini<=N) {
+            beki.emplace(v*ini);
+            v*=ini;
+        }
+        ini++;
     }
-    if(now+b<y){
-        ll avail=(y-now+b-1)/b;
-        cnt+=avail;
-        if(now+b*avail==y) cnt--;
-    }
-    cout<<cnt<<endl;
-    
+    cout<<*beki.rbegin()<<endl;
 }
 
 

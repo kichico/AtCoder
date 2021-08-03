@@ -42,7 +42,7 @@ template <class T>
 struct grid{
     vector<vector<T>> field;
     grid(ll height,ll width){field=vector<vector<T>>(height,vector<T>(width,(T)0));}
-    input(){rep(i,0,field.size()) rep(j,0,field[i].size()) cin>>field[i][j];}
+    void input(){rep(i,0,field.size()) rep(j,0,field[i].size()) cin>>field[i][j];}
 };
 
 //#########################################################################
