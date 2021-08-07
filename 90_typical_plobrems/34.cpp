@@ -48,8 +48,28 @@ struct grid{
 //#########################################################################
 
 void solve(){
-    ll N;
-    cin>>N;
+    ll N,K;
+    cin>>N>>K;
+    vector<ll> a(N);
+    rep(i,0,N) cin>>a[i];
+    map<ll,ll> cnt;
+    ll len=0;
+    ll left=0,right=0;
+    while(right!=N-1){
+        if((cnt.count(a[right])==0&&cnt.size()<K)||(cnt.count(a[right])!=0)){
+            cnt[a[right]]++;
+            right++;
+        }
+        else{
+            left++;
+            cnt[a[left]]--;
+            if(cnt[a[left]]==0) cnt.erase(a[left]);
+        }
+        if(left!=0) len=max(len,right-left);
+        else len=max(len,right-left+1);
+        //cout<<"left:"<<left<<" right:"<<right<<endl;
+    }
+    cout<<len<<endl;
 }
 
 

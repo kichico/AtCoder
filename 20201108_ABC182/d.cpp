@@ -47,6 +47,14 @@ void op(vector<vector<ll>> vec){
 void solve(){
     ll N;
     cin>>N;
+    vector<ll> a(N);
+    vector<ll> eachmove(N);
+    rep(i,0,N) cin>>a[i];
+    eachmove[0]=a[0];
+    ll dist=0;
+    rep(i,1,N) eachmove[i]=eachmove[i-1]+a[i];
+    rep(i,0,N) dist=max(dist+eachmove[i],dist); 
+    cout<<dist<<endl;
 }
 
 

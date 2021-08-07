@@ -48,8 +48,9 @@ struct grid{
 //#########################################################################
 
 void solve(){
-    ll N;
-    cin>>N;
+    ll s,w;
+    cin>>s>>w;
+    twoText(s>w,"safe","unsafe");
 }
 
 

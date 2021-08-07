@@ -50,6 +50,11 @@ struct grid{
 void solve(){
     ll N;
     cin>>N;
+    ll ans=0;
+    ll now=0;
+    while(now+500<=N){now+=500;ans+=1000;}
+    while(now+5<=N){now+=5;ans+=5;}
+    cout<<ans<<endl;
 }
 
 

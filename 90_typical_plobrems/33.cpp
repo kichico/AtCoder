@@ -48,8 +48,12 @@ struct grid{
 //#########################################################################
 
 void solve(){
-    ll N;
-    cin>>N;
+    ll h,w;
+    cin>>h>>w;
+    if(h==1||w==1) {cout<<h*w<<endl;return;}
+    ll hl=(h+1)/2;
+    ll wl=(w+1)/2;
+    cout<<hl*wl<<endl;
 }
 
 

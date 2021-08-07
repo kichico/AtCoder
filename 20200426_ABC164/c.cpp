@@ -50,6 +50,12 @@ struct grid{
 void solve(){
     ll N;
     cin>>N;
+    set<string> gacha;
+    rep(i,0,N) {
+        string s;cin>>s;
+        gacha.emplace(s);
+    }
+    cout<<gacha.size()<<endl;
 }
 
 

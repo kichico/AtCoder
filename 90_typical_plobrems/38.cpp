@@ -47,9 +47,20 @@ struct grid{
 
 //#########################################################################
 
+ll gcd(ll a,ll b){
+    if(b==0) return a;
+    else return gcd(b,a%b);
+}
+
+ll lcm(ll a,ll b){ return a/gcd(a,b)*b;}
+
 void solve(){
-    ll N;
-    cin>>N;
+    ll a,b;
+    cin>>a>>b;
+    ll lim=1e18;
+    ll r=b/(gcd(a,b));
+    if(r>lim/a) cout<<"Large"<<endl;
+    else cout<<r*a<<endl;
 }
 
 

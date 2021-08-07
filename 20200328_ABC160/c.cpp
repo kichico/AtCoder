@@ -48,8 +48,19 @@ struct grid{
 //#########################################################################
 
 void solve(){
-    ll N;
-    cin>>N;
+    ll lake,N;
+    cin>>lake>>N;
+    vector<ll> a(N);
+    rep(i,0,N) cin>>a[i];
+    vector<ll> dist(N);
+    rep(i,0,N) {
+        if(i==0) dist[i]=a[0]+lake-a.back();
+        else dist[i]=a[i]-a[i-1];
+    }
+    ll ans=INF;
+    rep(i,0,N) ans=min(ans,lake-dist[i]);
+    cout<<ans<<endl; 
+
 }
 
 

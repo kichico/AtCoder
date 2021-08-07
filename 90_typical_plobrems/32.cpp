@@ -44,12 +44,38 @@ struct grid{
     grid(ll height,ll width){field=vector<vector<T>>(height,vector<T>(width,(T)0));}
     void input(){rep(i,0,field.size()) rep(j,0,field[i].size()) cin>>field[i][j];}
 };
-
+ll N;
 //#########################################################################
 
+
+
 void solve(){
-    ll N;
     cin>>N;
+    grid<ll> p(N,N);
+    p.input();
+    auto person=p.field;
+    ll M;cin>>M;
+    vector<set<ll>> rumor(N);
+    rep(i,0,M){
+        ll x,y;cin>>x>>y;x--;y--;
+        rumor[x].insert(y);
+        rumor[y].insert(x);
+    }
+    vector<ll> runner(N);
+    rep(i,0,N) runner[i]=i;
+    ll ans=INF;
+    do{
+        ll time=0;
+        bool flg=true;
+        rep(i,0,N-1) if(rumor[runner[i]].count(runner[i+1])==1) flg=false;
+        if(!flg) continue;
+        rep(i,0,N) time+=person[runner[i]][i];
+        //op(runner);
+        //cout<<"time:"<<time<<endl;
+        ans=min(ans,time); 
+    }while(next_permutation(ALL(runner)));
+    if(ans!=INF) cout<<ans<<endl;
+    else cout<<-1<<endl;
 }
 
 

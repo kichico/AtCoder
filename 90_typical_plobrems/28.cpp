@@ -41,15 +41,39 @@ void counter(ll& num,ll& increaser,bool checker){
 template <class T>
 struct grid{
     vector<vector<T>> field;
-    grid(ll height,ll width){field=vector<vector<T>>(height,vector<T>(width,(T)0));}
+    grid(ll height,ll width){field=vector<vector<T>>(height,vector<T>(width));}
     void input(){rep(i,0,field.size()) rep(j,0,field[i].size()) cin>>field[i][j];}
 };
 
 //#########################################################################
+struct position{
+    ll x;
+    ll y;
+    position operator-(){
+        this->x-=1;
+        this->y-=1;
+        return *this;
+    }
+};
 
 void solve(){
     ll N;
     cin>>N;
+    ll h=1001,w=1001;
+    grid<set<ll>> p(h,w);
+    auto paper=p.field;
+    rep(i,0,N){
+        position left,right;
+        cin>>left.x>>left.y>>right.x>>right.y;
+        //left.x--;left.y--;right.x--;right.y--;
+        rep(x,left.x,right.x) rep(y,left.y,right.y){
+            paper[y][x].emplace(i);
+        }
+    }
+    vector<ll> s(N);
+    rep(i,0,N) rep(i,0,h) rep(j,0,w){
+        
+    } 
 }
 
 

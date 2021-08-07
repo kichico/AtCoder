@@ -48,8 +48,16 @@ struct grid{
 //#########################################################################
 
 void solve(){
-    ll N;
-    cin>>N;
+    ll N,x,y;
+    cin>>N>>x>>y;
+    x--;y--;
+    vector<ll> ans(N-1,0);
+    rep(i,0,N-1) rep(j,i+1,N){
+        ll dist=0;
+        dist=min(abs(j-i),abs(x-i)+1+abs(y-j));
+        ans[dist-1]++;
+    }
+    for(auto x:ans) cout<<x<<endl;
 }
 
 
