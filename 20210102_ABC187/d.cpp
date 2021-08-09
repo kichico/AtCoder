@@ -47,10 +47,22 @@ void op(vector<vector<ll>> vec){
 void solve(){
     ll N;
     cin>>N;
-    vector<pair<ll,ll>> kouho(N);
+    vector<ll> t(N),a(N);
+    ll X=0;
     rep(i,0,N) {
-        
+        cin>>a[i]>>t[i];
+        X-=a[i];
     }
+    vector<ll> diff(N);
+    rep(i,0,N) diff[i]=2*a[i]+t[i];
+    sort(ALL(diff));
+    ll ans=0;
+    while(X<=0) {
+        X+=diff.back();
+        diff.pop_back();
+        ans++;
+    }
+    cout<<ans<<endl;
 }
 
 

@@ -45,33 +45,55 @@ void op(vector<vector<ll>> vec){
 
 
 void solve(){
-    ll N,seigen;
-    cin>>N>>seigen;
-    map<char,ll> hand;
-    vector<char> c{'r','s','p'};
-    rep(i,0,3){
-        ll v;
-        hand.emplace(c[i],v);
-    }
+    ll N, K;
+    cin >> N >> K;
+    vector<ll> score(3);
+    rep(i, 0, 3) cin >> score[i];
     string s;
-    cin>>s;
-    ll ans=0;
-    rep(i,0,3){
-        ll current=0;
-        ll met=0;
-        rep(j,0,N) if(c[i]==s[j]) {current=j;break;}
-        if(current=N-1) break;
-        ll cnt=1;
-        rep(j,current+1,N){
-            if(c[i]==s[j]){
-                cnt++;
-                if(s[j]!=[])
-            }
+    cin >> s;
+    ll ans = 0;
+    string dashita;
+    rep(i, 0, K) {
+        if (s[i] == 'r') {
+            ans += score[2];
+            dashita.push_back('p');
+        }
+        else if (s[i] == 's') {
+            ans += score[0];
+            dashita.push_back('r');
+        }
+        else {
+            ans += score[1];
+            dashita.push_back('s');
         }
     }
-    string t;
-    cin>>t;
-
+    rep(i, K, N) {
+        if (s[i] == 'r') {
+            if (s[i] == s[i - K] && dashita[i - K] == 'p') {
+                dashita.push_back(s[i]);
+                continue;
+            }
+            ans += score[2];
+            dashita.push_back('p');
+        }
+        else if (s[i] == 's') {
+            if (s[i] == s[i - K] && dashita[i - K] == 'r') {
+                dashita.push_back(s[i]);
+                continue;
+            }
+            ans += score[0];
+            dashita.push_back('r');
+        }
+        else {
+            if (s[i] == s[i - K] && dashita[i - K] == 's') {
+                dashita.push_back(s[i]);
+                continue;
+            }
+            ans += score[1];
+            dashita.push_back('s');
+        }
+    }
+    cout << ans << endl;
 }
 
 
