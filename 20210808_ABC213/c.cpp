@@ -56,13 +56,27 @@ void solve(){
     ll h,w;
     ll N;
     cin>>h>>w>>N;
-    vector<pair<ll,ll>> card(N);
-    rep(i,0,N) cin>>card[i].first>>card[i].second;
-    sort(ALL(card));
-    ll cnt=0;
-    rep(i,0,N) {
-        card[i].first-=card[i]
+    vector<ll> vv(N),hv(N);
+    set<ll> all;
+    map<ll,ll> converter;
+    rep(i,0,N) cin>>vv[i]>>hv[i];
+    rep(i,0,N) all.insert(vv[i]);
+    auto it=all.begin();
+    rep(i,0,all.size()) {
+        converter.emplace(*it,i+1);
+        it++;
     }
+    rep(i,0,N) vv[i]=converter[vv[i]];
+    set<ll> hall;
+    rep(i,0,N) hall.insert(hv[i]);
+    it=hall.begin();
+    converter.clear();
+    rep(i,0,hall.size()) {
+        converter.emplace(*it,i+1);
+        it++;
+    }
+    rep(i,0,N) hv[i]=converter[hv[i]];
+    rep(i,0,N) cout<<vv[i]<<" "<<hv[i]<<endl;
 }
 
 

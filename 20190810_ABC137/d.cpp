@@ -5,7 +5,7 @@ using ld=long double;
 using ull=unsigned long long;
 #define ALL(x) x.begin(),x.end()
 #define rep(iter,from,to) for(ll iter=from;iter<to;++iter)
- 
+
 const ll MOD=1e9+7;
 const ll INF=1e17;
 //#######################################################################
@@ -14,7 +14,7 @@ void op(vector<ll> vec){
     for(ll i=0;i<size-1;++i) cout<<vec[i]<<" ";
     cout<<vec.back()<<endl;
 }
- 
+
 void op(vector<vector<ll>> vec){
     ll height=(ll)vec.size();
     ll width=(ll)vec[0].size();
@@ -23,60 +23,36 @@ void op(vector<vector<ll>> vec){
         cout<<vec[i].back()<<endl;
     }
 }
- 
+
 void twoText(bool identifier, string outTrue, string outFalse) {
     if (identifier) cout << outTrue << endl;
     else cout << outFalse << endl;
 }
- 
+
 void twoText(bool identifier){
     if(identifier) cout<<"Yes"<<endl;
     else cout<<"No"<<endl;
 }
- 
+
 void counter(ll& num,ll& increaser,bool checker){
     if(checker) num+=increaser;
 }
- 
+
 template <class T>
 struct grid{
     vector<vector<T>> field;
     grid(ll height,ll width){field=vector<vector<T>>(height,vector<T>(width,(T)0));}
     void input(){rep(i,0,field.size()) rep(j,0,field[i].size()) cin>>field[i][j];}
 };
- 
+
 //#########################################################################
- 
+
 void solve(){
     ll N;
     cin>>N;
-    vector<ll> a(N);
-    rep(i,0,N) cin>>a[i];
-    if(N==1) {
-        cout<<a[0]<<endl;
-        return;
-    }
-    ll ans=INF;
-    rep(tmp,0,1<<20){
-        bitset<20> flg{tmp};
-        vector<vector<ll>> v(1);
-        ll total=0;
-        rep(i,0,N-1){
-            v.back().emplace_back(a[i]);
-            if(flg.test(i)) v.emplace_back();
-        }
-        v.back().emplace_back(a.back());
-        rep(i,0,v.size()){
-            ll current=0;
-            rep(j,0,v[i].size()) current|=v[i][j];
-            total^=current;
-        }
-        ans=min(ans,total);
-    }
-    cout<<ans<<endl;
 }
- 
- 
+
+
 int main(void){
     std::cin.tie(nullptr);
 	std::ios_base::sync_with_stdio(false);
