@@ -48,30 +48,13 @@ struct grid{
 //#########################################################################
 
 void solve(){
-    ll N,K;
-    cin>>N>>K;
-    vector<ll> a(N);
-    rep(i,0,N) cin>>a[i];
-    map<ll,ll> now;
-    multiset<ll> current;
-    ll left=0;
-    ll longest=1;
-    rep(i,0,N){
-        now[a[i]]++;
-        current.emplace(a[i]);
-        ll len=0;
-        ll cnt=0;
-        if(now.size()>K) rep(j,left,i+1) {
-            if(now.size()>K) {
-                now[a[j]]--;
-                left++;
-                if(now[a[j]]==0) now.erase(a[j]);
-                current.erase(current.find(a[j]));
-            }
-        }
-        longest=max((ll)current.size(),longest);
+    ll s,t;
+    cin>>s>>t;
+    ll ans=0;
+    rep(a,0,101) rep(b,0,101) rep(c,0,101)  {
+        if(a+b+c<=s&&a*b*c<=t) ans++;
     }
-    cout<<longest<<endl;
+    cout<<ans<<endl;
 }
 
 

@@ -50,7 +50,19 @@ struct grid{
 void solve(){
     ll N;
     cin>>N;
-    
+    ll num=9;
+    ll ans=0;
+    rep(i,0,11113){
+        string s=to_string(num);
+        ll sum=0;
+        rep(k,0,s.size()) sum+=s[i]-'0';
+        if(sum==N){
+            ans++;
+            ans%=MOD;
+        }
+        num*=9;
+    }
+    cout<<ans%MOD<<endl;
 }
 
 
