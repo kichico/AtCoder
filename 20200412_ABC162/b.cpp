@@ -46,41 +46,17 @@ struct grid{
 };
 
 //#########################################################################
-bool isPrime(ll Num){
-    ll root=sqrt(Num);
-    if(Num==0||Num==1) return false;
-    for(ll i=2;i<=root;++i) if(Num%i==0) return false;
-    return true;
-}
-ll gcd(ll a,ll b){
-    if(b==0) return a;
-    else return gcd(b,a%b);
-}
 
 void solve(){
     ll N;
     cin>>N;
-    vector<ll> x(N);
-    vector<ll> con;
-    rep(i,0,N) {
-        cin>>x[i];
+    ll ans=0;
+    rep(i,1,N+1) {
+        if(i%3==0||i%5==0) continue;
+        else ans+=i;
     }
-    rep(i,2,51) if(isPrime(i)) con.emplace_back(i); 
-    ll ans=INF;
-    set<ll> v;
-    rep(tmp,0,1<<16){
-        bitset<16> s{tmp};
-        ll Y=1;
-        rep(i,0,con.size()) if(s.test(i)) Y*=con[i];
-        //cout<<"Y:"<<Y<<endl;
-        bool flg=false;
-        rep(i,0,x.size()) if(gcd(x[i],Y)==1) flg=true;
-        if(flg) continue;
-        if(Y>1) v.emplace(Y);
-    }
-    if(v.size()!=0) cout<<*v.begin()<<endl;
-    else cout<<x[0]<<endl;
-}  
+    cout<<ans<<endl;
+}
 
 
 int main(void){

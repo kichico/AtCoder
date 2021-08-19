@@ -46,41 +46,38 @@ struct grid{
 };
 
 //#########################################################################
-bool isPrime(ll Num){
-    ll root=sqrt(Num);
-    if(Num==0||Num==1) return false;
-    for(ll i=2;i<=root;++i) if(Num%i==0) return false;
-    return true;
-}
-ll gcd(ll a,ll b){
-    if(b==0) return a;
-    else return gcd(b,a%b);
-}
 
 void solve(){
-    ll N;
-    cin>>N;
-    vector<ll> x(N);
-    vector<ll> con;
+    ll N,q;
+    cin>>N>>q;
+    vector<ll> a(N+1),diff(N,0);
+    ll sum=0;
     rep(i,0,N) {
-        cin>>x[i];
+        cin>>a[i];
+        if(i!=0) {
+            diff[i]=a[i]-a[i-1];
+            sum+=diff[i];
+        }
     }
-    rep(i,2,51) if(isPrime(i)) con.emplace_back(i); 
-    ll ans=INF;
-    set<ll> v;
-    rep(tmp,0,1<<16){
-        bitset<16> s{tmp};
-        ll Y=1;
-        rep(i,0,con.size()) if(s.test(i)) Y*=con[i];
-        //cout<<"Y:"<<Y<<endl;
-        bool flg=false;
-        rep(i,0,x.size()) if(gcd(x[i],Y)==1) flg=true;
-        if(flg) continue;
-        if(Y>1) v.emplace(Y);
+    vector<ll> R(q),L(q),V(q);
+    rep(i,0,q){
+        cin>>R[i]>>L[i]>>V[i];
+        R[i]--;L[i]--;
     }
-    if(v.size()!=0) cout<<*v.begin()<<endl;
-    else cout<<x[0]<<endl;
-}  
+    vector<ll> ans(q);
+    rep(i,0,q){
+        ll left=0;
+        ll before=0,after=0;
+        if(L[i]!=0) left=L[i]-1; 
+        if(L[i]-1>0) diff[L[i]-1]+=V[i];
+        if(R[i]<N) diff[R[i]]-=V[i];
+        ll after=abs(diff[L[i]-1])+
+
+    }
+    rep(i,0,q) cout<<ans[i]<<endl;
+
+
+}
 
 
 int main(void){
