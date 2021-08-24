@@ -39,26 +39,29 @@ void op(vector<vector<ll>> vec){
     }
 }
 //########################################################################
-ll gcd(ll a,ll b){
-    if(b==0) return a;
-    else return gcd(b,a%b);
+bool comp(const pair<ll,ll>& fr,const pair<ll,ll>& se){
+    if(fr.second!=se.second) return fr.second<se.second;
+    else return fr.first<se.first;
 }
-
 
 
 
 void solve(){
-    ll a,b;
-    cin>>a>>b;
-    ll na=a;
-    if(gcd(a,b)==1) {
-        cout<<1<<endl;
-        return;
+    ll N;
+    cin>>N;
+    vector<pair<ll,ll>> work(N);
+    rep(i,0,N)  cin>>work[i].first>>work[i].second;
+    sort(ALL(work),comp);
+    ll now=0;
+    rep(i,0,N){
+        now+=work[i].first;
+        if(now>work[i].second) {
+            cout<<"No"<<endl;
+            return;
+        }
     }
-    while(na+a<=b) na+=a;
-    cout<<gcd(a,na)<<endl;
+    cout<<"Yes"<<endl;
 }
-
 
 int main(void){
     std::cin.tie(nullptr);

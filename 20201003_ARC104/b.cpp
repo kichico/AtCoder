@@ -42,11 +42,21 @@ void op(vector<vector<ll>> vec){
 
 
 
-
-
 void solve(){
-    ll N;
-    cin>>N;
+    ll len; string s;
+    cin>>len>>s;
+    ll ans=0;
+    rep(i,0,len-1) {
+        ll at=0, gc=0;
+        rep(j,i,len) {
+            if(s[j]=='A') ++at;
+            else if(s[j]=='T') --at;
+            else if(s[j]=='G') ++gc;
+            else --gc;
+            if(at==0&&gc==0) ans++;
+        }
+    }
+    cout<<ans<<endl;
 }
 
 

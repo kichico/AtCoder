@@ -3,27 +3,12 @@ using namespace std;
 using ll=int64_t;
 using ld=long double;
 using ull=unsigned long long;
-template <class T>
-using grid=vector<vector<T>>;
 #define ALL(x) x.begin(),x.end()
 #define rep(iter,from,to) for(ll iter=from;iter<to;++iter)
 
 const ll MOD=1e9+7;
 const ll INF=1e17;
 //#######################################################################
-vector<vector<ll>> input(ll N, ll width){
-    string str;
-    vector<vector<ll>> vec(N,vector<ll>(width));
-    for(ll i=0;i<N;++i){
-        cin>>str;
-        reverse(ALL(str));
-        for(ll j=0;j<width;++j){
-            vec[i][j]=str.back();
-            str.pop_back();
-        }
-    }
-    return vec;
-}
 void op(vector<ll> vec){
     ll size=(ll)vec.size();
     for(ll i=0;i<size-1;++i) cout<<vec[i]<<" ";
@@ -38,25 +23,34 @@ void op(vector<vector<ll>> vec){
         cout<<vec[i].back()<<endl;
     }
 }
-//########################################################################
-ll gcd(ll a,ll b){
-    if(b==0) return a;
-    else return gcd(b,a%b);
+
+void twoText(bool identifier, string outTrue, string outFalse) {
+    if (identifier) cout << outTrue << endl;
+    else cout << outFalse << endl;
 }
 
+void twoText(bool identifier){
+    if(identifier) cout<<"Yes"<<endl;
+    else cout<<"No"<<endl;
+}
 
+void counter(ll& num,ll& increaser,bool checker){
+    if(checker) num+=increaser;
+}
 
+template <class T>
+struct grid{
+    vector<vector<T>> field;
+    grid(ll height,ll width){field=vector<vector<T>>(height,vector<T>(width,(T)0));}
+    void input(){rep(i,0,field.size()) rep(j,0,field[i].size()) cin>>field[i][j];}
+};
+
+//#########################################################################
 
 void solve(){
-    ll a,b;
-    cin>>a>>b;
-    ll na=a;
-    if(gcd(a,b)==1) {
-        cout<<1<<endl;
-        return;
-    }
-    while(na+a<=b) na+=a;
-    cout<<gcd(a,na)<<endl;
+    vector<ll> a(3);
+    rep(i,0,3) cin>>a[i];
+    cout<<a[2]<<" "<<a[0]<<" "<<a[1]<<endl;
 }
 
 

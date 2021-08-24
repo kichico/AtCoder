@@ -39,24 +39,28 @@ void op(vector<vector<ll>> vec){
     }
 }
 //########################################################################
-ll gcd(ll a,ll b){
-    if(b==0) return a;
-    else return gcd(b,a%b);
-}
+
 
 
 
 
 void solve(){
-    ll a,b;
-    cin>>a>>b;
-    ll na=a;
-    if(gcd(a,b)==1) {
-        cout<<1<<endl;
-        return;
+    ll N;
+    cin>>N;
+    vector<pair<ll,ll>> a(N);
+    rep(i,0,N) {
+        cin>>a[i].first;
+        a[i].second=i+1;
     }
-    while(na+a<=b) na+=a;
-    cout<<gcd(a,na)<<endl;
+    ll ans=0;
+    rep(i,0,N-1){
+        if(a[i].first==a[i].second) {
+            swap(a[i].first,a[i+1].first);
+            ans++;
+        }
+    }
+    if(a.back().first==a.back().second) ans++;
+    cout<<ans<<endl;
 }
 
 
