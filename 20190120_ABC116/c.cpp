@@ -1,41 +1,41 @@
 ﻿#include "bits/stdc++.h"
 using namespace std;
-using ll=int64_t;
-using ld=long double;
-using ull=unsigned long long;
+using ll = int64_t;
+using ld = long double;
+using ull = unsigned long long;
 template <class T>
-using grid=vector<vector<T>>;
+using grid = vector<vector<T>>;
 #define ALL(x) x.begin(),x.end()
 #define rep(iter,from,to) for(ll iter=from;iter<to;++iter)
 
-const ll MOD=1e9+7;
-const ll INF=1e17;
+const ll MOD = 1e9 + 7;
+const ll INF = 1e17;
 //#######################################################################
-vector<vector<ll>> input(ll N, ll width){
+vector<vector<ll>> input(ll N, ll width) {
     string str;
-    vector<vector<ll>> vec(N,vector<ll>(width));
-    for(ll i=0;i<N;++i){
-        cin>>str;
+    vector<vector<ll>> vec(N, vector<ll>(width));
+    for (ll i = 0; i < N; ++i) {
+        cin >> str;
         reverse(ALL(str));
-        for(ll j=0;j<width;++j){
-            vec[i][j]=str.back();
+        for (ll j = 0; j < width; ++j) {
+            vec[i][j] = str.back();
             str.pop_back();
         }
     }
     return vec;
 }
-void op(vector<ll> vec){
-    ll size=(ll)vec.size();
-    for(ll i=0;i<size-1;++i) cout<<vec[i]<<" ";
-    cout<<vec.back()<<endl;
+void op(vector<ll> vec) {
+    ll size = (ll)vec.size();
+    for (ll i = 0; i < size - 1; ++i) cout << vec[i] << " ";
+    cout << vec.back() << endl;
 }
 
-void op(vector<vector<ll>> vec){
-    ll height=(ll)vec.size();
-    ll width=(ll)vec[0].size();
-    for(ll i=0;i<height;++i) {
-        for(ll j=0;j<width-1;++j) cout<<vec[i][j]<<" ";
-        cout<<vec[i].back()<<endl;
+void op(vector<vector<ll>> vec) {
+    ll height = (ll)vec.size();
+    ll width = (ll)vec[0].size();
+    for (ll i = 0; i < height; ++i) {
+        for (ll j = 0; j < width - 1; ++j) cout << vec[i][j] << " ";
+        cout << vec[i].back() << endl;
     }
 }
 //########################################################################
@@ -44,39 +44,33 @@ void op(vector<vector<ll>> vec){
 
 
 
-void solve(){
-    ll N;
-    cin>>N;
-    vector<ll> h(N);
-    rep(i,0,N) cin>>h[i];
-    vector<map<ll,ll>> kouho(1);
-    ll iter=0;
-    rep(i,0,N){
-        if(h[i]==0) {
-            iter++;
-            kouho.emplace_back();
+void solve() {
+    ll N; cin >> N;
+    vector<ll> h(N); rep(i, 0, N) cin >> h[i];
+    ll ans = 0;
+    while (true) {
+        vector<vector<pair<ll, ll>>> e(1);
+        rep(i, 0, N) {
+            if (h[i] != 0) e.back().emplace_back(h[i], i);
+            else e.emplace_back();
         }
-        else{
-            kouho[iter][h[i]]++;
+        bool flg = true; rep(i, 0, e.size()) if (e[i].size() != 0) flg = false;
+        if (flg) break;
+        rep(i, 0, e.size()) {
+            if (e[i].size() == 0) continue;
+            sort(ALL(e[i]));
+            ll mi = e[i].front().first;
+            rep(j, 0, e[i].size()) h[e[i][j].second] -= mi;
+            ans += mi;
         }
     }
-    ll ans=0;
-    while(true){
-        bool flg=true;
-        rep(i,0,kouho.size()) if(kouho[i].size()!=0) flg=false;
-        if(flg) break;
-        rep(i,0,kouho.size()) {
-            auto mini=*kouho[i].begin();
-            ans+=mini.first;
-        }
-        
-    }
+    cout << ans << endl;
 }
 
 
-int main(void){
+int main(void) {
     std::cin.tie(nullptr);
-	std::ios_base::sync_with_stdio(false);
-	std::cout << std::fixed << std::setprecision(15);
-	solve();
+    std::ios_base::sync_with_stdio(false);
+    std::cout << std::fixed << std::setprecision(15);
+    solve();
 }

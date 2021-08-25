@@ -40,13 +40,41 @@ void op(vector<vector<ll>> vec){
 }
 //########################################################################
 
-
+struct UnionFind {
+    vector<ll> parents;
+    UnionFind(int size) { parents.assign(size, -1); }
+    ll findRoot(ll x) {
+        if (parents[x] < 0) return x;
+        return parents[x] = findRoot(parents[x]);
+    }
+    bool unite(ll x, ll y) {
+        x = findRoot(x);
+        y = findRoot(y);
+        if (x == y) return false;
+        if (parents[x] > parents[y]) swap(x, y);
+        parents[x] += parents[y];
+        parents[y] = x;
+        return true;
+    }
+    ll size(ll x) { return -parents[findRoot(x)]; }
+    bool isSameGroup(ll x, ll y) { return findRoot(x) == findRoot(y); }
+};
 
 
 
 void solve(){
-    ll N;
-    cin>>N;
+    ll N,M;
+    cin>>N>>M;
+    ll ans=N-1;
+    UnionFind uf(N);
+    rep(i,0,M){
+        ll a,b; cin>>a>>b; a--;b--;
+        if(!uf.isSameGroup(a,b)) {
+            uf.unite(a,b);
+            ans--;
+        }
+    }
+    cout<<ans<<endl;
 }
 
 

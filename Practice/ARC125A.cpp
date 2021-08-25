@@ -50,24 +50,47 @@ struct grid {
 //#########################################################################
  
 void solve() {
-    string s; cin>>s;
-    vector<ll> ans(s.size()+2,0);
-    ll N=s.size();
-    rep(i,0,N){
-        if(i==0&&s[i]=='<') ans[0]=0;
-        else if(i!=0||i!=N-1){
-            if(s[i-1]=='>'&&s[i]=='<') ans[i]=0;
+    ll N, M; cin >> N >> M;
+    vector<ll> t(M);
+    vector<ll> s;
+    set<ll> cs, ct;
+    rep(i, 0, N) {
+        ll v; cin >> v;
+        s.push_back(v);
+        cs.emplace(v);
+    }
+    rep(i, 0, M) { cin >> t[i]; ct.emplace(t[i]); }
+    if (cs.size() == 1 && *cs.begin() != *ct.begin()) { cout << -1 << endl; return; }
+    else if (cs.size() == 1 && ct.size() == 2) { cout << -1 << endl; return; }
+    ll cur = 0;
+    ll cnt = 0;
+    ll ans = 1;
+    while (true) {
+        ++cnt;
+        ll nowa = cur + cnt;
+        ll nowb = cur - cnt;
+        if (nowb < 0) nowb += N;
+        if (nowa >= N) nowa -= N;
+        if (s[nowa] != s[0]) break;
+        else if (s[nowb] != s[0]) break;
+    }
+    ll dist = cnt;
+    bool flg = false;
+    if (t[0] != s[0]) {
+        ans += dist;
+        flg = true;
+    }
+    ll now = t[0];
+    rep(i, 1, M) {
+        if (t[i] != now && !flg) {
+            ans += dist + 1;
+            flg = true;
         }
+        else if (t[i] != now) ans += 2;
+        else ans++;
+        now = t[i];
     }
-    if(s.back()=='>') ans.back()=0;
-    rep(i,0,N){
-        if(s[i]=='<') ans[i+1]=max(ans[i+1],ans[i]+1);
-    }
-    rep(i,0,N) {
-        ll now=N-i-1;
-        if(s[now]=='>') ans[now]=max(ans[now+1]+1,ans[now]);
-    }
-    cout<<accumulate(ALL(ans),ll(0))<<endl;
+    cout << ans << endl;
 }
  
  
