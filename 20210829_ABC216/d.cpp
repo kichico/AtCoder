@@ -48,20 +48,53 @@ struct grid{
 //#########################################################################
 
 void solve(){
-    ll N; string s;
-    cin>>N>>s;
-    vector<char> ref{'a','i','u','e','o'};
-    rep(i,0,N-2){
-        string now=s.substr(i,3);
-        rep(j,0,5) {
-            string check;
-            check.push_back(ref[j]);
-            check.push_back('x');
-            check.push_back(ref[j]);
-            if(now==check) rep(k,i,i+3) s[k]='.';
+    ll N,M;
+    cin>>N>>M;
+    vector<queue<ll>> que(M);
+    vector<vector<ll>> pos(N+1);
+    rep(i,0,M){
+        ll v;cin>>v;
+        rep(j,0,v){
+            ll boal; cin>>boal;
+            que[i].push(boal);
+            pos[boal].push_back(i);
         }
     }
-    cout<<s<<endl;
+    map<ll,ll> cnt;
+    rep(i,0,M) cnt[que[i].front()]++;
+    ll init=-1;
+    ll num=0;
+    queue<ll> cand;
+    for(auto x:cnt) if(x.second>1) {
+        init=x.first;
+        cand.push(init);
+    }
+    if(init==-1) {cout<<"No"<<endl; return;}
+    rep(i,0,N){
+        init=cand.front(); cand.pop();
+        ll a=pos[init][0];
+        ll b=pos[init][1];
+        cnt.erase(init);
+        if(!que[a].empty()) que[a].pop();
+        if(!que[b].empty()) que[b].pop();
+        ll av,bv;
+        if(!que[a].empty()) {
+            av=que[a].front();
+            cnt[av]++;
+            if(cnt[av]==2) cand.push(av);
+        }
+        if(!que[b].empty()) {
+            bv=que[b].front();
+            cnt[bv]++;
+            if(cnt[bv]==2) cand.push(bv);
+        }
+        //if(!cand.empty()) cout<<"next:"<<cand.front()<<endl;
+        if(cand.empty()&&i!=N-1) {
+            cout<<"No"<<endl;
+            return;
+        }
+    }
+    cout<<"Yes"<<endl;
 }
 
 

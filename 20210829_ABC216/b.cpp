@@ -48,20 +48,20 @@ struct grid{
 //#########################################################################
 
 void solve(){
-    ll N; string s;
-    cin>>N>>s;
-    vector<char> ref{'a','i','u','e','o'};
-    rep(i,0,N-2){
-        string now=s.substr(i,3);
-        rep(j,0,5) {
-            string check;
-            check.push_back(ref[j]);
-            check.push_back('x');
-            check.push_back(ref[j]);
-            if(now==check) rep(k,i,i+3) s[k]='.';
-        }
+    ll N;
+    cin>>N;
+    map<string,ll> name;
+    rep(i,0,N){
+        string s,t;
+        cin>>s>>t;
+        string x=s+"&"+t;
+        name[x]++;
     }
-    cout<<s<<endl;
+    for(auto x:name) if(x.second>1) {
+        cout<<"Yes"<<endl;
+        return;
+    }
+    cout<<"No"<<endl;
 }
 
 

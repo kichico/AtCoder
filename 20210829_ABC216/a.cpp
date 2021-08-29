@@ -48,26 +48,21 @@ struct grid{
 //#########################################################################
 
 void solve(){
-    ll N; string s;
-    cin>>N>>s;
-    vector<char> ref{'a','i','u','e','o'};
-    rep(i,0,N-2){
-        string now=s.substr(i,3);
-        rep(j,0,5) {
-            string check;
-            check.push_back(ref[j]);
-            check.push_back('x');
-            check.push_back(ref[j]);
-            if(now==check) rep(k,i,i+3) s[k]='.';
-        }
-    }
-    cout<<s<<endl;
+    ll x,y;
+    string t; cin>>t;
+    y=t.back()-'0';
+    t.pop_back(); t.pop_back();
+    string s=t;
+    if(y<=2) s+="-";
+    else if(7<=y) s+="+";
+    cout<<s<<endl;  
+
 }
 
 
 int main(void){
     std::cin.tie(nullptr);
-	std::ios_base::sync_with_stdio(false);
-	std::cout << std::fixed << std::setprecision(15);
-	solve();
+    std::ios_base::sync_with_stdio(false);
+    std::cout << std::fixed << std::setprecision(15);
+    solve();
 }

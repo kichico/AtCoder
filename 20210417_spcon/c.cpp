@@ -6,7 +6,7 @@ using ull=unsigned long long;
 typedef vector<vector<ll>> grid;
 typedef vector<vector<bool>> gridbool;
 #define ALL(x) x.begin(),x.end()
-#define rep(i,N) for(ll i=0;i<N;++i)
+#define rep(i,from,N) for(ll i=from;i<N;++i)
 
 const ll MOD=1e9+7;
 //#######################################################################
@@ -43,10 +43,14 @@ void op(vector<vector<ll>> vec){
 
 
 
-int solve(){
-    ll N;
-    cin>>N;
-    return 0;
+void solve(){
+    ll a,b; cin>>a>>b;
+    ll ans=1;
+    rep(gcd,1,b+1){
+        ll cnt=b/gcd-(a-1)/gcd;
+        if(cnt>1) ans=gcd;
+    }
+    cout<<ans<<endl;
 }
 
 
