@@ -47,7 +47,6 @@ int solve(){
     cout<<size<<endl;
     ll num1=(str[size-2]-'0');
     ll num2=(str[size-1]-'0');
-    cout<<"debug"<<endl;
     ll num=num1+num2-100;
     cout<<-num<<endl;
     return 0;
