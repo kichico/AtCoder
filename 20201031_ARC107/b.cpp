@@ -42,11 +42,14 @@ void op(vector<vector<ll>> vec){
 
 
 
-
-
 void solve(){
-    ll N;
-    cin>>N;
+    ll N,K;
+    cin>>N>>K;
+    ll ans=0;
+    rep(X,-2*N,2*N){
+        ll Y=X-K;
+
+    }
 }
 
 

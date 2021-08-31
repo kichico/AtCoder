@@ -39,30 +39,26 @@ void op(vector<vector<ll>> vec){
     }
 }
 //########################################################################
+ll tax;
 
-
-
+ll f(ll x){
+    ll v=(100+tax)*x;
+    return v/100;
+}
 
 
 void solve(){
-    ll tax,N;
-    cin>>tax>>N;
-    ll diff=0;
-    ll v=(int)floor((double)(100+tax)/100*1);
-    ll now=1;
-    ll newv=1;
-    while(diff<=1){
-        v=newv;
-        now++;
-        newv=(int)floor((double)(100+tax)/100*now);
-        diff=newv-v;
-    }
-    ll iter=v+1;
-    ll ans=0;
-    rep(i,0,N) ans+=iter;
-    if(N%tax!=0) ans+=N/tax;
-    else ans+=N/tax-1;
-    cout<<ans<<endl;
+    ll N; cin>>tax>>N;
+    N--;
+    set<ll> cnt;
+    vector<ll> notappeared;
+    rep(x,0,101) cnt.emplace(f(x));
+    rep(i,1,100+tax+1) if(cnt.find(i)==cnt.end()) notappeared.emplace_back(i);
+    ll len=notappeared.size();
+    ll to=N/len;
+    ll amari=N%len;
+    ll v=to*(100+tax)+notappeared[amari];
+    cout<<v<<endl;
 }
 
 int main(void){

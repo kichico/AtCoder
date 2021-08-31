@@ -3,27 +3,12 @@ using namespace std;
 using ll=int64_t;
 using ld=long double;
 using ull=unsigned long long;
-template <class T>
-using grid=vector<vector<T>>;
 #define ALL(x) x.begin(),x.end()
 #define rep(iter,from,to) for(ll iter=from;iter<to;++iter)
 
 const ll MOD=1e9+7;
 const ll INF=1e17;
 //#######################################################################
-vector<vector<ll>> input(ll N, ll width){
-    string str;
-    vector<vector<ll>> vec(N,vector<ll>(width));
-    for(ll i=0;i<N;++i){
-        cin>>str;
-        reverse(ALL(str));
-        for(ll j=0;j<width;++j){
-            vec[i][j]=str.back();
-            str.pop_back();
-        }
-    }
-    return vec;
-}
 void op(vector<ll> vec){
     ll size=(ll)vec.size();
     for(ll i=0;i<size-1;++i) cout<<vec[i]<<" ";
@@ -38,37 +23,42 @@ void op(vector<vector<ll>> vec){
         cout<<vec[i].back()<<endl;
     }
 }
-//########################################################################
 
+void twoText(bool identifier, string outTrue, string outFalse) {
+    if (identifier) cout << outTrue << endl;
+    else cout << outFalse << endl;
+}
 
+void twoText(bool identifier){
+    if(identifier) cout<<"Yes"<<endl;
+    else cout<<"No"<<endl;
+}
 
+void counter(ll& num,ll& increaser,bool checker){
+    if(checker) num+=increaser;
+}
 
+template <class T>
+struct grid{
+    vector<vector<T>> field;
+    grid(ll height,ll width){field=vector<vector<T>>(height,vector<T>(width,(T)0));}
+    void input(){rep(i,0,field.size()) rep(j,0,field[i].size()) cin>>field[i][j];}
+};
 
-int solve(){
+//#########################################################################
+
+void solve(){
     ll N;
     cin>>N;
-    vector<ll> dish(N);
-    ll range1=0,range2=0;
-    vector<ll> one,two;
-    rep(i,0,N) cin>>dish[i];
-    sort(ALL(dish));
-    while(!dish.empty()){
-        if(range1<=range2) {range1+=dish.back();one.push_back(dish.back());}
-        else {range2+=dish.back();two.push_back(dish.back());}
-        dish.pop_back();
-        if(dish.empty()) break;
-        else {
-            if(range1<=range2) {range1+=dish.back();one.push_back(dish.back());}
-            else {range2+=dish.back();two.push_back(dish.back());}
-            dish.pop_back();
-        }
+    vector<ll> dish(N); rep(i,0,N) cin>>dish[i];
+    ll sum=accumulate(ALL(dish),0);
+    sort(ALL(dish),greater<ll>());
+    vector<vector<ll>> dp(N+1,vector<ll>(sum/2+1,(ll)0));
+    rep(i,0,N) rep(j,0,sum/2+1){
+        if(j-dish[i]>=0) dp[i+1][j]=max(dp[i][j-dish[i]]+dish[i],dp[i][j]);
+        else dp[i+1][j]=dp[i][j];
     }
-    cout<<"1 sum:"<<range1<<">";
-    op(one);
-    cout<<"2 sum:"<<range2<<">";
-    op(two);
-    cout<<max(range1,range2)<<endl;
-    return 0;
+    cout<<sum-dp[N][sum/2]<<endl;
 }
 
 

@@ -6,7 +6,7 @@ using ull=unsigned long long;
 #define ALL(x) x.begin(),x.end()
 #define rep(iter,from,to) for(ll iter=from;iter<to;++iter)
 
-const ll MOD=1e9+7;
+const ll MOD=1;
 const ll INF=1e17;
 //#######################################################################
 void op(vector<ll> vec){
@@ -46,23 +46,53 @@ struct grid{
 };
 
 //#########################################################################
+ll lim=300001;
+vector<ll> fac_n(lim);
+vector<ll> fac_k(lim);
+
+ll modpow(ll x, ll n){
+    ll ans=1;
+    while(n>0) {
+        if(n&1) ans=ans*x%MOD;
+        x=x*x%MOD;
+        n>>=1;
+    }
+    return ans;
+}
+
+ll com(ll n, ll k, vector<ll> fac_n,vector<ll> fac_k){
+    if(n==0&&k==0) return 1;
+    if(n<k||n<0) return 0;
+    ll value=fac_k[n-k]*fac_k[k]%MOD;
+    return value*fac_n[n]%MOD;
+}
+
+
 
 void solve(){
-    ll N;cin>>N;
-    if(N<3) {cout<<0<<endl;return;}
-    vector<ll> dp(N+1);
-    dp[0]=1,dp[1]=0,dp[2]=0;
-    rep(i,3,N+1){
-        dp[i]=dp[i-1]+dp[i-3];
-        dp[i]%=MOD;
+    ll N;
+    cin>>N;
+    set<ll> cand;
+    string ref="MARCH";
+    fac_n[0]=1;
+    fac_k[0]=1;
+    for(ll i=0;i<lim-1;++i){
+        fac_n[i+1]=fac_n[i]*(i+1)%MOD;
+        fac_k[i+1]=fac_k[i]*modpow(i+1,MOD-2)%MOD;
     }
-    cout<<dp[N]%MOD<<endl;
+
+    rep(i,0,N){
+        string s; cin>>s;
+        rep(j,0,5) if(s[0]==ref[j]) cand.emplace(s);
+    }
+    ll ans=com(cand.size(),3,fac_n,fac_k);
+    cout<<ans<<endl;
 }
 
 
 int main(void){
     std::cin.tie(nullptr);
-    std::ios_base::sync_with_stdio(false);
-    std::cout << std::fixed << std::setprecision(15);
-    solve();
+	std::ios_base::sync_with_stdio(false);
+	std::cout << std::fixed << std::setprecision(15);
+	solve();
 }
