@@ -6,7 +6,7 @@ using ull=unsigned long long;
 #define ALL(x) x.begin(),x.end()
 #define rep(iter,from,to) for(ll iter=from;iter<to;++iter)
 
-const ll MOD=998244353;
+const ll MOD=1e9+7;
 const ll INF=1e17;
 //#######################################################################
 void op(vector<ll> vec){
@@ -46,38 +46,19 @@ struct grid{
 };
 
 //#########################################################################
-ll modpow(ll x, ll n){
-    ll ans=1;
-    while(n>0) {
-        if(n&1) ans=ans*x%MOD;
-        x=x*x%MOD;
-        n>>=1;
-    }
-    return ans;
-}
 
 void solve(){
     ll N;
     cin>>N;
-    ll ans=0;
-    vector<ll> sum(N);
-    vector<ll> a(N); rep(i,0,N) { 
-        cin>>a[i]; 
-        if(i==0) sum[i]=a[i];
-        else sum[i]=sum[i-1]+a[i];
+    vector<ll> b(N-1); rep(i,0,N-1) cin>>b[i];
+    vector<ll> a(N,0);
+    ll sum=0;
+    a[N-1]=b[N-2];
+    for(ll i=N-2;i>=0;--i){
+        a[i]=min(b[i],b[i-1]);
     }
-    vector<ll> lenv(N);
-    rep(i,0,N) {
-        if(i==0) lenv[i]=modpow(2,i);
-        else lenv[i]=lenv[i-1]+modpow(2,i);
-    }
-    sort(ALL(a));
-    op(a);
-    rep(i,1,N-1){
-        
-    }
-    cout<<ans<<endl;
-    cout<<206521341<<endl;
+    rep(i,0,N) sum+=a[i];
+    cout<<sum<<endl;
 }
 
 

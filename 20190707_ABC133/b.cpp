@@ -6,7 +6,7 @@ using ull=unsigned long long;
 #define ALL(x) x.begin(),x.end()
 #define rep(iter,from,to) for(ll iter=from;iter<to;++iter)
 
-const ll MOD=998244353;
+const ll MOD=1e9+7;
 const ll INF=1e17;
 //#######################################################################
 void op(vector<ll> vec){
@@ -46,38 +46,23 @@ struct grid{
 };
 
 //#########################################################################
-ll modpow(ll x, ll n){
-    ll ans=1;
-    while(n>0) {
-        if(n&1) ans=ans*x%MOD;
-        x=x*x%MOD;
-        n>>=1;
-    }
-    return ans;
-}
 
 void solve(){
-    ll N;
-    cin>>N;
+    ll N,D;
+    cin>>N>>D;
+    set<ll> nijyou;
+    rep(i,1,130) nijyou.emplace(i*i);
+    vector<vector<ll>> pos(N,vector<ll>(D,0));
+    rep(i,0,N) rep(j,0,D) cin>>pos[i][j];
     ll ans=0;
-    vector<ll> sum(N);
-    vector<ll> a(N); rep(i,0,N) { 
-        cin>>a[i]; 
-        if(i==0) sum[i]=a[i];
-        else sum[i]=sum[i-1]+a[i];
-    }
-    vector<ll> lenv(N);
-    rep(i,0,N) {
-        if(i==0) lenv[i]=modpow(2,i);
-        else lenv[i]=lenv[i-1]+modpow(2,i);
-    }
-    sort(ALL(a));
-    op(a);
-    rep(i,1,N-1){
-        
+    rep(i,0,N-1){
+        rep(j,i+1,N){
+            ll dist=0;
+            rep(k,0,D) dist+=pow(abs(pos[i][k]-pos[j][k]),2);
+            if(nijyou.find(dist)!=nijyou.end()) ans++;
+        }
     }
     cout<<ans<<endl;
-    cout<<206521341<<endl;
 }
 
 
