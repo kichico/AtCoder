@@ -5,8 +5,6 @@ using ld=long double;
 using ull=unsigned long long;
 #define ALL(x) x.begin(),x.end()
 #define rep(iter,from,to) for(ll iter=from;iter<to;++iter)
-#define fore(variable,container) for(auto variable:container)
-#define forc(variable,container) for(auto variable:container) cout<<variable<<endl;
 
 const ll MOD=1e9+7;
 const ll INF=1e17;
@@ -50,8 +48,12 @@ struct grid{
 //#########################################################################
 
 void solve(){
-    ll N;
-    cin>>N;
+    set<string> ss;
+    ss.emplace("ABC"); ss.emplace("AHC"); ss.emplace("ARC"); ss.emplace("AGC");
+    rep(i,0,3){
+        string s; cin>>s; ss.erase(s);
+    }
+    cout<<*ss.begin()<<endl;
 }
 
 

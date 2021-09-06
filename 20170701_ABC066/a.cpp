@@ -50,8 +50,9 @@ struct grid{
 //#########################################################################
 
 void solve(){
-    ll N;
-    cin>>N;
+    ll a,b,c;
+    cin>>a>>b>>c;
+    cout<<min(a+b,min(b+c,c+a))<<endl;
 }
 
 

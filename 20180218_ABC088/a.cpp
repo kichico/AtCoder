@@ -52,6 +52,9 @@ struct grid{
 void solve(){
     ll N;
     cin>>N;
+    ll ichi; cin>>ichi;
+    N%=500;
+    twoText(N<=ichi);
 }
 
 

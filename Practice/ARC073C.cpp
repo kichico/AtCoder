@@ -50,8 +50,17 @@ struct grid{
 //#########################################################################
 
 void solve(){
-    ll N;
-    cin>>N;
+    ll N,T;
+    cin>>N>>T;
+    ll spend=0;
+    vector<ll> a(N); rep(i,0,N) cin>>a[i];
+    spend+=T;
+    rep(i,1,N){
+        ll sec=a[i]-a[i-1];
+        if(a[i-1]+T>=a[i]) spend+=sec;
+        else spend+=T;
+    }
+    cout<<spend<<endl;
 }
 
 

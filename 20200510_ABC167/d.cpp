@@ -45,8 +45,21 @@ void op(vector<vector<ll>> vec){
 
 
 void solve(){
-    ll N;
-    cin>>N;
+    ll N,K;
+    cin>>N>>K;
+    vector<ll> a(N); rep(i,0,N) { cin>>a[i]; a[i]--;}
+    ll logK=1;
+    while((1LL<<logK)<=K) logK++;
+    vector<vector<ll>> doubling(logK,vector<ll>(N));
+    rep(i,0,N) doubling[0][i]=a[i];
+    rep(i,0,logK-1) rep(j,0,N) doubling[i+1][j]=doubling[i][doubling[i][j]];
+    ll now=0;
+    for(ll i=0;K>0;++i){
+        if(K&1) now+=doubling[i][now];
+        K=K>>1;
+        cout<<now+1<<endl;
+    }
+    cout<<now+1<<endl;
 }
 
 

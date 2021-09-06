@@ -5,8 +5,6 @@ using ld=long double;
 using ull=unsigned long long;
 #define ALL(x) x.begin(),x.end()
 #define rep(iter,from,to) for(ll iter=from;iter<to;++iter)
-#define fore(variable,container) for(auto variable:container)
-#define forc(variable,container) for(auto variable:container) cout<<variable<<endl;
 
 const ll MOD=1e9+7;
 const ll INF=1e17;
@@ -48,10 +46,59 @@ struct grid{
 };
 
 //#########################################################################
+struct UnionFind {
+    vector<ll> parents;
+    set<ll> roots;
+    vector<set<ll>> member;
+    UnionFind(int size) { 
+        parents.assign(size, -1);
+        member=vector<set<ll>>(size);
+        rep(i,0,size) {
+            roots.emplace(i);
+            member[i].emplace(i);
+        }
+    }
+    ll findRoot(ll x) {
+        if (parents[x] < 0) return x;
+        return parents[x] = findRoot(parents[x]);
+    }
+    bool unite(ll x, ll y) {
+        x = findRoot(x);
+        y = findRoot(y);
+        if (x == y) return false;
+        if (parents[x] > parents[y]) swap(x, y);
+        parents[x] += parents[y];
+        parents[y] = x;
+        roots.erase(y);
+        for(auto i:member[y]) member[x].emplace(i);
+        member[y].clear();
+        return true;
+    }
+    ll size(ll x) { return -parents[findRoot(x)]; }
+    bool isSameGroup(ll x, ll y) { return findRoot(x) == findRoot(y); }
+    ll getGroups() { return roots.size(); }
+    vector<ll> getMembers(ll x) { 
+        vector<ll> v(ALL(member[findRoot(x)]));
+        return v; 
+    }
+};
+
 
 void solve(){
-    ll N;
-    cin>>N;
+    string s;
+    cin>>s;
+    ll N=s.size();
+    UnionFind uf(N);
+    char initc=s[0];
+    ll now=0;
+    rep(i,1,s.size()){
+        if(initc==s[i]) uf.unite(now,i);
+        else {
+            initc=s[i];
+            now=i;
+        }
+    }
+    cout<<uf.getGroups()-1<<endl;
 }
 
 

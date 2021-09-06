@@ -48,10 +48,32 @@ struct grid{
 };
 
 //#########################################################################
+struct Vegetable{
+    ll r;
+    ll c;
+    ll from; ll to; ll value;
+};
+
+bool comp(Vegetable& fr,Vegetable& se){return fr.value>se.value;}
+
+struct Actions{
+
+};
 
 void solve(){
-    ll N;
-    cin>>N;
+    ll N,M,T;
+    cin>>N>>M>>T;
+    vector<Vegetable> vege;
+    rep(i,0,N){
+        cin>>vege[i].r>>vege[i].c>>vege[i].from>>vege[i].to>>vege[i].value;
+    }
+    ll next=0;
+    ll rest=0;
+    vector<string> ans(T);
+    rep(t,0,T){
+        if(vege[next].from==t) next++;
+        rest=next[] 
+    }
 }
 
 

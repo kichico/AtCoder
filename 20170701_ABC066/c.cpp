@@ -52,6 +52,22 @@ struct grid{
 void solve(){
     ll N;
     cin>>N;
+    vector<ll> a(N); rep(i,0,N) cin>>a[i];
+    deque<ll> fr,se;
+    rep(i,0,N){
+        if(i==0){
+            fr.push_back(a[i]);
+            se.push_back(a[i]);
+        }
+        else{
+            fr.push_back(a[i]);
+            se.push_front(a[i]);
+            swap(fr,se);
+        }
+    }
+    for(auto x:fr) cout<<x<<" ";
+    cout<<"\n";
+        
 }
 
 

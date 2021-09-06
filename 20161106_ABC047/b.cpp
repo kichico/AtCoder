@@ -5,8 +5,6 @@ using ld=long double;
 using ull=unsigned long long;
 #define ALL(x) x.begin(),x.end()
 #define rep(iter,from,to) for(ll iter=from;iter<to;++iter)
-#define fore(variable,container) for(auto variable:container)
-#define forc(variable,container) for(auto variable:container) cout<<variable<<endl;
 
 const ll MOD=1e9+7;
 const ll INF=1e17;
@@ -50,8 +48,23 @@ struct grid{
 //#########################################################################
 
 void solve(){
-    ll N;
-    cin>>N;
+    ll w,h,N;
+    cin>>w>>h>>N;
+    ll x0=0;
+    ll y0=0;
+    rep(i,0,N){
+        ll x,y; cin>>x>>y;
+        ll a; cin>>a;
+        if(a==1) x0=max(x,x0);
+        else if(a==2) w=min(x,w);
+        else if(a==3) y0=max(y,y0);
+        else h=min(y,h);
+    }
+    if(h<y0||w<x0) {
+        cout<<0<<endl;
+        return;
+    }
+    cout<<max((h-y0)*(w-x0),(ll)0)<<endl;
 }
 
 

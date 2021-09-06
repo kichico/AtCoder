@@ -52,6 +52,17 @@ struct grid{
 void solve(){
     ll N;
     cin>>N;
+    vector<ll> a(N); rep(i,0,N) cin>>a[i];
+    sort(ALL(a));
+    ll al=0,bob=0;
+    while (!a.empty()){
+        al+=a.back();
+        a.pop_back();
+        if(a.empty()) break;
+        bob+=a.back();
+        a.pop_back();
+    }
+    cout<<al-bob<<endl;
 }
 
 

@@ -50,8 +50,23 @@ struct grid{
 //#########################################################################
 
 void solve(){
-    ll N;
-    cin>>N;
+    grid<ll> f(3,3);
+    f.input();
+    auto area=f.field;
+    rep(a1,0,101) rep(a2,0,101) rep(a3,0,101){
+        vector<ll> a{a1,a2,a3};
+        vector<set<ll>> b(3);
+        rep(i,0,3) rep(j,0,3){
+            b[j].emplace(area[i][j]-a[i]);
+        }
+        bool flg=true;
+        rep(i,0,3) if(b[i].size()!=1) flg=false;
+        if(flg){
+            cout<<"Yes"<<endl;
+            return;
+        }
+    }
+    cout<<"No"<<endl;
 }
 
 

@@ -50,8 +50,23 @@ struct grid{
 //#########################################################################
 
 void solve(){
-    ll N;
-    cin>>N;
+    string s;
+    cin>>s;
+    s.pop_back();
+    string ans;
+    while(s.length()>1){
+        if(s.length()%2==1) {
+            s.pop_back();
+            continue;
+        }
+        string t=s.substr(s.length()/2);
+        string k=s.substr(0,s.length()/2);
+        if(t==k) {
+            cout<<s.length()<<endl;
+            return;
+        }
+        else s.pop_back();
+    }
 }
 
 

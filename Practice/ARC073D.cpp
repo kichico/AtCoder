@@ -50,8 +50,17 @@ struct grid{
 //#########################################################################
 
 void solve(){
-    ll N;
-    cin>>N;
+    ll N,W;cin>>N>>W;
+    vector<ll> w(N),v(N);
+    rep(i,0,N) cin>>w[i]>>v[i];
+    vector<vector<ll>> dp(N+1,vector<ll>(W+1,0));
+    rep(i,0,W+1) dp[0][i]=0;
+    rep(i,0,N) rep(we,0,W){
+        if(we+w[i]<=W&&we-w[i]>=0) dp[i+1][we]=max(dp[i][we],dp[i][we-w[i]]+v[i]);
+        else dp[i+1][we]=dp[i][we];
+    }
+    op(dp);
+    cout<<dp[N][W]<<endl;
 }
 
 
