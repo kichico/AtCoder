@@ -5,6 +5,8 @@ using ld=long double;
 using ull=unsigned long long;
 #define ALL(x) x.begin(),x.end()
 #define rep(iter,from,to) for(ll iter=from;iter<to;++iter)
+#define fore(variable,container) for(auto variable:container)
+#define forc(variable,container) for(auto variable:container) cout<<variable<<endl;
 
 const ll MOD=1e9+7;
 const ll INF=1e17;
@@ -85,32 +87,24 @@ struct UnionFind {
 
 
 void solve(){
-    ll N;
-    cin>>N;
-    UnionFind uf(N);
-    vector<pair<ll,ll>> xp(N),yp(N);
-    rep(i,0,N) {
-        cin>>xp[i].first>>yp[i].first;
-        xp[i].second=yp[i].second=i;
+    ll N,M;
+    cin>>N>>M;
+    vector<pair<ll,ll>> p(M);
+    rep(i,0,M) {
+        pair<ll,ll> pp; cin>>pp.first>>pp.second;
+        pp.first--; pp.second--;
+        p[i]=pp;
     }
-    sort(ALL(xp)); sort(ALL(yp));
-    vector<tuple<ll,ll,ll>> edges;
-    rep(i,0,N-1){
-        edges.emplace_back(make_tuple(xp[i+1].first-xp[i].first,xp[i].second,xp[i+1].second));
-        edges.emplace_back(make_tuple(yp[i+1].first-yp[i].first,yp[i].second,yp[i+1].second));
-    }
-    sort(ALL(edges));
-    ll sum=0;
-    for(auto edge:edges){
-        ll cost,x,y;
-        tie(cost,x,y)=edge;
-        if(!uf.isSameGroup(x,y)) {
-            uf.unite(x,y);
-            sum+=cost;
+    ll ans=0;
+    rep(i,0,M){
+        UnionFind uf(N);
+        rep(j,0,M){
+            if(i==j) continue;
+            uf.unite(p[j].first,p[j].second);
         }
-        if(uf.getGroups()==1) break;
+        if(uf.size(0)!=N) ans++;
     }
-    cout<<sum<<endl;
+    cout<<ans<<endl;
 }
 
 
