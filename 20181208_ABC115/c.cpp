@@ -54,13 +54,11 @@ void solve(){
     cin>>N>>K;
     vector<ll> h(N); rep(i,0,N) cin>>h[i];
     sort(ALL(h));
-    vector<ll> ans;
-    rep(i,0,K) ans.emplace_back(h[i]);
-    ll v=ans[K-1]-ans[0];
-    sort(ALL(h),greater<ll>());
-    ans.clear();
-    rep(i,0,K) ans.emplace_back(h[i]);
-    v=min(ans[0]-ans[K-1],v);
+    ll v=INF;
+    rep(i,0,N-K+1) {
+        v=min(h[i+K-1]-h[i],v);
+        //cout<<"h["<<i+K-1<<"]-h["<<i<<"]:"<<h[i+K-1]-h[i]<<endl;
+    }
     cout<<v<<endl;
 }
 
