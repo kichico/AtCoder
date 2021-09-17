@@ -1,12 +1,15 @@
 ﻿#include "bits/stdc++.h"
+#include <fstream>
 using namespace std;
 using ll=int64_t;
 using ld=long double;
 using ull=unsigned long long;
 #define ALL(x) x.begin(),x.end()
 #define rep(iter,from,to) for(ll iter=from;iter<to;++iter)
+#define fore(variable,container) for(auto variable:container)
+#define forc(variable,container) for(auto variable:container) cout<<variable<<endl;
 
-const ll MOD=1e9+7;
+const ll MOD=1e10;
 const ll INF=1e17;
 //#######################################################################
 void op(vector<ll> vec){
@@ -48,29 +51,30 @@ struct grid{
 //#########################################################################
 
 void solve(){
-    ll N,M;
-    cin>>N>>M;
-    priority_queue<ll> que;
-    rep(i,0,N){
-        ll v; cin>>v;
-        que.emplace(v);
+    ll N;
+    cin>>N;
+  	set<ll> a;
+    rep(i,0,N) {ll v; cin>>v; a.emplace(v);}
+    ll maxi=*a.rbegin();
+    ld half=(ld)maxi/2;
+    auto leftit=a.lower_bound(half);
+    if(half==*leftit){
+        cout<<maxi<<" "<<*leftit<<endl;
+        return;
     }
-    rep(i,0,M){
-        ll maxi=que.top(); que.pop();
-        que.push(maxi/2);
-    }
-    ll sum=0;
-    rep(i,0,N) {
-        sum+=que.top();
-        que.pop();
-    }
-    cout<<sum<<endl;
+    if(leftit!=a.begin()) leftit--;
+    ll left=*leftit;
+    auto right=*a.upper_bound(half);
+    ld ldist=half-(ld)left;
+    ld rdist=(ld)right-half;
+    if(ldist>rdist) {cout<<maxi<<" "<<right<<endl;return;}
+    else cout<<maxi<<" "<<left<<endl;
 }
 
 
 int main(void){
     std::cin.tie(nullptr);
-	std::ios_base::sync_with_stdio(false);
-	std::cout << std::fixed << std::setprecision(15);
-	solve();
+    std::ios_base::sync_with_stdio(false);
+    std::cout << std::fixed << std::setprecision(15);
+    solve();
 }

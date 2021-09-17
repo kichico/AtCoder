@@ -5,6 +5,8 @@ using ld=long double;
 using ull=unsigned long long;
 #define ALL(x) x.begin(),x.end()
 #define rep(iter,from,to) for(ll iter=from;iter<to;++iter)
+#define fore(variable,container) for(auto variable:container)
+#define forc(variable,container) for(auto variable:container) cout<<variable<<endl;
 
 const ll MOD=1e9+7;
 const ll INF=1e17;
@@ -48,23 +50,37 @@ struct grid{
 //#########################################################################
 
 void solve(){
-    ll N,M;
-    cin>>N>>M;
-    priority_queue<ll> que;
+    ll N,W;
+    cin>>N>>W;
+    map<ll,ll> cnt;
+    vector<vector<ll>> we(4);
+    ll now=0;
     rep(i,0,N){
-        ll v; cin>>v;
-        que.emplace(v);
+        ll w,v;cin>>w>>v;
+        if(cnt.find(w)!=cnt.begin()) we[cnt[w]].emplace_back(v);
+        else{
+            cnt[w]=now;
+            now++;
+            we[cnt[w]].emplace_back(v);
+        }
     }
-    rep(i,0,M){
-        ll maxi=que.top(); que.pop();
-        que.push(maxi/2);
+    rep(i,0,4) sort(ALL(we[i]),greater<ll>());
+    ll value=0;
+    rep(w1,0,we[0].size()) {
+        ll cur=0;
+        rep(w2,0,W-w1-we[1].size()) {
+            rep(w3,0,W-w1-w2-we[2].size()) {
+                rep(w4,0,W-w1-w2-w3-we[3].size()){
+                    cur+=we[3][w4];
+                }
+                cur+=we[2][w3];
+            }
+            cur+=we[1][w2];
+        }
+        cur+=we[0][w1];
+        value=max(cur,value);
     }
-    ll sum=0;
-    rep(i,0,N) {
-        sum+=que.top();
-        que.pop();
-    }
-    cout<<sum<<endl;
+    cout<<value<<endl;
 }
 
 

@@ -5,6 +5,8 @@ using ld=long double;
 using ull=unsigned long long;
 #define ALL(x) x.begin(),x.end()
 #define rep(iter,from,to) for(ll iter=from;iter<to;++iter)
+#define fore(variable,container) for(auto variable:container)
+#define forc(variable,container) for(auto variable:container) cout<<variable<<endl;
 
 const ll MOD=1e9+7;
 const ll INF=1e17;
@@ -48,23 +50,15 @@ struct grid{
 //#########################################################################
 
 void solve(){
-    ll N,M;
-    cin>>N>>M;
-    priority_queue<ll> que;
-    rep(i,0,N){
-        ll v; cin>>v;
-        que.emplace(v);
+    string N;
+    cin>>N;
+    map<char,ll> cnt;
+    rep(i,0,N.size()) cnt[N[i]]++;
+    if(cnt.size()==2){
+        fore(x,cnt) {if(x.second!=2) {cout<<"No"<<endl;break;}}
+        cout<<"Yes"<<endl;
     }
-    rep(i,0,M){
-        ll maxi=que.top(); que.pop();
-        que.push(maxi/2);
-    }
-    ll sum=0;
-    rep(i,0,N) {
-        sum+=que.top();
-        que.pop();
-    }
-    cout<<sum<<endl;
+    else cout<<"No"<<endl;
 }
 
 

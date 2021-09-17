@@ -5,6 +5,8 @@ using ld=long double;
 using ull=unsigned long long;
 #define ALL(x) x.begin(),x.end()
 #define rep(iter,from,to) for(ll iter=from;iter<to;++iter)
+#define fore(variable,container) for(auto variable:container)
+#define forc(variable,container) for(auto variable:container) cout<<variable<<endl;
 
 const ll MOD=1e9+7;
 const ll INF=1e17;
@@ -46,25 +48,23 @@ struct grid{
 };
 
 //#########################################################################
+ll gcd(ll a,ll b){
+    if(b==0) return a;
+    else return gcd(b,a%b);
+}
+
+ll lcm(ll a,ll b){ return a/gcd(a,b)*b;}
+
 
 void solve(){
-    ll N,M;
-    cin>>N>>M;
-    priority_queue<ll> que;
+    ll N;
+    cin>>N;
+    ll ans=1;
     rep(i,0,N){
-        ll v; cin>>v;
-        que.emplace(v);
+        ll v;cin>>v;
+        ans=lcm(ans,v);
     }
-    rep(i,0,M){
-        ll maxi=que.top(); que.pop();
-        que.push(maxi/2);
-    }
-    ll sum=0;
-    rep(i,0,N) {
-        sum+=que.top();
-        que.pop();
-    }
-    cout<<sum<<endl;
+    cout<<ans<<endl;
 }
 
 

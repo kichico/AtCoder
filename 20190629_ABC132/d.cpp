@@ -5,6 +5,8 @@ using ld=long double;
 using ull=unsigned long long;
 #define ALL(x) x.begin(),x.end()
 #define rep(iter,from,to) for(ll iter=from;iter<to;++iter)
+#define fore(variable,container) for(auto variable:container)
+#define forc(variable,container) for(auto variable:container) cout<<variable<<endl;
 
 const ll MOD=1e9+7;
 const ll INF=1e17;
@@ -46,25 +48,36 @@ struct grid{
 };
 
 //#########################################################################
+ll modpow(ll x, ll n){
+    ll ans=1;
+    while(n>0) {
+        if(n&1) ans=ans*x%MOD;
+        x=x*x%MOD;
+        n>>=1;
+    }
+    return ans;
+}
+
+ll com(ll n, ll k, vector<ll> fac_n,vector<ll> fac_k){
+    if(n==0&&k==0) return 1;
+    if(n<k||n<0) return 0;
+    ll value=fac_k[n-k]*fac_k[k]%MOD;
+    return value*fac_n[n]%MOD;
+}
 
 void solve(){
-    ll N,M;
-    cin>>N>>M;
-    priority_queue<ll> que;
-    rep(i,0,N){
-        ll v; cin>>v;
-        que.emplace(v);
+    ll N,K;
+    cin>>N;
+    ll lim=300001;
+    vector<ll> fac_n(lim);
+    vector<ll> fac_k(lim);
+    fac_n[0]=1;
+    fac_k[0]=1;
+    for(ll i=0;i<lim-1;++i){
+        fac_n[i+1]=fac_n[i]*(i+1)%MOD;
+        fac_k[i+1]=fac_k[i]*modpow(i+1,MOD-2)%MOD;
     }
-    rep(i,0,M){
-        ll maxi=que.top(); que.pop();
-        que.push(maxi/2);
-    }
-    ll sum=0;
-    rep(i,0,N) {
-        sum+=que.top();
-        que.pop();
-    }
-    cout<<sum<<endl;
+    vector<ll> ans(K);
 }
 
 

@@ -48,8 +48,33 @@ struct grid{
 //#########################################################################
 
 void solve(){
-    ll N;
-    cin>>N;
+    ll N,K;
+    cin>>N>>K;
+    vector<ll> a(N); rep(i,0,N) cin>>a[i];
+    ll ans=0; 
+    ll rangesum=0;
+    ll right=0;
+    rep(left,0,N){
+        if(rangesum>=K){
+            ans++;
+            ans+=N-right;
+            if(right==left) {right++;}
+            else rangesum-=a[left];
+            continue;
+        }
+        while(right<N){
+            rangesum+=a[right];
+            ++right;
+            if(rangesum>=K) {
+                ans++;
+                break;
+            }
+        }
+        if(rangesum>=K) ans+=N-right;
+        if(right==left) {right++;}
+        else rangesum-=a[left];
+    }
+    cout<<ans<<endl;
 }
 
 

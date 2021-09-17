@@ -5,6 +5,8 @@ using ld=long double;
 using ull=unsigned long long;
 #define ALL(x) x.begin(),x.end()
 #define rep(iter,from,to) for(ll iter=from;iter<to;++iter)
+#define fore(variable,container) for(auto variable:container)
+#define forc(variable,container) for(auto variable:container) cout<<variable<<endl;
 
 const ll MOD=1e9+7;
 const ll INF=1e17;
@@ -48,23 +50,26 @@ struct grid{
 //#########################################################################
 
 void solve(){
-    ll N,M;
-    cin>>N>>M;
-    priority_queue<ll> que;
+    ll N;
+    cin>>N;
+    map<ll,ll> cnt;
+    vector<ll> x(N);
     rep(i,0,N){
-        ll v; cin>>v;
-        que.emplace(v);
+        cin>>x[i];
     }
-    rep(i,0,M){
-        ll maxi=que.top(); que.pop();
-        que.push(maxi/2);
+    auto an=x;
+    sort(ALL(an));
+    vector<ll> ans(N);
+    rep(i,0,N){
+        ll n=N-i-1;
+        cnt[an[n]]=n;
     }
-    ll sum=0;
-    rep(i,0,N) {
-        sum+=que.top();
-        que.pop();
+    rep(i,0,N){
+        ll pos=cnt[x[i]];
+        if(pos<N/2) ans[i]=an[N/2];
+        else ans[i]=an[N/2-1]; 
     }
-    cout<<sum<<endl;
+    forc(xa,ans);
 }
 
 
