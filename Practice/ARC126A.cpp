@@ -5,6 +5,8 @@ using ld=long double;
 using ull=unsigned long long;
 #define ALL(x) x.begin(),x.end()
 #define rep(iter,from,to) for(ll iter=from;iter<to;++iter)
+#define fore(variable,container) for(auto variable:container)
+#define forc(variable,container) for(auto variable:container) cout<<variable<<endl;
 
 const ll MOD=1e9+7;
 const ll INF=1e17;
@@ -46,43 +48,27 @@ struct grid{
 };
 
 //#########################################################################
-vector<pair<ll,ll>> prime_factorize(ll Num){
-    ll lim=sqrt(Num)+1;
-    vector<pair<ll,ll>> pr; //pair<primenumber(素数),Exponentiation(べき数)>
-    vector<bool> listprime(lim);
-    for(ll i=0;i<lim;++i) listprime[i]=true;
-    ll root=sqrt(Num);
-    ll res=Num;
-    for(ll i=2;i<=root;++i){
-        ll expnum=0;
-        if(listprime[i]) {
-            while(res%i==0) {
-                res/=i;
-                expnum++;
-            }
-            for(ll j=i*2;j<=root;j+=i) listprime[j]=false;
-        }
-        if(expnum!=0) pr.emplace_back(make_pair(i,expnum));
-    }
-    if(res!=1) pr.emplace_back(make_pair(res,1));
-    return pr;
-}
-
 
 void solve(){
-    ll N,P;
-    cin>>N>>P;
-    auto pr=prime_factorize(P);
-    ll v=1;
-    for(auto x:pr){
-        if(x.second>=N) {
-            while(x.second>=N) {
-                v*=x.first;
-                x.second-=N;
-            }
-        }
+    ll T;
+    cin>>T;
+    vector<ll> all(T);
+    rep(i,0,T){
+        ll a,b,c;
+        ll ans=0;
+        cin>>a>>b>>c;
+        ll comb433=min(c,b/2);
+        c-=comb433; b-=2*comb433; ans+=comb433;
+        ll comb3322=min(b/2,a/2);
+        b-=2*comb3322; a-=2*comb3322; ans+=comb3322;
+        ll comb442=min(c/2,a);
+        c-=2*comb442; a-=comb442; ans+=comb442;
+        ll comb4222=min(c,a/3);
+        c-=comb4222; a-=3*comb4222; ans+=comb4222;
+        ans+=a/5;
+        all[i]=ans;
     }
-    cout<<v<<endl;
+    forc(x,all);
 }
 
 

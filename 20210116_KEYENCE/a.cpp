@@ -1,23 +1,77 @@
 #include "bits/stdc++.h"
 using namespace std;
 using ll=int64_t;
+using ld=long double;
+using ull=unsigned long long;
+#define ALL(x) x.begin(),x.end()
+#define rep(iter,from,to) for(ll iter=from;iter<to;++iter)
+#define fore(variable,container) for(auto variable:container)
+#define forc(variable,container) for(auto variable:container) cout<<variable<<endl;
 
-int solve(){
-  ll N;
-  cin>>N;
-  vector<ll> a(N),b(N),c(N);
-  set<ll> mx,as;
-  for(ll i=0;i<N;++i) {
-      cin>>a[i];
-  }
-  for(ll i=0;i<N;++i) {
-      cin>>b[i];
-      as.insert(a[i]);
-      mx.insert(*as.rbegin()*b[i]);
-      c[i]=*mx.rbegin();
-  }
-  for(ll i=0;i<N;++i) cout<<c[i]<<endl;
-  return 0;
+const ll MOD=998244353;
+const ll INF=1e17;
+//#######################################################################
+void op(vector<ll> vec){
+    ll size=(ll)vec.size();
+    for(ll i=0;i<size-1;++i) cout<<vec[i]<<" ";
+    cout<<vec.back()<<endl;
+}
+
+void op(vector<vector<ll>> vec){
+    ll height=(ll)vec.size();
+    ll width=(ll)vec[0].size();
+    for(ll i=0;i<height;++i) {
+        for(ll j=0;j<width-1;++j) cout<<vec[i][j]<<" ";
+        cout<<vec[i].back()<<endl;
+    }
+}
+
+void twoText(bool identifier, string outTrue, string outFalse) {
+    if (identifier) cout << outTrue << endl;
+    else cout << outFalse << endl;
+}
+
+void twoText(bool identifier){
+    if(identifier) cout<<"Yes"<<endl;
+    else cout<<"No"<<endl;
+}
+
+void counter(ll& num,ll& increaser,bool checker){
+    if(checker) num+=increaser;
+}
+
+template <class T>
+struct grid{
+    vector<vector<T>> field;
+    grid(ll height,ll width){field=vector<vector<T>>(height,vector<T>(width,(T)0));}
+    void input(){rep(i,0,field.size()) rep(j,0,field[i].size()) cin>>field[i][j];}
+};
+
+//#########################################################################
+
+void solve(){
+    ll N;
+    cin>>N;
+    vector<ll> a(N),b(N);
+    vector<ll> ans;
+    set<ll> c;
+    rep(i,0,N) cin>>a[i];
+    rep(i,0,N) cin>>b[i];
+    vector<ll> sb(N),sa(N);
+    ll maxb=0,maxa=0;
+    rep(i,0,N){
+        if(i==0) {
+            maxa=a[0];
+            maxb=b[0];
+            sb[i]=b[0];
+            sa[i]=a[0];
+            c.emplace(maxa*maxb);
+        }
+        if(maxa<a[i]) maxa=a[i];
+        c.emplace(maxa*b[i]);
+        ans.emplace_back(*c.rbegin());
+    }
+    forc(x,ans);
 }
 
 

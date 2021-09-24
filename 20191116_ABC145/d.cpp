@@ -41,12 +41,55 @@ void op(vector<vector<ll>> vec){
 //########################################################################
 
 
+ll modpow(ll x, ll n){
+    ll ans=1;
+    while(n>0) {
+        if(n&1) ans=ans*x%MOD;
+        x=x*x%MOD;
+        n>>=1;
+    }
+    return ans;
+}
+
+ll com(ll n, ll k, vector<ll> fac_n,vector<ll> fac_k){
+    if(n==0&&k==0) return 1;
+    if(n<k||n<0) return 0;
+    ll value=fac_k[n-k]*fac_k[k]%MOD;
+    return value*fac_n[n]%MOD;
+}
 
 
 
 void solve(){
-    ll N;
-    cin>>N;
+    ll X,Y;
+    cin>>X>>Y;
+    ll a=0; ll b=INF;
+    ll lim=3000001;
+    vector<ll> fac_n(lim);
+    vector<ll> fac_k(lim);
+    fac_n[0]=1;
+    fac_k[0]=1;
+    for(ll i=0;i<lim-1;++i){
+        fac_n[i+1]=fac_n[i]*(i+1)%MOD;
+        fac_k[i+1]=fac_k[i]*modpow(i+1,MOD-2)%MOD;
+    }
+    rep(i,0,X+1){
+        a=i;
+        ll xb=(X-a);
+        if(xb%2!=0) continue;
+        else xb/=2;
+        ll yb=Y-2*a;
+        if(xb==yb) {
+            b=xb;
+            break;
+        }
+    }
+    if(b==INF){
+        cout<<0<<endl;
+        return;
+    }
+   // cout<<"a,b "<<a<<" "<<b<<endl;
+    cout<<com(a+b,a,fac_n,fac_k)<<endl;
 }
 
 

@@ -5,8 +5,10 @@ using ld=long double;
 using ull=unsigned long long;
 #define ALL(x) x.begin(),x.end()
 #define rep(iter,from,to) for(ll iter=from;iter<to;++iter)
+#define fore(variable,container) for(auto variable:container)
+#define forc(variable,container) for(auto variable:container) cout<<variable<<endl;
 
-const ll MOD=1e9+7;
+const ll MOD=998244353;
 const ll INF=1e17;
 //#######################################################################
 void op(vector<ll> vec){
@@ -46,43 +48,53 @@ struct grid{
 };
 
 //#########################################################################
-vector<pair<ll,ll>> prime_factorize(ll Num){
-    ll lim=sqrt(Num)+1;
-    vector<pair<ll,ll>> pr; //pair<primenumber(素数),Exponentiation(べき数)>
-    vector<bool> listprime(lim);
-    for(ll i=0;i<lim;++i) listprime[i]=true;
-    ll root=sqrt(Num);
-    ll res=Num;
-    for(ll i=2;i<=root;++i){
-        ll expnum=0;
-        if(listprime[i]) {
-            while(res%i==0) {
-                res/=i;
-                expnum++;
-            }
-            for(ll j=i*2;j<=root;j+=i) listprime[j]=false;
-        }
-        if(expnum!=0) pr.emplace_back(make_pair(i,expnum));
+ll modpow(ll x, ll n){
+    ll ans=1;
+    while(n>0) {
+        if(n&1) ans=ans*x%MOD;
+        x=x*x%MOD;
+        n>>=1;
     }
-    if(res!=1) pr.emplace_back(make_pair(res,1));
-    return pr;
+    return ans;
 }
-
-
 void solve(){
-    ll N,P;
-    cin>>N>>P;
-    auto pr=prime_factorize(P);
-    ll v=1;
-    for(auto x:pr){
-        if(x.second>=N) {
-            while(x.second>=N) {
-                v*=x.first;
-                x.second-=N;
-            }
+    ll N;
+    cin>>N;
+    map<ll,ll> edge;
+    rep(i,0,N){
+        ll v; cin>>v;
+        if(i==0&&v!=0) {
+            cout<<0<<endl;return;
         }
+        edge[v]++;
     }
-    cout<<v<<endl;
+    auto it=edge.begin();
+    auto maxi=*edge.rbegin();
+    ll ans=1;
+    if(edge[0]!=1) {cout<<0<<endl;return;}
+    rep(i,1,maxi.first+1){
+        ll prev=edge[i-1];
+        ll cur=edge[i];
+        ll edges=1;
+        //cout<<"prev:"<<prev<<",cur:"<<cur<<endl;
+        //cout<<"maxi:"<<maxi.first<<endl;
+        if(prev==0||cur==0) {
+            cout<<0<<endl;
+            return;
+        }
+        if(prev==1) edges=1;
+        else if(cur==1) edges=prev;
+        else edges=modpow(prev,cur);
+        //cout<<"edges:"<<edges<<endl;
+        if(edges==0) {
+            cout<<0<<endl;
+            return;
+        }
+        edges%=MOD;
+        ans*=edges;
+        ans%=MOD;
+    }
+    cout<<ans%MOD<<endl;
 }
 
 

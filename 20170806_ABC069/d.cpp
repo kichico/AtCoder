@@ -5,6 +5,8 @@ using ld=long double;
 using ull=unsigned long long;
 #define ALL(x) x.begin(),x.end()
 #define rep(iter,from,to) for(ll iter=from;iter<to;++iter)
+#define fore(variable,container) for(auto variable:container)
+#define forc(variable,container) for(auto variable:container) cout<<variable<<endl;
 
 const ll MOD=1e9+7;
 const ll INF=1e17;
@@ -46,43 +48,29 @@ struct grid{
 };
 
 //#########################################################################
-vector<pair<ll,ll>> prime_factorize(ll Num){
-    ll lim=sqrt(Num)+1;
-    vector<pair<ll,ll>> pr; //pair<primenumber(素数),Exponentiation(べき数)>
-    vector<bool> listprime(lim);
-    for(ll i=0;i<lim;++i) listprime[i]=true;
-    ll root=sqrt(Num);
-    ll res=Num;
-    for(ll i=2;i<=root;++i){
-        ll expnum=0;
-        if(listprime[i]) {
-            while(res%i==0) {
-                res/=i;
-                expnum++;
-            }
-            for(ll j=i*2;j<=root;j+=i) listprime[j]=false;
-        }
-        if(expnum!=0) pr.emplace_back(make_pair(i,expnum));
-    }
-    if(res!=1) pr.emplace_back(make_pair(res,1));
-    return pr;
-}
-
 
 void solve(){
-    ll N,P;
-    cin>>N>>P;
-    auto pr=prime_factorize(P);
-    ll v=1;
-    for(auto x:pr){
-        if(x.second>=N) {
-            while(x.second>=N) {
-                v*=x.first;
-                x.second-=N;
+    ll h,w;
+    cin>>h>>w;
+    ll N; cin>>N;
+    vector<ll> color(N); rep(i,0,N) cin>>color[i];
+    grid<ll> g(h,w);
+    auto area=g.field;
+    bool shita=true;
+    ll r=0,c=0;
+    rep(i,0,N){
+        while(color[i]!=0){
+            area[r][c]=i+1;
+            if(shita) r++;
+            else r--;
+            if(r==0||r==h-1) {
+                c++;
+                shita=1-shita;
             }
+            color[i]--;
         }
     }
-    cout<<v<<endl;
+    op(area);
 }
 
 

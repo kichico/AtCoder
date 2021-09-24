@@ -5,6 +5,8 @@ using ld=long double;
 using ull=unsigned long long;
 #define ALL(x) x.begin(),x.end()
 #define rep(iter,from,to) for(ll iter=from;iter<to;++iter)
+#define fore(variable,container) for(auto variable:container)
+#define forc(variable,container) for(auto variable:container) cout<<variable<<endl;
 
 const ll MOD=1e9+7;
 const ll INF=1e17;
@@ -46,43 +48,17 @@ struct grid{
 };
 
 //#########################################################################
-vector<pair<ll,ll>> prime_factorize(ll Num){
-    ll lim=sqrt(Num)+1;
-    vector<pair<ll,ll>> pr; //pair<primenumber(素数),Exponentiation(べき数)>
-    vector<bool> listprime(lim);
-    for(ll i=0;i<lim;++i) listprime[i]=true;
-    ll root=sqrt(Num);
-    ll res=Num;
-    for(ll i=2;i<=root;++i){
-        ll expnum=0;
-        if(listprime[i]) {
-            while(res%i==0) {
-                res/=i;
-                expnum++;
-            }
-            for(ll j=i*2;j<=root;j+=i) listprime[j]=false;
-        }
-        if(expnum!=0) pr.emplace_back(make_pair(i,expnum));
-    }
-    if(res!=1) pr.emplace_back(make_pair(res,1));
-    return pr;
-}
-
 
 void solve(){
-    ll N,P;
-    cin>>N>>P;
-    auto pr=prime_factorize(P);
-    ll v=1;
-    for(auto x:pr){
-        if(x.second>=N) {
-            while(x.second>=N) {
-                v*=x.first;
-                x.second-=N;
-            }
-        }
+    ll N,M;
+    cin>>N>>M;
+    vector<pair<ll,ll>> g(M); rep(i,0,M) cin>>g[i].first>>g[i].second;
+    ll left=g[0].first,right=g[0].second;
+    rep(i,1,M){
+        left=max(g[i].first,left);
+        right=min(g[i].second,right);
     }
-    cout<<v<<endl;
+    cout<<max((ll)0,right-left+1)<<endl;
 }
 
 

@@ -50,6 +50,11 @@ struct grid{
 void solve(){
     ll N;
     cin>>N;
+    rep(i,0,N){
+        ll a;cin>>a;
+        if(a%2!=0) { cout<<"first"<<endl;return; }
+    }
+    cout<<"second"<<endl;
 }
 
 

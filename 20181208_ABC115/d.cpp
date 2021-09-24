@@ -50,8 +50,17 @@ struct grid{
 //#########################################################################
 
 void solve(){
-    ll N;
-    cin>>N;
+    ll N,X;
+    cin>>N>>X;
+    vector<string> b(N+1);
+    b[0]="P";
+    rep(i,1,N+1){
+        b[i]="B"+b[i-1]+"P"+b[i-1]+"B";
+    }
+    reverse(ALL(b[N]));
+    ll ans=0;
+    rep(i,0,X) if(b[N][i]=='P') ans++;
+    cout<<ans<<endl;
 }
 
 

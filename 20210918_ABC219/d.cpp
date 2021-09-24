@@ -5,6 +5,8 @@ using ld=long double;
 using ull=unsigned long long;
 #define ALL(x) x.begin(),x.end()
 #define rep(iter,from,to) for(ll iter=from;iter<to;++iter)
+#define fore(variable,container) for(auto variable:container)
+#define forc(variable,container) for(auto variable:container) cout<<variable<<endl;
 
 const ll MOD=1e9+7;
 const ll INF=1e17;
@@ -46,43 +48,33 @@ struct grid{
 };
 
 //#########################################################################
-vector<pair<ll,ll>> prime_factorize(ll Num){
-    ll lim=sqrt(Num)+1;
-    vector<pair<ll,ll>> pr; //pair<primenumber(素数),Exponentiation(べき数)>
-    vector<bool> listprime(lim);
-    for(ll i=0;i<lim;++i) listprime[i]=true;
-    ll root=sqrt(Num);
-    ll res=Num;
-    for(ll i=2;i<=root;++i){
-        ll expnum=0;
-        if(listprime[i]) {
-            while(res%i==0) {
-                res/=i;
-                expnum++;
-            }
-            for(ll j=i*2;j<=root;j+=i) listprime[j]=false;
-        }
-        if(expnum!=0) pr.emplace_back(make_pair(i,expnum));
-    }
-    if(res!=1) pr.emplace_back(make_pair(res,1));
-    return pr;
-}
-
 
 void solve(){
-    ll N,P;
-    cin>>N>>P;
-    auto pr=prime_factorize(P);
-    ll v=1;
-    for(auto x:pr){
-        if(x.second>=N) {
-            while(x.second>=N) {
-                v*=x.first;
-                x.second-=N;
-            }
+    ll N;
+    cin>>N;
+    ll tako,tai;
+    cin>>tako>>tai;
+    vector<pair<ll,ll>> a(N);
+    ll maxit=0,maxii;
+    rep(i,0,N) {
+        cin>>a[i].first>>a[i].second;
+        maxit+=a[i].first;
+        maxii+=a[i].second;
+    }
+    ll limit=min(maxit,maxii);
+    vector<vector<ll>> dp(tako+1,vector<ll>(tai+1,INF));
+    sort(ALL(a));
+    dp[0][0]=0;
+    rep(x,0,limit) rep(y,0,limit) rep(i,0,N){
+        if(x-a[i].first>=0&&y-a[i].second>=0) {
+            dp[x][y]=min(dp[x-a[i].first][y-a[i].second]+1,dp[x][y]);
         }
     }
-    cout<<v<<endl;
+    ll ans=INF;
+    rep(i,tako,limit) rep(j,tai,limit){
+        if(dp[i][j]!=INF) ans=min(ans,dp[i][j]);
+    }
+    cout<<ans<<endl;
 }
 
 
