@@ -47,23 +47,24 @@ void op(vector<vector<ll>> vec){
 void solve(){
     ll N,M,lim;
     cin>>N>>M>>lim;
-    deque<ll> a(N),b(N);
-    rep(i,0,N) cin>>a[i];
-    rep(i,0,M) cin>>b[i];
-    ll now=0;
+    vector<ll> a(N),b(M),atot(N),btot(M);
+    rep(i,0,N){
+        cin>>a[i];
+        if(i==0) atot[i]=a[i];
+        else atot[i]=a[i]+atot[i-1];
+    }
+    rep(i,0,M){
+        cin>>b[i];
+        if(i==0) btot[i]=b[i];
+        else btot[i]=b[i]+btot[i-1];
+    }
+    ll ok=M-1;
     ll ans=0;
-    while(lim-now>0){
-        if(now+a.front()>lim&&now+b.front()>lim) break;
-        if(a.front()>=b.front()){
-            now+=b.front();
-            b.pop_front();
-            ans++;
-        }
-        else {
-            now+=a.front();
-            a.pop_front();
-            ans++;
-        }
+    if(btot[ok]<=lim) ans=ok;
+    rep(i,0,N){
+        while(0<=ok&&lim<atot[i]+btot[ok]) ok--;
+        if(ok<0&&atot[i]<=lim) ans=max(ans,i+1); 
+        else if(ok>=0&&atot[i]+btot[ok]<=lim) ans=max(ans,i+1+ok+1);
     }
     cout<<ans<<endl;
 }

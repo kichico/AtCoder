@@ -47,15 +47,34 @@ struct grid{
     void input(){rep(i,0,field.size()) rep(j,0,field[i].size()) cin>>field[i][j];}
 };
 
-template <class T>
-T vecsum(vector<T>& vec){
-    return accumulate(ALL(vec),(T)0);
-}
 //#########################################################################
 
 void solve(){
-    ll N;
-    cin>>N;
+    ll h,w;
+    cin>>h>>w;
+    grid<ll> a(h,w);
+    grid<bool> v(h,w);
+    auto visited=v.field;
+    a.input();
+    auto area=a.field;
+    vector<pair<pair<ll,ll>,pair<ll,ll>>> ans;
+    rep(i,0,h) rep(j,0,w){
+        //visited[i][j]=true;
+        vector<ll> dx{0,1,0,-1}, dy{1,0,-1,0};
+        vector<pair<pair<ll,ll>,pair<ll,ll>>> pr;
+        rep(k,0,4){
+            ll ny=i+dy[k],nx=j+dx[k];
+            if(ny<0||nx<0||ny>=h||nx>=w) continue;
+            if(area[ny][nx]%2==1) {
+                pr.emplace_back(make_pair(make_pair(i+1,j+1),make_pair(ny+1,nx+1)));
+            }
+        }
+        if(area[i][j]%2==1&&!pr.empty()) 
+    }
+    cout<<ans.size()<<endl;
+    fore(x,ans){
+        cout<<x.first.first<<" "<<x.first.second<<" "<<x.second.first<<" "<<x.second.second<<endl;
+    }
 }
 
 

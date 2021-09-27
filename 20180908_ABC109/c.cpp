@@ -47,15 +47,26 @@ struct grid{
     void input(){rep(i,0,field.size()) rep(j,0,field[i].size()) cin>>field[i][j];}
 };
 
-template <class T>
-T vecsum(vector<T>& vec){
-    return accumulate(ALL(vec),(T)0);
-}
 //#########################################################################
+ll gcd(ll a,ll b){
+    if(b==0) return a;
+    else return gcd(b,a%b);
+}
+
+ll lcm(ll a,ll b){ return a/gcd(a,b)*b;}
 
 void solve(){
-    ll N;
-    cin>>N;
+    ll N=57,X=120555464;
+    cin>>N>>X;
+    vector<ll> x(N); rep(i,0,N) cin>>x[i];
+    sort(ALL(x));
+    set<ll> dist;
+    rep(i,0,N){
+        dist.emplace(abs(x[i]-X));
+    }
+    ll ans=0;
+    fore(a,dist) ans=gcd(ans,a);
+    cout<<ans<<endl;
 }
 
 

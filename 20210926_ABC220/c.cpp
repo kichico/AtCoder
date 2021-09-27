@@ -56,6 +56,19 @@ T vecsum(vector<T>& vec){
 void solve(){
     ll N;
     cin>>N;
+    ll sum=0;
+    vector<ll> a(N); rep(i,0,N) {cin>>a[i];}
+    sum=vecsum(a);
+    ll X; cin>>X;
+    ll num=X/sum;
+    ll rest=0;
+    X-=(sum*num);
+    rep(i,0,N){
+        if(X<0) break;
+        rest++;
+        X-=a[i];
+    }
+    cout<<num*N+rest<<endl;
 }
 
 

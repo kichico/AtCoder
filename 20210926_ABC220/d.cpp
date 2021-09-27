@@ -47,15 +47,16 @@ struct grid{
     void input(){rep(i,0,field.size()) rep(j,0,field[i].size()) cin>>field[i][j];}
 };
 
-template <class T>
-T vecsum(vector<T>& vec){
-    return accumulate(ALL(vec),(T)0);
-}
 //#########################################################################
 
 void solve(){
     ll N;
     cin>>N;
+    vector<ll> a(N); rep(i,0,N) cin>>a[i];
+    reverse(ALL(a));
+    map<ll,ll> cnt;
+    rep(i,0,10) cnt[i]=0;
+    
 }
 
 
