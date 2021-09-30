@@ -44,10 +44,12 @@ void op(vector<vector<ll>> vec){
 
 
 
+
 void solve(){
-    ll N,M,lim;
+    ll N=1,M=200000,lim=408057510;
     cin>>N>>M>>lim;
-    vector<ll> a(N),b(M),atot(N),btot(M);
+    vector<ll> a(N),b(M);
+    vector<ll> atot(N),btot(M);
     rep(i,0,N){
         cin>>a[i];
         if(i==0) atot[i]=a[i];
@@ -59,14 +61,21 @@ void solve(){
         else btot[i]=b[i]+btot[i-1];
     }
     ll ok=M-1;
-    ll ans=0;
-    if(btot[ok]<=lim) ans=ok;
+    vector<tuple<ll,ll,ll>> tp;
+    while(0<=ok&&lim<btot[ok]) ok--; 
+    tp.emplace_back(ok+1,0,ok+1);
     rep(i,0,N){
         while(0<=ok&&lim<atot[i]+btot[ok]) ok--;
-        if(ok<0&&atot[i]<=lim) ans=max(ans,i+1); 
-        else if(ok>=0&&atot[i]+btot[ok]<=lim) ans=max(ans,i+1+ok+1);
+        if(ok<0&&atot[i]<=lim) {
+            auto t=make_tuple(i+1,i+1,0);
+            tp.emplace_back(t);
+        } 
+        else if(ok>=0&&atot[i]+btot[ok]<=lim) tp.emplace_back(ok+1+i+1,i+1,ok+1);
+        cout<<btot[ok]<<endl;
     }
-    cout<<ans<<endl;
+    sort(ALL(tp));
+    //cout<<get<0>(tp[tp.size()-2])<<" "<<get<1>(tp[tp.size()-2])<<" "<<get<2>(tp[tp.size()-2])<<endl;
+    cout<<get<0>(tp.back())<<endl;
 }
 
 

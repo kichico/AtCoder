@@ -8,7 +8,7 @@ using ull=unsigned long long;
 #define fore(variable,container) for(auto variable:container)
 #define forc(variable,container) for(auto variable:container) cout<<variable<<endl;
 
-const ll MOD=998244353;
+const ll MOD=1e9+7;
 const ll INF=1e17;
 //#######################################################################
 void op(vector<ll> vec){
@@ -47,24 +47,35 @@ struct grid{
     void input(){rep(i,0,field.size()) rep(j,0,field[i].size()) cin>>field[i][j];}
 };
 
+template <class T>
+T vecsum(vector<T>& vec){
+    return accumulate(ALL(vec),(T)0);
+}
 //#########################################################################
 
 void solve(){
-    ll N;
-    cin>>N;
-    ll K=10;
-    vector<ll> a(N); rep(i,0,N) cin>>a[i];
-    vector<vector<ll>> dp(N+1,vector<ll>(K,0));
-    rep(i,0,K) if(a[0]==i) dp[0][i]=1;
-    rep(i,1,N) rep(j,0,K){
-        ll sum=(j+a[i])%10;
-        ll cross=(j*a[i])%10;
-        dp[i][(j+a[i])%10]+=dp[i-1][j];
-        dp[i][(j*a[i])%10]+=dp[i-1][j];
-        dp[i][sum]%=MOD;
-        dp[i][cross]%=MOD;
+    ll N=5;
+    set<pair<ll,ll>> cand;
+    vector<pair<ll,ll>> d(N); rep(i,0,N){
+        ll v; cin>>v;
+        d[i].first=v%10; 
+        if(d[i].first!=0) {
+            d[i].second=v-d[i].first+10;
+            cand.emplace(d[i].first,i);
+        }
+        else d[i].second=v;
     }
-    rep(i,0,K) cout<<dp[N-1][i]%MOD<<endl;
+    ll ans=0;
+    if(!cand.empty()){
+        auto it=*cand.begin();
+        rep(i,0,N) if(i!=it.second) ans+=d[i].second;
+        //fore(x,d) cout<<x.first<<endl;
+        cout<<ans+d[it.second].second-10+d[it.second].first<<endl;
+    }
+    else{
+        rep(i,0,N) ans+=d[i].second;
+        cout<<ans<<endl;
+    }
 }
 
 

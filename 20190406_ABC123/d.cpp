@@ -8,7 +8,7 @@ using ull=unsigned long long;
 #define fore(variable,container) for(auto variable:container)
 #define forc(variable,container) for(auto variable:container) cout<<variable<<endl;
 
-const ll MOD=998244353;
+const ll MOD=1e9+7;
 const ll INF=1e17;
 //#######################################################################
 void op(vector<ll> vec){
@@ -47,24 +47,29 @@ struct grid{
     void input(){rep(i,0,field.size()) rep(j,0,field[i].size()) cin>>field[i][j];}
 };
 
+template <class T>
+T vecsum(vector<T>& vec){
+    return accumulate(ALL(vec),(T)0);
+}
 //#########################################################################
 
 void solve(){
-    ll N;
-    cin>>N;
-    ll K=10;
-    vector<ll> a(N); rep(i,0,N) cin>>a[i];
-    vector<vector<ll>> dp(N+1,vector<ll>(K,0));
-    rep(i,0,K) if(a[0]==i) dp[0][i]=1;
-    rep(i,1,N) rep(j,0,K){
-        ll sum=(j+a[i])%10;
-        ll cross=(j*a[i])%10;
-        dp[i][(j+a[i])%10]+=dp[i-1][j];
-        dp[i][(j*a[i])%10]+=dp[i-1][j];
-        dp[i][sum]%=MOD;
-        dp[i][cross]%=MOD;
+    ll x,y,z,k;
+    cin>>x>>y>>z>>k;
+    vector<ll> a(x); rep(i,0,x) cin>>a[i];
+    vector<ll> b(y); rep(i,0,y) cin>>b[i];
+    vector<ll> c(z); rep(i,0,z) cin>>c[i];
+    vector<ll> ab; rep(i,0,x) rep(j,0,y) ab.emplace_back(a[i]+b[j]);
+    sort(ALL(ab));
+    sort(ALL(c));
+    vector<ll> ans;
+    ll cnt=0;
+    rep(i,0,k) {
+
     }
-    rep(i,0,K) cout<<dp[N-1][i]%MOD<<endl;
+    sort(ALL(ans),greater<ll>());
+    op(ans);
+    
 }
 
 
