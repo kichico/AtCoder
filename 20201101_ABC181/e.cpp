@@ -52,74 +52,29 @@ T vecsum(vector<T>& vec){
     return accumulate(ALL(vec),(T)0);
 }
 //#########################################################################
-struct createGraph{
-    vector<vector<ll>> graph;
-    createGraph(ll N) {
-        graph.resize(N);
-    }
-    void addEdge(ll from, ll to){
-        graph[from].emplace_back(to);
-    }
-    void addEdge(pair<ll,ll> pr){
-        graph[pr.first].emplace_back(pr.second);
-        graph[pr.second].emplace_back(pr.first);
-    }
-    void inputAndAddEdge(ll M){
-        set<pair<ll,ll>> checker;
-        pair<ll,ll> inserter;
-        rep(i,0,M){
-            ll from,to;
-            cin>>from>>to;
-            from--;to--;
-            inserter=make_pair(min(from,to),max(from,to));
-            if(checker.count(inserter)==0) {
-                addEdge(inserter);
-                checker.insert(inserter);
-            }
-        }
-    }
-    void showGrapgh(){
-        rep(i,0,graph.size()){
-            string out=to_string(i)+":";
-            rep(j,0,graph[i].size()) out+=to_string(graph[i][j])+" ";
-            if(out.back()!=':') out.pop_back();
-            cout<<out<<endl;
-        }
-    }
-};
-
-
-
-vector<bool> visited;
-vector<ll> dp;
-
-ll dfs(ll now, ll cnt,createGraph& graph){
-    if(visited[now]) return dp[now];
-    visited[now]=true;
-    ll ret=0;
-    fore(x,graph.graph[now]) ret=max(ret,dfs(x,cnt,graph)+1);
-    dp[now]=ret;
-    return ret;
-}
-
-
-
-
 
 void solve(){
     ll N,M;
     cin>>N>>M;
-    createGraph g(N);
-    dp.assign(N,-1);
-    visited.assign(N,false);
-    rep(i,0,M){
-        ll from,to;
-        cin>>from>>to; from--; to--;
-        g.addEdge(from,to);
+    vector<ll> h(N); rep(i,0,N) cin>>h[i];
+    vector<ll> w(M); rep(i,0,M) cin>>w[i];
+    sort(ALL(h));
+    vector<ll> left,right;
+    left.push_back(h[0]); right.push_back(h.back());
+    rep(i,1,N){
+        left.push_back(left[i-1]+h[i]);
+        right.push_back(right[i-1]+h[N-i-1]);
     }
-    rep(i,0,N) dfs(i,dp[i],g);
-    sort(ALL(dp));
-    cout<<dp.back()<<endl;
+    reverse(ALL(right));
+    op(left);
+    op(right);
+    ll ans=INF;
+    rep(i,0,M){
+        ll cur=0;
+        ll dist=distance(h.begin(),lower_bound(ALL(h),w[i]));
+        if(dist==0) cur=right[0]+w[i];
+        ans=min(ans,cur/(N+1)); 
+    }
 }
 
 

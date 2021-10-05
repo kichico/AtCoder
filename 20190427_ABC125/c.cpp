@@ -52,74 +52,32 @@ T vecsum(vector<T>& vec){
     return accumulate(ALL(vec),(T)0);
 }
 //#########################################################################
-struct createGraph{
-    vector<vector<ll>> graph;
-    createGraph(ll N) {
-        graph.resize(N);
-    }
-    void addEdge(ll from, ll to){
-        graph[from].emplace_back(to);
-    }
-    void addEdge(pair<ll,ll> pr){
-        graph[pr.first].emplace_back(pr.second);
-        graph[pr.second].emplace_back(pr.first);
-    }
-    void inputAndAddEdge(ll M){
-        set<pair<ll,ll>> checker;
-        pair<ll,ll> inserter;
-        rep(i,0,M){
-            ll from,to;
-            cin>>from>>to;
-            from--;to--;
-            inserter=make_pair(min(from,to),max(from,to));
-            if(checker.count(inserter)==0) {
-                addEdge(inserter);
-                checker.insert(inserter);
-            }
-        }
-    }
-    void showGrapgh(){
-        rep(i,0,graph.size()){
-            string out=to_string(i)+":";
-            rep(j,0,graph[i].size()) out+=to_string(graph[i][j])+" ";
-            if(out.back()!=':') out.pop_back();
-            cout<<out<<endl;
-        }
-    }
-};
-
-
-
-vector<bool> visited;
-vector<ll> dp;
-
-ll dfs(ll now, ll cnt,createGraph& graph){
-    if(visited[now]) return dp[now];
-    visited[now]=true;
-    ll ret=0;
-    fore(x,graph.graph[now]) ret=max(ret,dfs(x,cnt,graph)+1);
-    dp[now]=ret;
-    return ret;
+ll gcd(ll a,ll b){
+    if(b==0) return a;
+    else return gcd(b,a%b);
 }
-
-
-
-
-
 void solve(){
-    ll N,M;
-    cin>>N>>M;
-    createGraph g(N);
-    dp.assign(N,-1);
-    visited.assign(N,false);
-    rep(i,0,M){
-        ll from,to;
-        cin>>from>>to; from--; to--;
-        g.addEdge(from,to);
+    ll N;
+    cin>>N;
+    vector<ll> a(N); rep(i,0,N) cin>>a[i];
+    vector<ll> left(N),right(N);
+    rep(i,0,N){
+        ll rp=N-i-1;
+        if(i==0) {left[i]=a[i]; right[rp]=a[rp]; }
+        else{
+            left[i]=gcd(left[i-1],a[i]);
+            right[rp]=gcd(right[rp+1],a[rp]);
+        }
     }
-    rep(i,0,N) dfs(i,dp[i],g);
-    sort(ALL(dp));
-    cout<<dp.back()<<endl;
+    ll ans=0;
+    rep(i,0,N){
+        ll v;
+        if(i==0) v=right[i+1];
+        else if(i==N-1) v=left[i-1];
+        else v=gcd(right[i+1],left[i-1]);
+        ans=max(ans,v);
+    }
+    cout<<ans<<endl;
 }
 
 

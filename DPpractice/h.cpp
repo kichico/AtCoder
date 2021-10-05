@@ -52,74 +52,26 @@ T vecsum(vector<T>& vec){
     return accumulate(ALL(vec),(T)0);
 }
 //#########################################################################
-struct createGraph{
-    vector<vector<ll>> graph;
-    createGraph(ll N) {
-        graph.resize(N);
-    }
-    void addEdge(ll from, ll to){
-        graph[from].emplace_back(to);
-    }
-    void addEdge(pair<ll,ll> pr){
-        graph[pr.first].emplace_back(pr.second);
-        graph[pr.second].emplace_back(pr.first);
-    }
-    void inputAndAddEdge(ll M){
-        set<pair<ll,ll>> checker;
-        pair<ll,ll> inserter;
-        rep(i,0,M){
-            ll from,to;
-            cin>>from>>to;
-            from--;to--;
-            inserter=make_pair(min(from,to),max(from,to));
-            if(checker.count(inserter)==0) {
-                addEdge(inserter);
-                checker.insert(inserter);
-            }
-        }
-    }
-    void showGrapgh(){
-        rep(i,0,graph.size()){
-            string out=to_string(i)+":";
-            rep(j,0,graph[i].size()) out+=to_string(graph[i][j])+" ";
-            if(out.back()!=':') out.pop_back();
-            cout<<out<<endl;
-        }
-    }
-};
-
-
-
-vector<bool> visited;
-vector<ll> dp;
-
-ll dfs(ll now, ll cnt,createGraph& graph){
-    if(visited[now]) return dp[now];
-    visited[now]=true;
-    ll ret=0;
-    fore(x,graph.graph[now]) ret=max(ret,dfs(x,cnt,graph)+1);
-    dp[now]=ret;
-    return ret;
-}
-
-
-
-
 
 void solve(){
-    ll N,M;
-    cin>>N>>M;
-    createGraph g(N);
-    dp.assign(N,-1);
-    visited.assign(N,false);
-    rep(i,0,M){
-        ll from,to;
-        cin>>from>>to; from--; to--;
-        g.addEdge(from,to);
+    ll h,w;
+    cin>>h>>w;
+    grid<char> g(h,w);
+    grid<ll> d(h,w);
+    g.input();
+    auto area=g.field;
+    auto dp=d.field;
+    dp[0][0]=0;
+    rep(i,0,h) rep(j,0,w){
+        if(i==0&&j==0) continue;
+        if(area[i][j]=='#') continue;
+        if(i==0) dp[i][j]=dp[i][j-1];
+        else if(j==0) dp[i][j]=dp[i-1][j];
+        else dp[i][j]=dp[i-1][j]+dp[i][j-1];
+        dp[i][j]%=MOD;
     }
-    rep(i,0,N) dfs(i,dp[i],g);
-    sort(ALL(dp));
-    cout<<dp.back()<<endl;
+    op(dp);
+    cout<<dp[h-1][w-1]<<endl;
 }
 
 
