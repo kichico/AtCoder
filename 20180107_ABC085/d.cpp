@@ -54,14 +54,24 @@ T vecsum(vector<T>& vec){
 //#########################################################################
 
 void solve(){
-    ll h,w;
-    cin>>h>>w;
-    ll x,y;
-    cin>>y>>x;
-    grid<ll> g(h,w);
-    rep(i,0,y) g.field.pop_back();
-    rep(j,0,w) rep(i,0,g.field.size()) g.field[i].pop_back();
-    cout<<g.field.size()*g.field[0].size()<<endl;
+    ll N,HP;
+    cin>>N>>HP;
+    vector<ll> huru(N),nageru(N); rep(i,0,N) cin>>huru[i]>>nageru[i];
+    vector<pair<ll,ll>> ken(N);
+    rep(i,0,N) ken[i]=make_pair(huru[i],nageru[i]);
+    sort(ALL(nageru),greater<ll>());
+    sort(ALL(huru));
+    ll all=vecsum(nageru);
+    ll ans=0;
+    rep(i,0,N){
+        if(nageru[i]>huru.back()) {
+            HP-=nageru[i];
+            ans++;
+        }
+        if(HP<=0) { cout << ans << endl; return; }
+    } 
+    ans+=((HP+huru.back()-1)/huru.back());
+    cout << ans << endl;
 }
 
 

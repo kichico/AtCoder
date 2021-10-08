@@ -54,14 +54,19 @@ T vecsum(vector<T>& vec){
 //#########################################################################
 
 void solve(){
-    ll h,w;
-    cin>>h>>w;
-    ll x,y;
-    cin>>y>>x;
-    grid<ll> g(h,w);
-    rep(i,0,y) g.field.pop_back();
-    rep(j,0,w) rep(i,0,g.field.size()) g.field[i].pop_back();
-    cout<<g.field.size()*g.field[0].size()<<endl;
+    ll N,M;
+    cin>>N>>M;
+    map<ll,ll> food;
+    rep(i,0,N){
+        ll K; cin>>K;
+        rep(j,0,K) {
+            ll a; cin>>a;
+            food[a]++;
+        }
+    }
+    ll ans=0;
+    fore(x,food) if(x.second==N) ans++;
+    cout<<ans<<endl;
 }
 
 

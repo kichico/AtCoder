@@ -54,14 +54,21 @@ T vecsum(vector<T>& vec){
 //#########################################################################
 
 void solve(){
-    ll h,w;
-    cin>>h>>w;
-    ll x,y;
-    cin>>y>>x;
-    grid<ll> g(h,w);
-    rep(i,0,y) g.field.pop_back();
-    rep(j,0,w) rep(i,0,g.field.size()) g.field[i].pop_back();
-    cout<<g.field.size()*g.field[0].size()<<endl;
+    ll N,M,X,Y;
+    cin>>N>>M>>X>>Y;
+    vector<ll> x(N),y(M);
+    rep(i,0,N) cin>>x[i]; rep(i,0,M) cin>>y[i];
+    sort(ALL(x)); sort(ALL(y));
+    ll Z=x.back()+1;
+    if(Z>y.front()) {cout<<"War"<<endl;return;}
+    while(Z!=y.front()+1){
+        if(X<Z&&Z<=Y) {
+            cout<<"No War"<<endl;
+            return;
+        }
+        Z++;
+    }
+    cout<<"War"<<endl;
 }
 
 

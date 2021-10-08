@@ -139,15 +139,20 @@
         ],
         "description": ""
     },
-    "coordinate": {
-		"scope": "C++,cpp",
-		"prefix": "position",
-		"body": [
+    "position": {
+        "prefix": "position",
+        "body": [
             "struct position{",
-            "   ll x;",
-            "   ll y;",
+            "    ll x;",
+            "    ll y;",
+            "    position operator+(const position& other){",
+            "        this->x+=other.x;",
+            "        this->y+=other.y;",
+            "        return *this;",
+            "    }",
             "};",
         ],
+        "description": ""
     },
     "lcm": {
         "scope": "C++,cpp",

@@ -54,14 +54,18 @@ T vecsum(vector<T>& vec){
 //#########################################################################
 
 void solve(){
-    ll h,w;
-    cin>>h>>w;
-    ll x,y;
-    cin>>y>>x;
-    grid<ll> g(h,w);
-    rep(i,0,y) g.field.pop_back();
-    rep(j,0,w) rep(i,0,g.field.size()) g.field[i].pop_back();
-    cout<<g.field.size()*g.field[0].size()<<endl;
+    ll N;
+    cin>>N;
+    ll Y; cin>>Y;
+    rep(sen,0,N+1) rep(gosen,0,N+1) {
+        ll ichiman=N-sen-gosen;
+        if(ichiman<0) ichiman=0;
+        if((sen+gosen+ichiman)==N&&sen*1000+gosen*5000+ichiman*10000==Y) {
+            cout<<ichiman<<" "<<gosen<<" "<<sen<<endl;
+            return;
+        }
+    }
+    cout<<"-1 -1 -1"<<endl;
 }
 
 

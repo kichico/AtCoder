@@ -52,16 +52,18 @@ T vecsum(vector<T>& vec){
     return accumulate(ALL(vec),(T)0);
 }
 //#########################################################################
+ll gcd(ll a,ll b){
+    if(b==0) return a;
+    else return gcd(b,a%b);
+}
 
 void solve(){
-    ll h,w;
-    cin>>h>>w;
-    ll x,y;
-    cin>>y>>x;
-    grid<ll> g(h,w);
-    rep(i,0,y) g.field.pop_back();
-    rep(j,0,w) rep(i,0,g.field.size()) g.field[i].pop_back();
-    cout<<g.field.size()*g.field[0].size()<<endl;
+    ll N;
+    cin>>N;
+    vector<ll> a(N); rep(i,0,N) cin>>a[i];
+    ll ans=a[0];
+    rep(i,1,N) ans=gcd(ans,a[i]);
+    cout<<ans<<endl;
 }
 
 

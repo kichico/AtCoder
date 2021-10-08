@@ -54,14 +54,22 @@ T vecsum(vector<T>& vec){
 //#########################################################################
 
 void solve(){
-    ll h,w;
-    cin>>h>>w;
-    ll x,y;
-    cin>>y>>x;
-    grid<ll> g(h,w);
-    rep(i,0,y) g.field.pop_back();
-    rep(j,0,w) rep(i,0,g.field.size()) g.field[i].pop_back();
-    cout<<g.field.size()*g.field[0].size()<<endl;
+    ll N,K;
+    cin>>N>>K;
+    vector<ll> a(N); rep(i,0,N) cin>>a[i];
+    pair<ll,ll> mini;
+    mini.first=INF; mini.second=0;
+    rep(i,0,N) {
+        if(a[i]<mini.first) {
+            mini.first=a[i];
+            mini.second=i;
+        }
+    }
+    ll ans=1;
+    N-=K;
+    ans+=(N+K-2)/(K-1);
+
+    cout<<ans<<endl;
 }
 
 

@@ -52,16 +52,38 @@ T vecsum(vector<T>& vec){
     return accumulate(ALL(vec),(T)0);
 }
 //#########################################################################
+ll from10to8(ll num){
+    string s;
+    while(num!=0){
+        s.push_back((num%8)+'0');
+        num/=8;
+    }
+    reverse(ALL(s));
+    return stoll(s);
+}
+
 
 void solve(){
-    ll h,w;
-    cin>>h>>w;
-    ll x,y;
-    cin>>y>>x;
-    grid<ll> g(h,w);
-    rep(i,0,y) g.field.pop_back();
-    rep(j,0,w) rep(i,0,g.field.size()) g.field[i].pop_back();
-    cout<<g.field.size()*g.field[0].size()<<endl;
+    ll N;
+    cin>>N;
+    set<ll> ans;
+    rep(i,1,N+1) ans.emplace(i);
+    rep(i,1,N+1){
+        string s=to_string(i);
+        rep(j,0,s.size()) if(s[j]=='7') {
+            ans.erase(i);
+            break;
+        }
+        if(ans.find(i)==ans.end()) continue;
+        ll eight=from10to8(i);
+        s=to_string(eight);
+        rep(j,0,s.size()) if(s[j]=='7') {
+            ans.erase(i);
+            break;
+        }
+        if(ans.find(i)==ans.end()) continue;
+    }
+    cout<<ans.size()<<endl;
 }
 
 

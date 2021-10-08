@@ -47,21 +47,13 @@ struct grid{
     void input(){rep(i,0,field.size()) rep(j,0,field[i].size()) cin>>field[i][j];}
 };
 
-template <class T>
-T vecsum(vector<T>& vec){
-    return accumulate(ALL(vec),(T)0);
-}
 //#########################################################################
 
 void solve(){
-    ll h,w;
-    cin>>h>>w;
-    ll x,y;
-    cin>>y>>x;
-    grid<ll> g(h,w);
-    rep(i,0,y) g.field.pop_back();
-    rep(j,0,w) rep(i,0,g.field.size()) g.field[i].pop_back();
-    cout<<g.field.size()*g.field[0].size()<<endl;
+    ll a,b,c; cin>>a>>b>>c;
+    set<ll> maxi;
+    if(a%2!=0&&b%2!=0&&c%2!=0) cout<<min(a*b,min(b*c,c*a))<<endl;
+    else cout<<0<<endl;
 }
 
 
