@@ -5,6 +5,8 @@ using ld=long double;
 using ull=unsigned long long;
 #define ALL(x) x.begin(),x.end()
 #define rep(iter,from,to) for(ll iter=from;iter<to;++iter)
+#define fore(variable,container) for(auto variable:container)
+#define forc(variable,container) for(auto variable:container) cout<<variable<<endl;
 
 const ll MOD=1e9+7;
 const ll INF=1e17;
@@ -45,33 +47,50 @@ struct grid{
     void input(){rep(i,0,field.size()) rep(j,0,field[i].size()) cin>>field[i][j];}
 };
 
+template <class T>
+T vecsum(vector<T>& vec){
+    return accumulate(ALL(vec),(T)0);
+}
 //#########################################################################
+bool comp(const pair<ll,ll> fr,const pair<ll,ll> se){
+    if(fr.first!=se.first) return fr.first>se.first;
+    else return fr.second<se.second;
+}
+
 
 void solve(){
-    ll N;
-    cin>>N;
-    string s; cin>>s;
-    ll ans=0;
-    vector<ll> B(N),R,G;
-    rep(i,0,N){
-        ll now=N-i-1;
-        if(s[i]=='R') R.emplace_back(i);
-        else if(s[i]=='G') G.emplace_back(i);
-        if(now==N-1) {
-            if(s[now]=='B') B[now]=1;
-            else B[now]=0;
+    ll N,M;
+    cin>>N>>M;
+    vector<string> p(2*N); rep(i,0,2*N) cin>>p[i];
+    vector<pair<ll,ll>> win(2*N);
+    rep(i,0,2*N) { win[i].first=0; win[i].second=i;}
+    rep(i,0,M){
+        for(ll j=0;j<2*N;j+=2){
+            ll fr=win[j].second;
+            ll se=win[j+1].second;
+            char frc=p[fr][i];
+            char sec=p[se][i];
+            if(frc==sec) {
+                continue;
+            }
+            else {
+                if(frc=='G'){
+                    if(sec=='P') win[j+1].first++;
+                    else win[j].first++;
+                }
+                else if(frc=='P') {
+                    if(sec=='C') win[j+1].first++;
+                    else win[j].first++;
+                }
+                else {
+                    if(sec=='G') win[j+1].first++;
+                    else win[j].first++;
+                }
+            }
         }
-        else{
-            B[now]=B[now+1];
-            if(s[now]=='B') B[now]++;
-        }
+        sort(ALL(win),comp);
     }
-    ll ans=0;
-    for(auto& r:R) for(auto& g:G){
-        ll dist=g-r;
-        ans+=B[g+1];
-        
-    }
+    rep(i,0,2*N) cout<<win[i].second+1<<endl;
 }
 
 

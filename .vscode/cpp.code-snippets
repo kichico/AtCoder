@@ -52,7 +52,7 @@
             "    Edge(ll to, ll cost=0): to(to), cost(cost) {}",
             "};",
             "",
-            "typedef pair<ll,ll> P;",
+            "using P = pair<ll,ll>;",
             "struct graph{",
             "    const ll INF=numeric_limits<ll>::max();",
             "    vector<vector<Edge>> G;",
@@ -215,9 +215,6 @@
             "        }",
             "    }",
             "};",
-            "",
-            "",
-            "",
         ],
         "description": ""
     }

@@ -5,6 +5,8 @@ using ld=long double;
 using ull=unsigned long long;
 #define ALL(x) x.begin(),x.end()
 #define rep(iter,from,to) for(ll iter=from;iter<to;++iter)
+#define fore(variable,container) for(auto variable:container)
+#define forc(variable,container) for(auto variable:container) cout<<variable<<endl;
 
 const ll MOD=1e9+7;
 const ll INF=1e17;
@@ -45,33 +47,22 @@ struct grid{
     void input(){rep(i,0,field.size()) rep(j,0,field[i].size()) cin>>field[i][j];}
 };
 
+template <class T>
+T vecsum(vector<T>& vec){
+    return accumulate(ALL(vec),(T)0);
+}
 //#########################################################################
 
 void solve(){
-    ll N;
-    cin>>N;
-    string s; cin>>s;
-    ll ans=0;
-    vector<ll> B(N),R,G;
-    rep(i,0,N){
-        ll now=N-i-1;
-        if(s[i]=='R') R.emplace_back(i);
-        else if(s[i]=='G') G.emplace_back(i);
-        if(now==N-1) {
-            if(s[now]=='B') B[now]=1;
-            else B[now]=0;
-        }
-        else{
-            B[now]=B[now+1];
-            if(s[now]=='B') B[now]++;
-        }
+    string s;
+    cin>>s;
+    set<ll> ans;
+    rep(i,0,s.size()-2){
+        ll num=stoll(s.substr(i,3));
+        ans.emplace(abs(753-num));
+        cout<<num<<endl;
     }
-    ll ans=0;
-    for(auto& r:R) for(auto& g:G){
-        ll dist=g-r;
-        ans+=B[g+1];
-        
-    }
+    cout<<*ans.begin()<<endl;
 }
 
 

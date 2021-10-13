@@ -5,6 +5,8 @@ using ld=long double;
 using ull=unsigned long long;
 #define ALL(x) x.begin(),x.end()
 #define rep(iter,from,to) for(ll iter=from;iter<to;++iter)
+#define fore(variable,container) for(auto variable:container)
+#define forc(variable,container) for(auto variable:container) cout<<variable<<endl;
 
 const ll MOD=1e9+7;
 const ll INF=1e17;
@@ -45,33 +47,39 @@ struct grid{
     void input(){rep(i,0,field.size()) rep(j,0,field[i].size()) cin>>field[i][j];}
 };
 
+template <class T>
+T vecsum(vector<T>& vec){
+    return accumulate(ALL(vec),(T)0);
+}
 //#########################################################################
 
 void solve(){
     ll N;
     cin>>N;
-    string s; cin>>s;
-    ll ans=0;
-    vector<ll> B(N),R,G;
+    ll M; cin>>M;
+    vector<string> ans(M);
+    vector<vector<pair<ll,ll>>> city(N);
+    rep(i,0,M){
+        ll pref,year,order=i;
+        cin>>pref>>year; pref--;
+        city[pref].emplace_back(make_pair(year,order));
+    }
     rep(i,0,N){
-        ll now=N-i-1;
-        if(s[i]=='R') R.emplace_back(i);
-        else if(s[i]=='G') G.emplace_back(i);
-        if(now==N-1) {
-            if(s[now]=='B') B[now]=1;
-            else B[now]=0;
-        }
-        else{
-            B[now]=B[now+1];
-            if(s[now]=='B') B[now]++;
+        if(city[i].empty()) continue;
+        sort(ALL(city[i]));
+        string prefID=to_string(i+1);
+        reverse(ALL(prefID));
+        while(prefID.length()<6) prefID+="0";
+        reverse(ALL(prefID));
+        rep(j,0,city[i].size()){
+            string cityID=to_string(j+1);
+            reverse(ALL(cityID));
+            while(cityID.length()<6) cityID+="0";
+            reverse(ALL(cityID));
+            ans[city[i][j].second]=prefID+cityID;
         }
     }
-    ll ans=0;
-    for(auto& r:R) for(auto& g:G){
-        ll dist=g-r;
-        ans+=B[g+1];
-        
-    }
+    fore(x,ans);
 }
 
 

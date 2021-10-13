@@ -5,6 +5,8 @@ using ld=long double;
 using ull=unsigned long long;
 #define ALL(x) x.begin(),x.end()
 #define rep(iter,from,to) for(ll iter=from;iter<to;++iter)
+#define fore(variable,container) for(auto variable:container)
+#define forc(variable,container) for(auto variable:container) cout<<variable<<endl;
 
 const ll MOD=1e9+7;
 const ll INF=1e17;
@@ -45,35 +47,47 @@ struct grid{
     void input(){rep(i,0,field.size()) rep(j,0,field[i].size()) cin>>field[i][j];}
 };
 
+template <class T>
+T vecsum(vector<T>& vec){
+    return accumulate(ALL(vec),(T)0);
+}
 //#########################################################################
 
 void solve(){
     ll N;
     cin>>N;
-    string s; cin>>s;
-    ll ans=0;
-    vector<ll> B(N),R,G;
+    map<ll,ll> edge;
     rep(i,0,N){
-        ll now=N-i-1;
-        if(s[i]=='R') R.emplace_back(i);
-        else if(s[i]=='G') G.emplace_back(i);
-        if(now==N-1) {
-            if(s[now]=='B') B[now]=1;
-            else B[now]=0;
-        }
-        else{
-            B[now]=B[now+1];
-            if(s[now]=='B') B[now]++;
-        }
+        ll v; cin>>v;
+        edge[v]++;
     }
-    ll ans=0;
-    for(auto& r:R) for(auto& g:G){
-        ll dist=g-r;
-        ans+=B[g+1];
-        
+    map<ll,ll> checker;
+    vector<pair<ll,ll>> kouho;
+    fore(x,edge){
+        if(x.second>=2) kouho.emplace_back(make_pair(x.first,x.second));
     }
+    sort(ALL(kouho));
+    ll cnt=0;
+    if(kouho.size()==0) {
+        cout<<0<<endl;
+        return;
+    }
+    else if(kouho.size()==1&&kouho.back().second<4){
+        cout<<0<<endl;
+        return;
+    }
+    if(kouho.back().second>=4){
+        cout<<kouho.back().second*kouho.back().second<<endl;
+        return;
+    }
+    set<ll> cand;
+    rep(i,0,kouho.size()) if(kouho[i].second>=2) cand.emplace(kouho[i].first);
+    if(cand.size()<=1) {cout<<0<<endl; return;}
+    auto it=cand.rbegin();
+    ll fr=*it;
+    it--;
+    cout<<fr*(*it)<<endl;
 }
-
 
 int main(void){
     std::cin.tie(nullptr);

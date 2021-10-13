@@ -5,6 +5,8 @@ using ld=long double;
 using ull=unsigned long long;
 #define ALL(x) x.begin(),x.end()
 #define rep(iter,from,to) for(ll iter=from;iter<to;++iter)
+#define fore(variable,container) for(auto variable:container)
+#define forc(variable,container) for(auto variable:container) cout<<variable<<endl;
 
 const ll MOD=1e9+7;
 const ll INF=1e17;
@@ -45,33 +47,33 @@ struct grid{
     void input(){rep(i,0,field.size()) rep(j,0,field[i].size()) cin>>field[i][j];}
 };
 
+template <class T>
+T vecsum(vector<T>& vec){
+    return accumulate(ALL(vec),(T)0);
+}
 //#########################################################################
 
 void solve(){
     ll N;
     cin>>N;
-    string s; cin>>s;
-    ll ans=0;
-    vector<ll> B(N),R,G;
-    rep(i,0,N){
-        ll now=N-i-1;
-        if(s[i]=='R') R.emplace_back(i);
-        else if(s[i]=='G') G.emplace_back(i);
-        if(now==N-1) {
-            if(s[now]=='B') B[now]=1;
-            else B[now]=0;
-        }
-        else{
-            B[now]=B[now+1];
-            if(s[now]=='B') B[now]++;
-        }
+    set<ll> ans;
+    string len=to_string(N);
+    rep(i,1,len.size()+1) rep(j,1,len.size()-i+1) rep(k,1,len.size()-(i+j)+1) {
+        ll nana=i, go=j,san=k;
+        string made;
+        ll n=7,g=5,s=3;
+        rep(a,0,i) made.push_back(n+'0');
+        rep(b,0,j) made.push_back(g+'0');
+        rep(c,0,k) made.push_back(s+'0');
+        sort(ALL(made));
+        do{
+            ll v=stoll(made);
+            if(v<=N) {
+                ans.emplace(v);
+            }
+        }while(next_permutation(ALL(made)));
     }
-    ll ans=0;
-    for(auto& r:R) for(auto& g:G){
-        ll dist=g-r;
-        ans+=B[g+1];
-        
-    }
+    cout<<ans.size()<<endl;
 }
 
 

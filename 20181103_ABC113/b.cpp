@@ -5,6 +5,8 @@ using ld=long double;
 using ull=unsigned long long;
 #define ALL(x) x.begin(),x.end()
 #define rep(iter,from,to) for(ll iter=from;iter<to;++iter)
+#define fore(variable,container) for(auto variable:container)
+#define forc(variable,container) for(auto variable:container) cout<<variable<<endl;
 
 const ll MOD=1e9+7;
 const ll INF=1e17;
@@ -45,39 +47,37 @@ struct grid{
     void input(){rep(i,0,field.size()) rep(j,0,field[i].size()) cin>>field[i][j];}
 };
 
+template <class T>
+T vecsum(vector<T>& vec){
+    return accumulate(ALL(vec),(T)0);
+}
 //#########################################################################
+ll T;
+double f(ll x){
+    return (ld)(T-0.006*x);
+}
+
 
 void solve(){
     ll N;
     cin>>N;
-    string s; cin>>s;
-    ll ans=0;
-    vector<ll> B(N),R,G;
+    ld A; cin>>T>>A;
+    vector<ll> h(N); rep(i,0,N) cin>>h[i];
+    ld ans=(ld)INF;
+    ll ID=-1;
     rep(i,0,N){
-        ll now=N-i-1;
-        if(s[i]=='R') R.emplace_back(i);
-        else if(s[i]=='G') G.emplace_back(i);
-        if(now==N-1) {
-            if(s[now]=='B') B[now]=1;
-            else B[now]=0;
-        }
-        else{
-            B[now]=B[now+1];
-            if(s[now]=='B') B[now]++;
+        if(ans>abs(A-f(h[i]))) {
+            ans=abs(A-f(h[i]));
+            ID=i+1;
         }
     }
-    ll ans=0;
-    for(auto& r:R) for(auto& g:G){
-        ll dist=g-r;
-        ans+=B[g+1];
-        
-    }
+    cout<<ID<<endl;
 }
 
 
 int main(void){
     std::cin.tie(nullptr);
-	std::ios_base::sync_with_stdio(false);
-	std::cout << std::fixed << std::setprecision(15);
-	solve();
+    std::ios_base::sync_with_stdio(false);
+    std::cout << std::fixed << std::setprecision(15);
+    solve();
 }
