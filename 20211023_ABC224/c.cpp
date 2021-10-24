@@ -56,38 +56,18 @@ T vecsum(vector<T>& vec){
 void solve(){
     ll N;
     cin>>N;
-    map<ll,ll> edge;
-    rep(i,0,N){
-        ll v; cin>>v;
-        edge[v]++;
+    vector<pair<ll,ll>> ten(N); rep(i,0,N) cin>>ten[i].first>>ten[i].second;
+    ll ans = 0;
+    rep(i,0,N-2) rep(j,i+1,N-1) rep(k,j+1,N){
+        ll xa,ya,xb,yb,xc,yc;
+        tie(xa,ya) = ten[i]; tie(xb,yb) = ten[j]; tie(xc,yc) = ten[k];
+        ll vecxa = xa - xb, vecxb = xc - xb, vecya = ya - yb, vecyb = yc - yb;
+        ld S = abs(vecxa*vecyb - vecxb*vecya)*0.5;
+        if(S > 0) ans++;
     }
-    map<ll,ll> checker;
-    vector<pair<ll,ll>> kouho;
-    fore(x,edge){
-        if(x.second>=2) kouho.emplace_back(make_pair(x.first,x.second));
-    }
-    sort(ALL(kouho));
-    ll cnt=0;
-    if(kouho.size()==0) {
-        cout<<0<<endl;
-        return;
-    }
-    else if(kouho.size()==1&&kouho.back().second<4){
-        cout<<0<<endl;
-        return;
-    }
-    if(kouho.back().second>=4){
-        cout<<kouho.back().first*kouho.back().first<<endl;
-        return;
-    }
-    set<ll> cand;
-    rep(i,0,kouho.size()) if(kouho[i].second>=2) cand.emplace(kouho[i].first);
-    if(cand.size()<=1) {cout<<0<<endl; return;}
-    auto it=cand.rbegin();
-    ll fr=*it;
-    it--;
-    cout<<fr*(*it)<<endl;
+    cout<<ans<<endl;
 }
+
 
 int main(void){
     std::cin.tie(nullptr);

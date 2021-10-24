@@ -5,11 +5,12 @@ using ld=long double;
 using ull=unsigned long long;
 #define ALL(x) x.begin(),x.end()
 #define rep(iter,from,to) for(ll iter=from;iter<to;++iter)
-#define fore(variable,container) for(auto variable:container)
-#define forc(variable,container) for(auto variable:container) cout<<variable<<endl;
+#define fore(variable,container) for(auto& variable:container)
+#define forc(variable,container) for(auto& variable:container) cout<<variable<<endl;
 
 const ll MOD=1e9+7;
 const ll INF=1e17;
+const vector<ll> dx{1,0,-1,0},dy{0,1,0,-1};
 //#######################################################################
 void op(vector<ll> vec){
     ll size=(ll)vec.size();
@@ -36,26 +37,31 @@ void twoText(bool identifier){
     else cout<<"No"<<endl;
 }
 
-void counter(ll& num,ll& increaser,bool checker){
-    if(checker) num+=increaser;
-}
-
-template <class T>
-struct grid{
-    vector<vector<T>> field;
-    grid(ll height,ll width){field=vector<vector<T>>(height,vector<T>(width,(T)0));}
-    void input(){rep(i,0,field.size()) rep(j,0,field[i].size()) cin>>field[i][j];}
-};
-
 template <class T>
 T vecsum(vector<T>& vec){
     return accumulate(ALL(vec),(T)0);
 }
+
+template<class T,class U>
+struct dict{
+    map<T,U> data;
+    bool isExist(T key){
+        if(data.find(key) == data.end()) return false;
+        else return true;
+    }
+    void emplace(T key, U value){ data[key] = value; }
+};
+
+template<class T>
+bool isExist(set<T> st, T key){
+    if(st.find(key) == st.end()) return false;
+    else return true;
+}
 //#########################################################################
 
 void solve(){
-    ll N;
-    cin>>N;
+    ll N; cin>>N;
+    
 }
 
 

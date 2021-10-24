@@ -54,40 +54,18 @@ T vecsum(vector<T>& vec){
 //#########################################################################
 
 void solve(){
-    ll N;
-    cin>>N;
-    map<ll,ll> edge;
-    rep(i,0,N){
-        ll v; cin>>v;
-        edge[v]++;
+    ll h,w;
+    cin>>h>>w;
+    grid<ll> a(h,w); a.input();
+    auto area = a.field;
+    bool flg = true;
+    rep(i,0,h) rep(j,0,w) rep(a,0,h) rep(b,0,w){
+        if(i>=a||j>=b) continue;
+        if(area[i][j]+area[a][b]>area[a][j]+area[i][b]) flg = false;
     }
-    map<ll,ll> checker;
-    vector<pair<ll,ll>> kouho;
-    fore(x,edge){
-        if(x.second>=2) kouho.emplace_back(make_pair(x.first,x.second));
-    }
-    sort(ALL(kouho));
-    ll cnt=0;
-    if(kouho.size()==0) {
-        cout<<0<<endl;
-        return;
-    }
-    else if(kouho.size()==1&&kouho.back().second<4){
-        cout<<0<<endl;
-        return;
-    }
-    if(kouho.back().second>=4){
-        cout<<kouho.back().first*kouho.back().first<<endl;
-        return;
-    }
-    set<ll> cand;
-    rep(i,0,kouho.size()) if(kouho[i].second>=2) cand.emplace(kouho[i].first);
-    if(cand.size()<=1) {cout<<0<<endl; return;}
-    auto it=cand.rbegin();
-    ll fr=*it;
-    it--;
-    cout<<fr*(*it)<<endl;
+    twoText(flg);
 }
+
 
 int main(void){
     std::cin.tie(nullptr);

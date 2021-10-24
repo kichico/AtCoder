@@ -46,13 +46,47 @@ struct grid{
 };
 
 //#########################################################################
+struct position{
+    ll x;
+    ll y;
+    position operator+(const position& other){
+        this->x+=other.x;
+        this->y+=other.y;
+        return *this;
+    }
+};
+
+ll cal(const position& fr, const position& se){
+    return abs(fr.x-se.x)+abs(fr.y-se.y);
+}
+
 
 void solve(){
     ll h,w;cin>>h>>w;
     ll d; cin>>d;
     grid<ll> a(h,w);
     a.input();
-    
+    auto area = a.field;
+    map<ll,position> pos;
+    position tmp;
+    rep(i,0,h) rep(j,0,w){
+        tmp.x = j; tmp.y = i; 
+        pos[area[i][j]] = tmp;
+    }
+    ll Q; cin>>Q;
+    vector<ll> ans(Q);
+    rep(i,0,Q){
+        ll from,to; cin>>from>>to;
+        ll sum = 0;
+        while(from!=to){
+            auto&& current = pos[from];
+            auto&& next = pos[from+d];
+            sum += cal(current,next);
+            from += d;
+        }
+        ans[i] = sum;
+    }
+    for(auto&& x:ans) cout<<x<<endl;
 }
 
 

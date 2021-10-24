@@ -52,42 +52,66 @@ T vecsum(vector<T>& vec){
     return accumulate(ALL(vec),(T)0);
 }
 //#########################################################################
+struct UnionFind {
+    vector<ll> parents;
+    set<ll> roots;
+    vector<set<ll>> member;
+    UnionFind(int size) { 
+        parents.assign(size, -1);
+        member=vector<set<ll>>(size);
+        rep(i,0,size) {
+            roots.emplace(i);
+            member[i].emplace(i);
+        }
+    }
+    ll findRoot(ll x) {
+        if (parents[x] < 0) return x;
+        return parents[x] = findRoot(parents[x]);
+    }
+    bool unite(ll x, ll y) {
+        x = findRoot(x);
+        y = findRoot(y);
+        if (x == y) return false;
+        if (parents[x] > parents[y]) swap(x, y);
+        parents[x] += parents[y];
+        parents[y] = x;
+        roots.erase(y);
+        for(auto i:member[y]) member[x].emplace(i);
+        member[y].clear();
+        return true;
+    }
+    ll size(ll x) { return -parents[findRoot(x)]; }
+    bool isSameGroup(ll x, ll y) { return findRoot(x) == findRoot(y); }
+    ll getGroups() { return roots.size(); }
+    vector<ll> getMembers(ll x) { 
+        vector<ll> v(ALL(member[findRoot(x)]));
+        return v; 
+    }
+};
+
 
 void solve(){
-    ll N;
-    cin>>N;
-    map<ll,ll> edge;
-    rep(i,0,N){
-        ll v; cin>>v;
-        edge[v]++;
+    ll N,M;
+    cin>>N>>M;
+    vector<pair<ll,ll>> bridge(M);
+    rep(i,0,M) cin>>bridge[i].first>>bridge[i].second;
+    UnionFind uf(N);
+    vector<ll> ans(M,0);
+    for(ll now=M-1;now>0;--now){
+        ll from,to; tie(from,to)=bridge[now];
+        from--; to--;
+        if(uf.isSameGroup(from,to)) ans[now]=ans[now+1];
+        else if(now==M-1) ans[now]=(N-1)*N/2;
+        else {
+            ll bfrom,bto; tie(bfrom,bto)=bridge[now+1];
+            ans[now]=ans[now+1]-(uf.size(bfrom)*uf.size(bto));
+        }
+        cout<<"now:"<<now<<" from:"<<uf.size(from)<<" to:"<<uf.size(to)<<endl;
+        uf.unite(from,to);
     }
-    map<ll,ll> checker;
-    vector<pair<ll,ll>> kouho;
-    fore(x,edge){
-        if(x.second>=2) kouho.emplace_back(make_pair(x.first,x.second));
-    }
-    sort(ALL(kouho));
-    ll cnt=0;
-    if(kouho.size()==0) {
-        cout<<0<<endl;
-        return;
-    }
-    else if(kouho.size()==1&&kouho.back().second<4){
-        cout<<0<<endl;
-        return;
-    }
-    if(kouho.back().second>=4){
-        cout<<kouho.back().first*kouho.back().first<<endl;
-        return;
-    }
-    set<ll> cand;
-    rep(i,0,kouho.size()) if(kouho[i].second>=2) cand.emplace(kouho[i].first);
-    if(cand.size()<=1) {cout<<0<<endl; return;}
-    auto it=cand.rbegin();
-    ll fr=*it;
-    it--;
-    cout<<fr*(*it)<<endl;
+    forc(x,ans);
 }
+
 
 int main(void){
     std::cin.tie(nullptr);

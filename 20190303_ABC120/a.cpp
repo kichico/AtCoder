@@ -54,40 +54,11 @@ T vecsum(vector<T>& vec){
 //#########################################################################
 
 void solve(){
-    ll N;
-    cin>>N;
-    map<ll,ll> edge;
-    rep(i,0,N){
-        ll v; cin>>v;
-        edge[v]++;
-    }
-    map<ll,ll> checker;
-    vector<pair<ll,ll>> kouho;
-    fore(x,edge){
-        if(x.second>=2) kouho.emplace_back(make_pair(x.first,x.second));
-    }
-    sort(ALL(kouho));
-    ll cnt=0;
-    if(kouho.size()==0) {
-        cout<<0<<endl;
-        return;
-    }
-    else if(kouho.size()==1&&kouho.back().second<4){
-        cout<<0<<endl;
-        return;
-    }
-    if(kouho.back().second>=4){
-        cout<<kouho.back().first*kouho.back().first<<endl;
-        return;
-    }
-    set<ll> cand;
-    rep(i,0,kouho.size()) if(kouho[i].second>=2) cand.emplace(kouho[i].first);
-    if(cand.size()<=1) {cout<<0<<endl; return;}
-    auto it=cand.rbegin();
-    ll fr=*it;
-    it--;
-    cout<<fr*(*it)<<endl;
+    ll a,b,c;
+    cin>>a>>b>>c;
+    cout<<min(b/a,c)<<endl;
 }
+
 
 int main(void){
     std::cin.tie(nullptr);
