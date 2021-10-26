@@ -50,8 +50,8 @@ T vecsum(vector<T>& vec, ll K){
 //#########################################################################
 
 void solve(){
-    ll N; cin>>N;
-    
+    ll a,b,c,d; cin>>a>>b>>c>>d;
+    cout<<min(a,b)+min(c,d)<<endl;
 }
 
 

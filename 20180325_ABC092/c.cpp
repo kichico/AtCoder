@@ -51,7 +51,15 @@ T vecsum(vector<T>& vec, ll K){
 
 void solve(){
     ll N; cin>>N;
-    
+    vector<ll> a(N+2,0); rep(i,0,N) cin>>a[i+1];
+    vector<ll> from(N),to(N);
+    ll sum = 0;
+    rep(i,0,a.size()-1) sum += abs(a[i+1] - a[i]);
+    vector<ll> ans(N);
+    rep(i,1,N+1){
+        ans[i-1] = sum - abs(a[i-1]-a[i]) - abs(a[i+1] - a[i]) + abs(a[i-1] - a[i+1]); 
+    }
+    forc(x,ans);
 }
 
 

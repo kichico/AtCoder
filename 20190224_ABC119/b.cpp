@@ -7,6 +7,7 @@ using ull=unsigned long long;
 #define rep(iter,from,to) for(ll iter=from;iter<to;++iter)
 #define fore(variable,container) for(auto& variable:container)
 #define forc(variable,container) for(auto& variable:container) cout<<variable<<endl;
+
 const ll MOD=1e9+7;
 const ll INF=1e17;
 const vector<ll> dx{1,0,-1,0},dy{0,1,0,-1};
@@ -41,17 +42,36 @@ T vecsum(vector<T>& vec){
     return accumulate(ALL(vec),(T)0);
 }
 
-template<class T,ll>
-T vecsum(vector<T>& vec, ll K){
-    ll ret = 0;
-    rep(i,0,K) ret+=vec[i];
-    return ret;
+template<class T,class U>
+struct dict{
+    map<T,U> data;
+    inline bool isExist(T key){
+        if(data.find(key) == data.end()) return false;
+        else return true;
+    }
+    inline void emplace(T key, U value){ data[key] = value; }
+};
+
+template<class T>
+inline bool isExist(set<T> st, T key){
+    if(st.find(key) == st.end()) return false;
+    else return true;
 }
 //#########################################################################
 
 void solve(){
     ll N; cin>>N;
-    
+    vector<ll> jpy,btc;
+    rep(i,0,N){
+        string s,m; cin>>m>>s;
+        if(s=="JPY") jpy.emplace_back(stoll(m));
+        else{
+            ld con = stold(m);
+            con*=1e11;
+            btc.emplace_back((ll)con);
+        }
+    }
+    cout<<vecsum(jpy)+(ld)vecsum(btc)*1e-11*380000<<endl;
 }
 
 

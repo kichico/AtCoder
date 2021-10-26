@@ -41,23 +41,34 @@ T vecsum(vector<T>& vec){
     return accumulate(ALL(vec),(T)0);
 }
 
-template<class T,ll>
-T vecsum(vector<T>& vec, ll K){
-    ll ret = 0;
-    rep(i,0,K) ret+=vec[i];
-    return ret;
+template<class T>
+inline bool isExist(set<T> st, T key){
+    if(st.find(key) == st.end()) return false;
+    else return true;
+}
+
+template<class T,class U>
+inline bool isExist(map<T,U> st, T key){
+    if(st.find(key) == st.end()) return false;
+    else return true;
 }
 //#########################################################################
 
 void solve(){
-    ll N; cin>>N;
-    
+    ll x,y; cin>>x>>y;
+    ll xx = 1,yy = 1;
+    rep(i,1,sqrt(x)+1) if(x%i==0) xx++;
+    rep(i,1,sqrt(y)+1) if(y%i==0) yy++;
+    if(x == 1) xx = 1;
+    if(y == 1) yy = 1;
+    if(xx==yy) cout<<"Z"<<endl;
+    else twoText(xx>yy,"X","Y");    
 }
 
 
 int main(void){
     std::cin.tie(nullptr);
-	std::ios_base::sync_with_stdio(false);
-	std::cout << std::fixed << std::setprecision(15);
-	solve();
+    std::ios_base::sync_with_stdio(false);
+    std::cout << std::fixed << std::setprecision(15);
+    solve();
 }

@@ -41,17 +41,29 @@ T vecsum(vector<T>& vec){
     return accumulate(ALL(vec),(T)0);
 }
 
-template<class T,ll>
-T vecsum(vector<T>& vec, ll K){
-    ll ret = 0;
-    rep(i,0,K) ret+=vec[i];
-    return ret;
+template<class T>
+inline bool isExist(set<T> st, T key){
+    if(st.find(key) == st.end()) return false;
+    else return true;
+}
+
+template<class T,class U>
+inline bool isExist(map<T,U> st, T key){
+    if(st.find(key) == st.end()) return false;
+    else return true;
 }
 //#########################################################################
 
 void solve(){
-    ll N; cin>>N;
-    
+    ll N,M; cin>>N>>M;
+    map<ll,ll> cnt;
+    rep(i,0,N) {
+        ll v; cin>>v; cnt[v]++;
+    }
+    rep(i,0,M) {
+        ll v; cin>>v; cnt[v]++;
+    }
+    fore(x,cnt) if(x.second>=2) cout<<x.first<<endl;
 }
 
 

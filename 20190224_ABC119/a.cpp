@@ -41,17 +41,30 @@ T vecsum(vector<T>& vec){
     return accumulate(ALL(vec),(T)0);
 }
 
-template<class T,ll>
-T vecsum(vector<T>& vec, ll K){
-    ll ret = 0;
-    rep(i,0,K) ret+=vec[i];
-    return ret;
+template<class T,class U>
+struct dict{
+    map<T,U> data;
+    inline bool isExist(T key){
+        if(data.find(key) == data.end()) return false;
+        else return true;
+    }
+    inline void emplace(T key, U value){ data[key] = value; }
+};
+
+template<class T>
+inline bool isExist(set<T> st, T key){
+    if(st.find(key) == st.end()) return false;
+    else return true;
 }
 //#########################################################################
 
 void solve(){
-    ll N; cin>>N;
-    
+    string N; cin>>N;
+    string year = N.substr(0,4);
+    string month = N.substr(5,2);
+    if(stoi(year) < 2018) cout<<"Heisei"<<endl;
+    else if(stoi(month) <= 4) cout<<"Heisei"<<endl;
+    else cout<<"TBD"<<endl;
 }
 
 

@@ -51,7 +51,20 @@ T vecsum(vector<T>& vec, ll K){
 
 void solve(){
     ll N; cin>>N;
-    
+    ll kikan,rest; cin>>kikan>>rest;
+    vector<ll> eat(N); rep(i,0,N) cin>>eat[i];
+    ll ans = 0;
+    rep(i,0,N){
+        ll a = 1;
+        ll cnt = 1;
+        vector<ll> eated;
+        while(a<=kikan){
+            ans++;
+            a = cnt*eat[i] + 1;
+            cnt++;
+        }
+    }
+    cout<<ans+rest<<endl;
 }
 
 
