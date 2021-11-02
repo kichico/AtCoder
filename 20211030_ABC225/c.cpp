@@ -47,19 +47,32 @@ T vecsum(vector<T>& vec, ll K){
     rep(i,0,K) ret+=vec[i];
     return ret;
 }
-
 template <class T>
 struct grid{
     vector<vector<T>> field;
     grid(ll height,ll width){field=vector<vector<T>>(height,vector<T>(width,(T)0));}
     void input(){rep(i,0,field.size()) rep(j,0,field[i].size()) cin>>field[i][j];}
 };
-
 //#########################################################################
 
 void solve(){
-    ll N; cin>>N;
-    
+    ll N,M; cin>>N>>M;
+    grid<ll> c(N,M);
+    c.input();
+    auto cale = c.field;
+    rep(i,1,M) if(cale[0][i] - cale[0][i-1] != 1) {
+        cout<<"No"<<endl;
+        return;
+    } 
+    ll yf = cale[0].front() / 7;
+    ll yb = cale[0].back() / 7;
+    if(yf != yb) { cout<<"No"<<endl;return;}
+    rep(col,0,M){
+        rep(row,1,N) {
+            if(cale[row][col] - cale[row-1][col] != 7) { cout<<"No"<<endl; return; }
+        }
+    }
+    cout<<"Yes"<<endl;
 }
 
 

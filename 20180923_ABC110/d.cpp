@@ -54,8 +54,30 @@ T vecsum(vector<T>& vec){
 //#########################################################################
 
 void solve(){
-    ll N;
-    cin>>N;
+    string s,t;
+    cin>>s>>t;
+    map<char,ll> sc,tc;
+    map<char,set<char>> relation;
+    if(s==t) { cout<<"Yes"<<endl; return; }
+    ll N = s.size();
+    grid<int> f(26,26);
+    auto& area = f.field;
+    rep(i,0,N) {
+        int a = s[i] - '0';
+        int b = t[i] - '0';
+        area[a][b] = 1;
+    }
+    rep(i,0,26) {
+        int cnt = 0;
+        rep(j,0,26) if(area[i][j]) cnt++;
+        if(cnt>=2) { cout<<"No"<<endl; return; }
+    }
+    rep(j,0,26) {
+        int cnt = 0;
+        rep(i,0,26) if(area[i][j]) cnt++;
+        if(cnt>=2) { cout<<"No"<<endl; return; }
+    }
+    cout<<"Yes"<<endl;
 }
 
 

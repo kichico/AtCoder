@@ -47,19 +47,58 @@ T vecsum(vector<T>& vec, ll K){
     rep(i,0,K) ret+=vec[i];
     return ret;
 }
-
-template <class T>
-struct grid{
-    vector<vector<T>> field;
-    grid(ll height,ll width){field=vector<vector<T>>(height,vector<T>(width,(T)0));}
-    void input(){rep(i,0,field.size()) rep(j,0,field[i].size()) cin>>field[i][j];}
+//#########################################################################
+struct relation{
+    ll front; ll rear;
+    void init(){
+        this->front = -1;
+        this->rear = -1;
+    }
 };
 
-//#########################################################################
 
 void solve(){
-    ll N; cin>>N;
-    
+    ll N,q; cin>>N>>q;
+    vector<relation> train(N);
+    vector<string> ans;
+    rep(i,0,N) train[i].init();
+    rep(i,0,q){
+        ll num; cin>>num;
+        if(num == 1){
+            ll x,y; cin>>x>>y;
+            x--; y--;
+            train[x].rear = y;
+            train[y].front = x;
+        }
+        else if(num == 2){
+            ll x,y; cin>>x>>y;
+            x--; y--;
+            train[x].rear = -1;
+            train[y].front = -1;
+        }
+        else {
+            ll x; cin>>x;
+            x--;
+            deque<ll> out;
+            out.push_back(x+1);
+            ll now = train[x].front;
+            while(now != -1) {
+                out.push_front(now + 1);
+                now = train[now].front;
+            }
+            now = train[x].rear;
+            while(now != -1){
+                out.push_back(now + 1);
+                now = train[now].rear;
+            }
+            string ss;
+            ss += to_string((ll)out.size())+" ";
+            rep(i,0,out.size()) ss += to_string(out[i]) + " ";
+            ss.pop_back();
+            ans.emplace_back(ss);
+        }
+    }
+    forc(x,ans);
 }
 
 

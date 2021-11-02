@@ -47,18 +47,12 @@ T vecsum(vector<T>& vec, ll K){
     rep(i,0,K) ret+=vec[i];
     return ret;
 }
-
-template <class T>
-struct grid{
-    vector<vector<T>> field;
-    grid(ll height,ll width){field=vector<vector<T>>(height,vector<T>(width,(T)0));}
-    void input(){rep(i,0,field.size()) rep(j,0,field[i].size()) cin>>field[i][j];}
-};
-
 //#########################################################################
 
 void solve(){
-    ll N; cin>>N;
+    char a,b,c; cin>>a>>b>>c;
+    string s; s.push_back(a); s.push_back(b); s.push_back(c);
+    twoText(stoll(s)%4==0,"YES","NO");
     
 }
 

@@ -3,27 +3,14 @@ using namespace std;
 using ll=int64_t;
 using ld=long double;
 using ull=unsigned long long;
-template <class T>
-using grid=vector<vector<T>>;
 #define ALL(x) x.begin(),x.end()
 #define rep(iter,from,to) for(ll iter=from;iter<to;++iter)
-
+#define fore(variable,container) for(auto& variable:container)
+#define forc(variable,container) for(auto& variable:container) cout<<variable<<endl;
 const ll MOD=1e9+7;
 const ll INF=1e17;
+const vector<ll> dx{1,0,-1,0},dy{0,1,0,-1};
 //#######################################################################
-vector<vector<ll>> input(ll N, ll width){
-    string str;
-    vector<vector<ll>> vec(N,vector<ll>(width));
-    for(ll i=0;i<N;++i){
-        cin>>str;
-        reverse(ALL(str));
-        for(ll j=0;j<width;++j){
-            vec[i][j]=str.back();
-            str.pop_back();
-        }
-    }
-    return vec;
-}
 void op(vector<ll> vec){
     ll size=(ll)vec.size();
     for(ll i=0;i<size-1;++i) cout<<vec[i]<<" ";
@@ -38,15 +25,59 @@ void op(vector<vector<ll>> vec){
         cout<<vec[i].back()<<endl;
     }
 }
+
+void twoText(bool identifier, string outTrue, string outFalse) {
+    if (identifier) cout << outTrue << endl;
+    else cout << outFalse << endl;
+}
+
+void twoText(bool identifier){
+    if(identifier) cout<<"Yes"<<endl;
+    else cout<<"No"<<endl;
+}
+
+template <class T>
+T vecsum(vector<T>& vec){
+    return accumulate(ALL(vec),(T)0);
+}
+
+template<class T,ll>
+T vecsum(vector<T>& vec, ll K){
+    ll ret = 0;
+    rep(i,0,K) ret+=vec[i];
+    return ret;
+}
+
+template <class T>
+struct grid{
+    vector<vector<T>> field;
+    grid(ll height,ll width){field=vector<vector<T>>(height,vector<T>(width,(T)0));}
+    void input(){rep(i,0,field.size()) rep(j,0,field[i].size()) cin>>field[i][j];}
+};
+
 //########################################################################
 
 
-
-
-
 void solve(){
-    ll N;
-    cin>>N;
+    ll N,M,Q;
+    cin>>N>>M>>Q;
+    vector<pair<ll,ll>> goods(N);
+    rep(i,0,N) cin>>goods[i].second>>goods[i].first;
+    vector<ll> box;
+    rep(i,0,M) {
+        ll x; cin>>x; box.emplace_back(x);
+    }
+    vector<ll> ans(Q);
+    sort(ALL(goods),greater<ll>());
+    rep(i,0,Q){
+        auto cur = box;
+        ll L,R; cin>>L>>R; 
+        L--; R--;
+        rep(i,L,R) cur[i] = 0;
+        sort(ALL(cur),greater<ll>());
+        grid<ll> d(N,M);
+        auto dp = d.field;
+    }
 }
 
 

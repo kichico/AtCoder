@@ -47,19 +47,27 @@ T vecsum(vector<T>& vec, ll K){
     rep(i,0,K) ret+=vec[i];
     return ret;
 }
-
-template <class T>
-struct grid{
-    vector<vector<T>> field;
-    grid(ll height,ll width){field=vector<vector<T>>(height,vector<T>(width,(T)0));}
-    void input(){rep(i,0,field.size()) rep(j,0,field[i].size()) cin>>field[i][j];}
-};
-
 //#########################################################################
 
 void solve(){
     ll N; cin>>N;
-    
+    deque<char> s(N); rep(i,0,N) cin>>s[i];
+    while(true){
+        ll check = 0;
+        bool flg = true;
+        ll minv = 0;
+        rep(i,0,s.size()) {
+            if(s[i]=='(') check++;
+            else check--;
+            if(check<0) flg = false;
+            minv = min(check,minv);
+        }
+        if(flg && check == 0) break;
+        else if(!flg && minv < 0) rep(i,0,abs(minv)) s.push_front('(');
+        else rep(i,0,check)  s.push_back(')');
+    } 
+    string out; rep(i,0,s.size()) out.push_back(s[i]);
+    cout<<out<<endl;
 }
 
 

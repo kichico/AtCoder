@@ -58,8 +58,19 @@ struct grid{
 //#########################################################################
 
 void solve(){
-    ll N; cin>>N;
-    
+    string s; cin>>s;
+    ll N = s.size();
+    ll a = 0;
+    rep(i,0,N) if(s[i] == 'A') { a = i; break; }
+    ll z = N;
+    rep(i,0,N) {
+        ll now = N -i -1;
+        if(s[now] == 'Z') {
+            z = now;
+            break;
+        }
+    } 
+    cout<<z-a+1<<endl;
 }
 
 

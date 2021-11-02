@@ -59,7 +59,15 @@ struct grid{
 
 void solve(){
     ll N; cin>>N;
-    
+    ll ans = (N+10)/11;
+    if(N<=6) {
+        cout<<1<<endl;
+        return;
+    }
+    ans*=2;
+    if((ans/2-1)*11+6>=N) ans--;
+    cout<<ans<<endl;
+
 }
 
 

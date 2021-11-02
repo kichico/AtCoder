@@ -47,7 +47,6 @@ T vecsum(vector<T>& vec, ll K){
     rep(i,0,K) ret+=vec[i];
     return ret;
 }
-
 template <class T>
 struct grid{
     vector<vector<T>> field;
@@ -59,7 +58,7 @@ struct grid{
 
 void solve(){
     ll N; cin>>N;
-    
+    twoText(N<1200,"ABC","ARC");
 }
 
 

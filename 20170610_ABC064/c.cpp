@@ -47,19 +47,26 @@ T vecsum(vector<T>& vec, ll K){
     rep(i,0,K) ret+=vec[i];
     return ret;
 }
-
-template <class T>
-struct grid{
-    vector<vector<T>> field;
-    grid(ll height,ll width){field=vector<vector<T>>(height,vector<T>(width,(T)0));}
-    void input(){rep(i,0,field.size()) rep(j,0,field[i].size()) cin>>field[i][j];}
-};
-
 //#########################################################################
 
 void solve(){
     ll N; cin>>N;
-    
+    map<string,ll> color;
+    ll cnt = 0;
+    rep(i,0,N){
+        ll a; cin>>a;
+        if(a<400) color["gray"]++;
+        else if(a<800) color["brown"]++;
+        else if(a<1200) color["green"]++;
+        else if(a<1600) color["lblue"]++;
+        else if(a<2000) color["blue"]++;
+        else if(a<2400) color["yellow"]++;
+        else if(a<2800) color["orange"]++;
+        else if(a<3200) color["red"]++;
+        else cnt++;
+    }
+    if((int)color.size() != 0) cout<<color.size()<<" "<< (ll)color.size() + cnt <<endl;
+    else cout<<1<<" "<<cnt<<endl;
 }
 
 

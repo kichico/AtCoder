@@ -59,13 +59,41 @@ struct grid{
 
 void solve(){
     ll N; cin>>N;
-    
+    vector<ll> c(N); rep(i,0,N) cin>>c[i];
+    map<ll,ll> cnt;
+    rep(i,0,N) cnt[c[i]]++;
+    ll ans = 0;
+    vector<pair<ll,ll>> sorter;
+    fore(x,cnt){
+        pair<ll,ll> sp = x;
+        swap(sp.first,sp.second);
+        sorter.emplace_back(sp);
+    }
+    sort(ALL(sorter));
+    fore(x,sorter){
+        if(x.first >= 3) {
+            if(x.first%2 == 1) x.first = 1;
+            else x.first = 2;
+        }
+    }
+    sort(ALL(sorter));
+    ll one = 0,two = 0;
+    fore(x,sorter){
+        if(x.first >= 2) two++;
+        else one++;
+    }
+    ll minus = 0;
+    if(two % 2 == 0) {
+        cout << sorter.size() <<endl;
+        return;
+    }
+    else cout << sorter.size() - 1 << endl; 
 }
 
 
 int main(void){
     std::cin.tie(nullptr);
-	std::ios_base::sync_with_stdio(false);
-	std::cout << std::fixed << std::setprecision(15);
-	solve();
+    std::ios_base::sync_with_stdio(false);
+    std::cout << std::fixed << std::setprecision(15);
+    solve();
 }
