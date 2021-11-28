@@ -57,31 +57,56 @@ struct grid{
 
 //#########################################################################
 
-void solve(){
-    ll N,K; cin>>N>>K;
-    vector<ll> a(N); rep(i,0,N) cin>>a[i];
-    sort(ALL(a));
-    ll dist = 0;
-    ll left = 0, right = K - 1;
-    if(N == 1) {
-        cout << abs(a[0]-0) << endl;
-        return;
+ll modpow(ll x, ll n){
+    ll ans=1;
+    while(n>0) {
+        if(n&1) ans = ans*x%MOD;
+        x = x*x%MOD;
+        n >>= 1;
     }
-    rep(i,0,K-1) dist += abs(a[i+1]-a[i]);
-    if(a[right] < 0) dist += abs(a[right] - 0);
-    else if(a[left] > 0) dist += abs(a[left] - 0);
-    else dist += min(abs(a[left]),abs(a[right]));
-    ll ans = dist;
-    while(right + 1 < N){
-        ll cur = dist;
-        cur -= abs(a[left+1] - a[left]);
-        cur += abs(a[right+1] - a[right]);
-        cur -= min(abs(a[left]),abs(a[right]));;
-        cur += min(abs(a[left + 1]),abs(a[right + 1]));
-        ans = min(ans,cur);
-        dist = cur;
-        right++;
-        left++;
+    return ans;
+}
+
+ll com(ll n, ll k, vector<ll> fac_n,vector<ll> fac_k){
+    if(n==0&&k==0) return 1;
+    if(n<k||n<0) return 0;
+    ll value=fac_k[n-k]*fac_k[k]%MOD;
+    return value*fac_n[n]%MOD;
+}
+
+
+
+
+
+void solve(){
+    ll N; cin>>N;
+    string s; cin>>s;
+    ll lim=300001;
+    vector<ll> fac_n(lim);
+    vector<ll> fac_k(lim);
+    fac_n[0] = 1;
+    fac_k[0] = 1;
+    for(ll i=0;i<lim-1;++i){
+        fac_n[i+1] = fac_n[i]*(i+1)%MOD;
+        fac_k[i+1] = fac_k[i]*modpow(i+1,MOD-2)%MOD;
+    }
+    map<ll,ll> kouho;
+    char prev = s[0];
+    ll cnt = 1;
+    rep(i,1,N) {
+        if(s[i] != prev){
+            if(cnt > 1) kouho[cnt]++;
+            cnt = 1;
+        }
+        else cnt++;
+        prev = s[i];
+    }
+    kouho[cnt]++;
+    ll ans = 0;
+    fore(x,kouho){
+        //cout << "x:" << x.first << endl;
+        ll v = x.first;
+        ans += (x.second)*((x.first*(x.first-1)/2));
     }
     cout << ans << endl;
 }

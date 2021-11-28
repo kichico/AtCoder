@@ -58,32 +58,22 @@ struct grid{
 //#########################################################################
 
 void solve(){
-    ll N,K; cin>>N>>K;
-    vector<ll> a(N); rep(i,0,N) cin>>a[i];
-    sort(ALL(a));
-    ll dist = 0;
-    ll left = 0, right = K - 1;
-    if(N == 1) {
-        cout << abs(a[0]-0) << endl;
-        return;
+    string s; cin>>s;
+    bool flgA = false,flgC = false, flgs = true;
+    ll cnt = 0;
+    rep(i,0,s.size()){
+        if(i == 0 && s[i] == 'A') flgA = true;
+        else if((i >= 2 && i <= s.size() -2) && s[i] == 'C') {
+            flgC = true;
+            cnt++;
+        }
+        else{
+            ll num = s[i];
+            if(s[i] < 97) flgs = false;
+        }
     }
-    rep(i,0,K-1) dist += abs(a[i+1]-a[i]);
-    if(a[right] < 0) dist += abs(a[right] - 0);
-    else if(a[left] > 0) dist += abs(a[left] - 0);
-    else dist += min(abs(a[left]),abs(a[right]));
-    ll ans = dist;
-    while(right + 1 < N){
-        ll cur = dist;
-        cur -= abs(a[left+1] - a[left]);
-        cur += abs(a[right+1] - a[right]);
-        cur -= min(abs(a[left]),abs(a[right]));;
-        cur += min(abs(a[left + 1]),abs(a[right + 1]));
-        ans = min(ans,cur);
-        dist = cur;
-        right++;
-        left++;
-    }
-    cout << ans << endl;
+    if(cnt>=2) flgC = false;
+    twoText(flgA&&flgC&&flgs,"AC","WA");
 }
 
 

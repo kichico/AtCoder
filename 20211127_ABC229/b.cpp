@@ -58,32 +58,16 @@ struct grid{
 //#########################################################################
 
 void solve(){
-    ll N,K; cin>>N>>K;
-    vector<ll> a(N); rep(i,0,N) cin>>a[i];
-    sort(ALL(a));
-    ll dist = 0;
-    ll left = 0, right = K - 1;
-    if(N == 1) {
-        cout << abs(a[0]-0) << endl;
-        return;
+    string s,t; cin >> s >> t;
+    reverse(ALL(s)); reverse(ALL(t));
+    rep(i,0,(ll)min(s.size(),t.size())){
+        ll a = s[i] - '0', b = t[i] - '0';
+        if(a + b >= 10) {
+            cout << "Hard" << endl;
+            return;
+        } 
     }
-    rep(i,0,K-1) dist += abs(a[i+1]-a[i]);
-    if(a[right] < 0) dist += abs(a[right] - 0);
-    else if(a[left] > 0) dist += abs(a[left] - 0);
-    else dist += min(abs(a[left]),abs(a[right]));
-    ll ans = dist;
-    while(right + 1 < N){
-        ll cur = dist;
-        cur -= abs(a[left+1] - a[left]);
-        cur += abs(a[right+1] - a[right]);
-        cur -= min(abs(a[left]),abs(a[right]));;
-        cur += min(abs(a[left + 1]),abs(a[right + 1]));
-        ans = min(ans,cur);
-        dist = cur;
-        right++;
-        left++;
-    }
-    cout << ans << endl;
+    cout << "Easy" << endl;
 }
 
 
