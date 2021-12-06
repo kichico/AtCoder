@@ -3,13 +3,13 @@ using namespace std;
 using ll = int64_t;
 using ld = long double;
 using ull = unsigned long long;
-#define ALL(x) x.begin(), x.end()
-#define rep(iter, from, to) for (ll iter = from; iter < to; ++iter)
-#define fore(variable, container) for (auto &variable : container)
-#define forc(variable, container) for (auto &variable : container) cout << variable << endl;
+#define ALL(x) x.begin(),x.end()
+#define rep(iter,from,to) for(ll iter=from;iter<to;++iter)
+#define fore(variable,container) for(auto& variable:container)
+#define forc(variable,container) for(auto& variable:container) cout<<variable<<endl;
 const ll MOD = 1e9 + 7;
 const ll INF = 1e17;
-const vector<ll> dx{ 1, 0, -1, 0 } , dy{ 0, 1, 0, -1 };
+const vector<ll> dx{ 1,0,-1,0 } , dy{ 0,1,0,-1 };
 //#######################################################################
 void op(vector<ll> vec) {
     ll size = (ll)vec.size();
@@ -41,7 +41,7 @@ T vecsum(vector<T>& vec) {
     return accumulate(ALL(vec) , (T)0);
 }
 
-template <class T , ll>
+template<class T , ll>
 T vecsum(vector<T>& vec , ll K) {
     ll ret = 0;
     rep(i , 0 , K) ret += vec[i];
@@ -58,25 +58,10 @@ struct grid {
 //#########################################################################
 
 void solve() {
-    string s;
-    cin >> s;
-    ll K;
-    cin >> K;
-    ll N = s.size();
-    ll left = 0 , right = 0;
-    ll ans = 0;
-    ll x = 0;
-    vector<ll> dot(N + 1 , 0);
-    rep(i , 0 , N) {
-        dot[i + 1] = dot[i]; if (s[i] == '.') dot[i + 1]++;
-    }
-    for (left; left < N; ++left) {
-        right = max(right , left);
-        while (right < N && dot[right + 1] - dot[left] <= K) right++;
-        ans = max(ans , right - left);
-    }
-    cout << ans << endl;
+    ld a , b; cin >> a >> b;
+    cout << (b * a) / 100 << endl;
 }
+
 
 int main(void) {
     std::cin.tie(nullptr);

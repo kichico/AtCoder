@@ -62,5 +62,6 @@
         "xtree": "cpp",
         "xutility": "cpp",
         "chrono": "cpp"
-    }
+    },
+    "cmake.configureOnOpen": true
 }

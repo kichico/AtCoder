@@ -3,20 +3,17 @@ using namespace std;
 using ll = int64_t;
 using ld = long double;
 using ull = unsigned long long;
-#define ALL(x) x.begin(), x.end()
-#define rep(iter, from, to) for (ll iter = from; iter < to; ++iter)
-#define fore(variable, container) for (auto &variable : container)
-#define forc(variable, container)    \
-    for (auto &variable : container) \
-        cout << variable << endl;
+#define ALL(x) x.begin(),x.end()
+#define rep(iter,from,to) for(ll iter=from;iter<to;++iter)
+#define fore(variable,container) for(auto& variable:container)
+#define forc(variable,container) for(auto& variable:container) cout<<variable<<endl;
 const ll MOD = 1e9 + 7;
 const ll INF = 1e17;
-const vector<ll> dx{ 1, 0, -1, 0 }, dy{ 0, 1, 0, -1 };
+const vector<ll> dx{ 1,0,-1,0 }, dy{ 0,1,0,-1 };
 //#######################################################################
 void op(vector<ll> vec) {
     ll size = (ll)vec.size();
-    for (ll i = 0; i < size - 1; ++i)
-        cout << vec[i] << " ";
+    for (ll i = 0; i < size - 1; ++i) cout << vec[i] << " ";
     cout << vec.back() << endl;
 }
 
@@ -24,24 +21,19 @@ void op(vector<vector<ll>> vec) {
     ll height = (ll)vec.size();
     ll width = (ll)vec[0].size();
     for (ll i = 0; i < height; ++i) {
-        for (ll j = 0; j < width - 1; ++j)
-            cout << vec[i][j] << " ";
+        for (ll j = 0; j < width - 1; ++j) cout << vec[i][j] << " ";
         cout << vec[i].back() << endl;
     }
 }
 
 void twoText(bool identifier, string outTrue, string outFalse) {
-    if (identifier)
-        cout << outTrue << endl;
-    else
-        cout << outFalse << endl;
+    if (identifier) cout << outTrue << endl;
+    else cout << outFalse << endl;
 }
 
 void twoText(bool identifier) {
-    if (identifier)
-        cout << "Yes" << endl;
-    else
-        cout << "No" << endl;
+    if (identifier) cout << "Yes" << endl;
+    else cout << "No" << endl;
 }
 
 template <class T>
@@ -49,7 +41,7 @@ T vecsum(vector<T>& vec) {
     return accumulate(ALL(vec), (T)0);
 }
 
-template <class T, ll>
+template<class T, ll>
 T vecsum(vector<T>& vec, ll K) {
     ll ret = 0;
     rep(i, 0, K) ret += vec[i];
@@ -66,33 +58,20 @@ struct grid {
 //#########################################################################
 
 void solve() {
-    ll q;
-    cin >> q;
-    ll N = 1048576;
-    vector<ll> a(N, -1);
-    set<ll> changed;
-    changed.emplace(N + 1);
-    changed.emplace(-1);
-    vector<ll> ans;
-    rep(i, 0, q) {
-        ll t, x;
-        cin >> t >> x;
-        x--;
-        ll h = x;
-        h %= N;
-        if (t == 1) {
-            ll left = h, right = N + 1;
-            if (a[h] == -1) {
-                changed.emplace(h);
-                a[h] = x;
-                continue;
-            }
-            ll next = chan
-        }
-        else ans.emplace_back(x);
+    ll N; cin >> N;
+    vector<ll> a(N); rep(i, 0, N) cin >> a[i];
+    vector<ll> left(N, 0), right(N, 0);
+    left[0] = a[0]; right[N - 1] = a[N - 1];
+    rep(i, 1, N) {
+        ll r = N - 1 - i;
+        left[i] = left[i - 1] + a[i];
+        right[r] = right[r + 1] + a[r];
     }
-    fore(x, ans) cout << a[x] << endl;
+    ll ans = INF;
+    rep(i, 0, N - 1) ans = min(ans, abs(left[i] - right[i + 1]));
+    cout << ans << endl;
 }
+
 
 int main(void) {
     std::cin.tie(nullptr);
