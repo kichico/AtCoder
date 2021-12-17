@@ -56,10 +56,87 @@ struct grid {
 };
 
 //#########################################################################
+struct createGraph {
+    vector<vector<ll>> graph;
+    createGraph(ll N) {
+        graph.resize(N);
+    }
+    void addEdge(ll from, ll to) {
+        graph[from].emplace_back(to);
+    }
+    void addEdge(pair<ll, ll> pr) {
+        graph[pr.first].emplace_back(pr.second);
+        graph[pr.second].emplace_back(pr.first);
+    }
+    void inputAndAddEdge(ll M) {
+        set<pair<ll, ll>> checker;
+        pair<ll, ll> inserter;
+        rep(i, 0, M) {
+            ll from, to;
+            cin >> from >> to;
+            from--; to--;
+            addEdge(from, to);
+        }
+    }
+    void showGrapgh() {
+        rep(i, 0, graph.size()) {
+            string out = to_string(i) + ":";
+            rep(j, 0, graph[i].size()) out += to_string(graph[i][j]) + " ";
+            if (out.back() != ':') out.pop_back();
+            cout << out << endl;
+        }
+    }
+};
+
+vector<bool> visited;
+ll initial;
+vector<ll> loop;
+ll K;
+vector<ll> ans;
+
+void dfs1(createGraph& g, ll now) {
+    if (visited[now]) {
+        initial = now;
+        return;
+    }
+    visited[now] = true;
+    K--;
+    if (K < 0) return;
+    ans[now]++;
+    dfs1(g, g.graph[now].front());
+}
+void dfs2(createGraph& g, ll now) {
+    if (visited[now]) {
+        initial = now;
+        return;
+    }
+    visited[now] = true;
+    loop.emplace_back(now);
+    dfs2(g, g.graph[now].front());
+}
 
 void solve() {
     ll N; cin >> N;
-
+    visited.assign(N, false);
+    ans.assign(N, 0);
+    cin >> K;
+    K++;
+    createGraph g(N);
+    g.inputAndAddEdge(N);
+    dfs1(g, 0);
+    visited.assign(N, false);
+    dfs2(g, initial);
+    if (!loop.empty()) {
+        ll L = K / loop.size();
+        ll rest = K % loop.size();
+        fore(x, loop) ans[x] += L;
+        if (rest > 0) fore(x, loop) {
+            ans[x]++;
+            rest--;
+            if (rest <= 0) break;
+        }
+    }
+    forc(x, ans);
 }
 
 

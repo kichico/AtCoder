@@ -59,7 +59,16 @@ struct grid {
 
 void solve() {
     ll N; cin >> N;
-
+    map<string, ll> vote;
+    rep(i, 0, N) {
+        string s; cin >> s;
+        vote[s]++;
+    }
+    pair<string, ll> ans = make_pair("", 0);
+    fore(x, vote) {
+        if (ans.second < x.second) ans = x;
+    }
+    cout << ans.first << endl;
 }
 
 

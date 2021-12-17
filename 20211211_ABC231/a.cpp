@@ -59,7 +59,7 @@ struct grid {
 
 void solve() {
     ll N; cin >> N;
-
+    cout << (ld)N / 100 << endl;
 }
 
 

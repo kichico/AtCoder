@@ -56,10 +56,54 @@ struct grid {
 };
 
 //#########################################################################
+struct UnionFind {
+    vector<ll> parents;
+    unordered_set<ll> roots;
+    vector<set<ll>> member;
+    UnionFind(int size) {
+        parents.assign(size, -1);
+        rep(i, 0, size) roots.emplace(i);
+    }
+    ll findRoot(ll x) {
+        if (parents[x] < 0) return x;
+        return parents[x] = findRoot(parents[x]);
+    }
+    bool unite(ll x, ll y) {
+        x = findRoot(x);
+        y = findRoot(y);
+        if (x == y) return false;
+        if (parents[x] > parents[y]) swap(x, y);
+        parents[x] += parents[y];
+        parents[y] = x;
+        roots.erase(y);
+        return true;
+    }
+    ll size(ll x) { return -parents[findRoot(x)]; }
+    bool isSameGroup(ll x, ll y) { return findRoot(x) == findRoot(y); }
+    ll getGroups() { return roots.size(); }
+};
 
 void solve() {
     ll N; cin >> N;
-
+    UnionFind uf(N);
+    ll M; cin >> M;
+    vector<ll> cnt(N, 0);
+    rep(i, 0, M) {
+        ll x, y; cin >> x >> y;
+        x--; y--;
+        if (uf.isSameGroup(x, y)) {
+            cout << "No" << endl;
+            return;
+        }
+        cnt[x]++;
+        cnt[y]++;
+        if (cnt[x] >= 3 || cnt[y] >= 3) {
+            cout << "No" << endl;
+            return;
+        }
+        uf.unite(x, y);
+    }
+    cout << "Yes" << endl;
 }
 
 

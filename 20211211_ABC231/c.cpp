@@ -59,7 +59,15 @@ struct grid {
 
 void solve() {
     ll N; cin >> N;
-
+    ll q; cin >> q;
+    vector<ll> h(N); rep(i, 0, N) cin >> h[i];
+    vector<ll> ans(q);
+    sort(ALL(h));
+    rep(i, 0, q) {
+        ll x; cin >> x;
+        ans[i] = N - distance(h.begin(), lower_bound(ALL(h), x));
+    }
+    op(ans);
 }
 
 
