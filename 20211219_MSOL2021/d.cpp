@@ -5,11 +5,11 @@ using ld = long double;
 using ull = unsigned long long;
 #define ALL(x) x.begin(),x.end()
 #define rep(iter,from,to) for(ll iter=from;iter<to;++iter)
-#define fore(variable,container) for(auto variable:container)
-#define forc(variable,container) for(auto variable:container) cout<<variable<<endl;
-
+#define fore(variable,container) for(auto& variable:container)
+#define forc(variable,container) for(auto& variable:container) cout<<variable<<endl;
 const ll MOD = 1e9 + 7;
 const ll INF = 1e17;
+const vector<ll> dx{ 1,0,-1,0 }, dy{ 0,1,0,-1 };
 //#######################################################################
 void op(vector<ll> vec) {
     ll size = (ll)vec.size();
@@ -36,8 +36,16 @@ void twoText(bool identifier) {
     else cout << "No" << endl;
 }
 
-void counter(ll& num, ll& increaser, bool checker) {
-    if (checker) num += increaser;
+template <class T>
+T vecsum(vector<T>& vec) {
+    return accumulate(ALL(vec), (T)0);
+}
+
+template<class T, ll>
+T vecsum(vector<T>& vec, ll K) {
+    ll ret = 0;
+    rep(i, 0, K) ret += vec[i];
+    return ret;
 }
 
 template <class T>
@@ -47,31 +55,44 @@ struct grid {
     void input() { rep(i, 0, field.size()) rep(j, 0, field[i].size()) cin >> field[i][j]; }
 };
 
-template <class T>
-T vecsum(vector<T>& vec) {
-    return accumulate(ALL(vec), (T)0);
-}
 //#########################################################################
 
 void solve() {
-    ll N;
-    cin >> N;
-    vector<ll> a(N); rep(i, 0, N) cin >> a[i];
-    ll sum = vecsum(a);
-    vector<ll> ch = a;
+    ll h, w; cin >> h >> w;
+    grid<char> f(h, w);
+    f.input();
+    auto area = f.field;
+    queue<ll> que;
+    grid<ll> c(h, w);
+    grid<bool> v(h, w);
+    auto cnt = c.field;
+    auto visited = v.field;
+    que.emplace(0);
     ll ans = 0;
-    vector<vector<ll>> dp(N + 1, vector<ll>(2, sum));
-    dp[0][1] -= (a[0] + a[1]);
-    dp[0][1] += (a[0] * -1) + (a[1] * -1);
-    rep(i, 1, N - 1) {
-        dp[i][0] = max(dp[i - 1][0], dp[i - 1][1]);
-        ll minus = a[i] + a[i + 1];
-        ll plus = a[i] * -1 + a[i + 1] * -1;
-        dp[i][1] = max(dp[i - 1][0] - minus + plus, dp[i - 1][1] - (a[i] * -1) - a[i + 1] + a[i] + (a[i + 1]) * -1);
-        //cout << i << ":" << dp[i][0] << " " << dp[i][1] << endl;
-        //cout << i + 1 << ":" << dp[i + 1][0] << " " << dp[i + 1][1] << endl;
+    cnt[0][0] = 1;
+    while (!que.empty()) {
+        ll pos = que.front(); que.pop();
+        ll x = pos % h;
+        ll y = pos / h;
+        if (visited[y][x]) continue;
+        visited[y][x] = true;
+        ll nx = x + 1;
+        if (nx < w) {
+            if (area[y][nx] == '.') {
+                cnt[y][nx] = cnt[y][x] + 1;
+                que.emplace(y * h + nx);
+            }
+        }
+        ll ny = y + 1;
+        if (ny < h) {
+            if (area[ny][x] == '.') {
+                cnt[ny][x] = cnt[y][x] + 1;
+                que.emplace(ny * h + x);
+            }
+        }
     }
-    cout << max(dp[N - 2][0], dp[N - 2][1]) << endl;
+    rep(i, 0, h) rep(j, 0, w) ans = max(ans, cnt[i][j]);
+    cout << ans << endl;
 }
 
 

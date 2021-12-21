@@ -1,19 +1,12 @@
 {
-	"UnionFind data structure": {
-		"scope": "C++,cpp",
+    "UnionFind data structure": {
+        "scope": "C++,cpp",
         "prefix": "UnionFind",
         "body": [
             "struct UnionFind {",
             "    vector<ll> parents;",
-            "    vector<ll> roots;",
-            "    vector<set<ll>> member;",
             "    UnionFind(int size) {",
             "        parents.assign(size, -1);",
-            "        member = vector<set<ll>>(size);",
-            "        rep(i, 0, size) {",
-            "            roots.emplace_back(i);",
-            "            member[i].emplace(i);",
-            "        }",
             "    }",
             "    ll findRoot(ll x) {",
             "        if (parents[x] < 0) return x;",
@@ -26,27 +19,17 @@
             "        if (parents[x] > parents[y]) swap(x, y);",
             "        parents[x] += parents[y];",
             "        parents[y] = x;",
-            "        iter_swap(lower_bound(ALL(roots), y), roots.end() - 1);",
-            "        roots.pop_back();",
-            "        sort(ALL(roots));",
-            "        for (auto&& i : member[y]) member[x].emplace(i);",
-            "        member[y].clear();",
             "        return true;",
             "    }",
             "    ll size(ll x) { return -parents[findRoot(x)]; }",
             "    bool isSameGroup(ll x, ll y) { return findRoot(x) == findRoot(y); }",
-            "    ll getGroups() { return roots.size(); }",
-            "    vector<ll> getMembers(ll x) {",
-            "        vector<ll> v(ALL(member[findRoot(x)]));",
-            "        return v;",
-            "    }",
             "};",
         ],
-	 	"description": "write UnionFind data structure"
-	},
-	"dijkstra": {
+        "description": "write UnionFind data structure"
+    },
+    "dijkstra": {
         "scope": "C++,cpp",
-		"prefix": "dijkstra",
+        "prefix": "dijkstra",
         "body": [
             "struct Edge{",
             "    ll to,cost;",

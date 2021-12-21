@@ -5,11 +5,11 @@ using ld = long double;
 using ull = unsigned long long;
 #define ALL(x) x.begin(),x.end()
 #define rep(iter,from,to) for(ll iter=from;iter<to;++iter)
-#define fore(variable,container) for(auto variable:container)
-#define forc(variable,container) for(auto variable:container) cout<<variable<<endl;
-
+#define fore(variable,container) for(auto& variable:container)
+#define forc(variable,container) for(auto& variable:container) cout<<variable<<endl;
 const ll MOD = 1e9 + 7;
 const ll INF = 1e17;
+const vector<ll> dx{ 1,0,-1,0 }, dy{ 0,1,0,-1 };
 //#######################################################################
 void op(vector<ll> vec) {
     ll size = (ll)vec.size();
@@ -36,8 +36,16 @@ void twoText(bool identifier) {
     else cout << "No" << endl;
 }
 
-void counter(ll& num, ll& increaser, bool checker) {
-    if (checker) num += increaser;
+template <class T>
+T vecsum(vector<T>& vec) {
+    return accumulate(ALL(vec), (T)0);
+}
+
+template<class T, ll>
+T vecsum(vector<T>& vec, ll K) {
+    ll ret = 0;
+    rep(i, 0, K) ret += vec[i];
+    return ret;
 }
 
 template <class T>
@@ -47,31 +55,11 @@ struct grid {
     void input() { rep(i, 0, field.size()) rep(j, 0, field[i].size()) cin >> field[i][j]; }
 };
 
-template <class T>
-T vecsum(vector<T>& vec) {
-    return accumulate(ALL(vec), (T)0);
-}
 //#########################################################################
 
 void solve() {
-    ll N;
-    cin >> N;
-    vector<ll> a(N); rep(i, 0, N) cin >> a[i];
-    ll sum = vecsum(a);
-    vector<ll> ch = a;
-    ll ans = 0;
-    vector<vector<ll>> dp(N + 1, vector<ll>(2, sum));
-    dp[0][1] -= (a[0] + a[1]);
-    dp[0][1] += (a[0] * -1) + (a[1] * -1);
-    rep(i, 1, N - 1) {
-        dp[i][0] = max(dp[i - 1][0], dp[i - 1][1]);
-        ll minus = a[i] + a[i + 1];
-        ll plus = a[i] * -1 + a[i + 1] * -1;
-        dp[i][1] = max(dp[i - 1][0] - minus + plus, dp[i - 1][1] - (a[i] * -1) - a[i + 1] + a[i] + (a[i + 1]) * -1);
-        //cout << i << ":" << dp[i][0] << " " << dp[i][1] << endl;
-        //cout << i + 1 << ":" << dp[i + 1][0] << " " << dp[i + 1][1] << endl;
-    }
-    cout << max(dp[N - 2][0], dp[N - 2][1]) << endl;
+    ll a, b, c; cin >> a >> b >> c;
+    cout << c / min(a, b) << endl;
 }
 
 

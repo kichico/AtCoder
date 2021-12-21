@@ -8,7 +8,7 @@ using ull = unsigned long long;
 #define fore(variable,container) for(auto variable:container)
 #define forc(variable,container) for(auto variable:container) cout<<variable<<endl;
 
-const ll MOD = 1e9 + 7;
+const ll MOD = 998244353;
 const ll INF = 1e17;
 //#######################################################################
 void op(vector<ll> vec) {
@@ -47,31 +47,23 @@ struct grid {
     void input() { rep(i, 0, field.size()) rep(j, 0, field[i].size()) cin >> field[i][j]; }
 };
 
-template <class T>
-T vecsum(vector<T>& vec) {
-    return accumulate(ALL(vec), (T)0);
-}
 //#########################################################################
 
 void solve() {
-    ll N;
-    cin >> N;
+    ll N; cin >> N;
     vector<ll> a(N); rep(i, 0, N) cin >> a[i];
-    ll sum = vecsum(a);
-    vector<ll> ch = a;
-    ll ans = 0;
-    vector<vector<ll>> dp(N + 1, vector<ll>(2, sum));
-    dp[0][1] -= (a[0] + a[1]);
-    dp[0][1] += (a[0] * -1) + (a[1] * -1);
-    rep(i, 1, N - 1) {
-        dp[i][0] = max(dp[i - 1][0], dp[i - 1][1]);
-        ll minus = a[i] + a[i + 1];
-        ll plus = a[i] * -1 + a[i + 1] * -1;
-        dp[i][1] = max(dp[i - 1][0] - minus + plus, dp[i - 1][1] - (a[i] * -1) - a[i + 1] + a[i] + (a[i + 1]) * -1);
-        //cout << i << ":" << dp[i][0] << " " << dp[i][1] << endl;
-        //cout << i + 1 << ":" << dp[i + 1][0] << " " << dp[i + 1][1] << endl;
+    vector<vector<ll>> dp(N + 1, vector<ll>(10, 0));
+    //dp[1][a[0]]++;
+    dp[0][a[0]]++;
+    rep(i, 1, N) rep(j, 0, 10) {
+        ll n = dp[i - 1][j];
+        //cout << i << ":" << j << " " << (j + a[i]) % 10 << " " << (j * a[i]) % 10 << endl;
+        dp[i][(j + a[i]) % 10] += n;
+        dp[i][(j * a[i]) % 10] += n;
+        dp[i][(j + a[i]) % 10] %= MOD;
+        dp[i][(j * a[i]) % 10] %= MOD;
     }
-    cout << max(dp[N - 2][0], dp[N - 2][1]) << endl;
+    op(dp[N - 1]);
 }
 
 
