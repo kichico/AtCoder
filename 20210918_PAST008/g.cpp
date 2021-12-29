@@ -57,19 +57,31 @@ inline bool isExist(map<T, U> st, T key) {
 
 void solve() {
     ll N; cin >> N;
-    string s; cin >> s;
-    deque<ll> zero;
-    vector<ll> ans(N); iota(ALL(ans), 1);
-    rep(i, 0, N) if (s[i] == '0') zero.push_back(i + 1);
-    if (zero.size() == 1) cout << -1 << endl;
-    else {
-        ll top = zero.front();
-        zero.pop_front();
-        zero.push_back(top);
-        ll cnt = 0;
-        rep(i, 0, N) if (s[i] == '0') { ans[i] = zero[cnt]; cnt++; }
-        rep(i, 0, N) cout << ans[i] << " ";
+    ll K; cin >> K;
+    vector<ll> s(N + 1);
+    s[0] = 0;
+    vector<ll> a(N), b(N), c(N);
+    rep(i, 0, N) {
+        cin >> a[i] >> b[i] >> c[i];
+        s[i + 1] = s[i] + a[i];
     }
+    ll left = 0, right = N + 1;
+    while (right - left > 1) {
+        ll mid = left + (right - left) / 2;
+        if (s[mid] > K) right = mid;
+        else left = mid;
+    }
+    if (left == 0) {
+        cout << b[0] + (K - 1) * c[0] << endl;
+        return;
+    }
+    K -= s[left];
+    cout << "K:" << K << endl;
+    if (K == 0) {
+        cout << b[left - 1] + (a[left - 1] - 1) * c[left - 1] << endl;
+        return;
+    }
+    cout << b[left] + (K - 1) * c[left] << endl;
 }
 
 

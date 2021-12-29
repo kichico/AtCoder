@@ -7,7 +7,6 @@ using ull = unsigned long long;
 #define rep(iter,from,to) for(ll iter=from;iter<to;++iter)
 #define fore(variable,container) for(auto& variable:container)
 #define forc(variable,container) for(auto& variable:container) cout<<variable<<endl;
-#define mp(a,b) make_pair(a,b)
 const ll MOD = 1e9 + 7;
 const ll INF = 1e17;
 const vector<ll> dx{ 1,0,-1,0 }, dy{ 0,1,0,-1 };
@@ -42,34 +41,37 @@ T vecsum(vector<T>& vec) {
     return accumulate(ALL(vec), (T)0);
 }
 
-template<class T>
-inline bool isExist(set<T> st, T key) {
-    if (st.find(key) == st.end()) return false;
-    else return true;
+template<class T, ll>
+T vecsum(vector<T>& vec, ll K) {
+    ll ret = 0;
+    rep(i, 0, K) ret += vec[i];
+    return ret;
 }
 
-template<class T, class U>
-inline bool isExist(map<T, U> st, T key) {
-    if (st.find(key) == st.end()) return false;
-    else return true;
-}
+template <class T>
+struct grid {
+    vector<vector<T>> field;
+    grid(ll height, ll width) { field = vector<vector<T>>(height, vector<T>(width, (T)0)); }
+    void input() { rep(i, 0, field.size()) rep(j, 0, field[i].size()) cin >> field[i][j]; }
+};
+
 //#########################################################################
 
 void solve() {
-    ll N; cin >> N;
-    string s; cin >> s;
-    deque<ll> zero;
-    vector<ll> ans(N); iota(ALL(ans), 1);
-    rep(i, 0, N) if (s[i] == '0') zero.push_back(i + 1);
-    if (zero.size() == 1) cout << -1 << endl;
-    else {
-        ll top = zero.front();
-        zero.pop_front();
-        zero.push_back(top);
-        ll cnt = 0;
-        rep(i, 0, N) if (s[i] == '0') { ans[i] = zero[cnt]; cnt++; }
-        rep(i, 0, N) cout << ans[i] << " ";
+    string N; cin >> N;
+    ll sum = 0; rep(i, 0, N.size()) sum += (N[i] - '0');
+    ll current = 0;
+    string ans;
+    for (ll i = N.size() - 1;; i--) {
+        current += sum;
+        ans.push_back((current % 10) + '0');
+        current /= 10;
+        if (i >= 0) sum -= (N[i] - '0');
+        if (i <= 0 && current <= 0) break;
     }
+    while (ans.back() == '0') ans.pop_back();
+    reverse(ALL(ans));
+    cout << ans << endl;
 }
 
 

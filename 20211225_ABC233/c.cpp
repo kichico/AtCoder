@@ -44,7 +44,7 @@ T vecsum(vector<T>& vec) {
 template<class T, ll>
 T vecsum(vector<T>& vec, ll K) {
     ll ret = 0;
-    rep(i, 0, K) ret += abns(vec[i]);
+    rep(i, 0, K) ret += vec[i];
     return ret;
 }
 
@@ -56,41 +56,69 @@ struct grid {
 };
 
 //#########################################################################
+struct createGraph {
+    vector<vector<ll>> graph;
+    createGraph(ll N) {
+        graph.resize(N);
+    }
+    void addEdge(ll from, ll to) {
+        graph[from].emplace_back(to);
+    }
+    void addEdge(pair<ll, ll> pr) {
+        graph[pr.first].emplace_back(pr.second);
+        graph[pr.second].emplace_back(pr.first);
+    }
+    void inputAndAddEdge(ll M) {
+        set<pair<ll, ll>> checker;
+        pair<ll, ll> inserter;
+        rep(i, 0, M) {
+            ll from, to;
+            cin >> from >> to;
+            from--; to--;
+            inserter = make_pair(min(from, to), max(from, to));
+            if (checker.count(inserter) == 0) {
+                addEdge(inserter);
+                checker.insert(inserter);
+            }
+        }
+    }
+    void showGrapgh() {
+        rep(i, 0, graph.size()) {
+            string out = to_string(i) + ":";
+            rep(j, 0, graph[i].size()) out += to_string(graph[i][j]) + " ";
+            if (out.back() != ':') out.pop_back();
+            cout << out << endl;
+        }
+    }
+};
+ll N, X;
+ll ans = 0;
+vector<vector<ll>> boal;
+void dfs(ll now, ll sum) {
+    if (now == N) {
+        if (sum == X) ans++;
+        return;
+    }
+    for (auto n : boal[now]) {
+        if (sum > X / n) continue;
+        dfs(now + 1, sum * n);
+    }
+}
+
 
 void solve() {
-    ll N, q;
-    cin >> N >> q;
-    vector<ll> a(N + 1), diff(N, 0);
-    ll sum = 0;
+    cin >> N >> X;
+    boal.resize(N);
     rep(i, 0, N) {
-        cin >> a[i];
-    }
-    rep(i, 0, N - 1) diff[i] = a[i + 1] - a[i];
-    fore(x, diff) sum += abs(x);
-    vector<ll> R(q), L(q), V(q);
-    rep(i, 0, q) {
-        cin >> L[i] >> R[i] >> V[i];
-        R[i]--; L[i]--;
-    }
-    vector<ll> ans(q, sum);
-    rep(i, 0, q) {
-        ans[i] = sum;
-        ll prev = 0;
-        ll cur = 0;
-        if (L[i] != 0) {
-            prev += abs(diff[L[i] - 1]);
-            diff[L[i] - 1] += V[i];
-            cur += abs(diff[L[i] - 1]);
+        ll L; cin >> L;
+        rep(j, 0, L) {
+            ll x; cin >> x;
+            boal[i].emplace_back(x);
         }
-        if (R[i] != N - 1) {
-            prev += abs(diff[R[i]]);
-            diff[R[i]] -= V[i];
-            cur += abs(diff[R[i]]);
-        }
-        ans[i] += (cur - prev);
-        sum += (cur - prev);
+        sort(ALL(boal[i]));
     }
-    rep(i, 0, q) cout << ans[i] << endl;
+    rep(i, 0, boal[0].size()) dfs(1, boal[0][i]);
+    cout << ans << endl;
 }
 
 
