@@ -41,9 +41,9 @@ T vecsum(vector<T>& vec) {
     return accumulate(ALL(vec), (T)0);
 }
 
-template<class T, class U>
-T vecsum(vector<T>& vec, U K) {
-    U ret = 0;
+template<class T, ll>
+T vecsum(vector<T>& vec, ll K) {
+    ll ret = 0;
     rep(i, 0, K) ret += vec[i];
     return ret;
 }
@@ -56,42 +56,26 @@ struct grid {
 };
 
 //#########################################################################
-struct p {
-    ll color;
-    ll dire;
-    ll pos;
-};
 
 void solve() {
-    ll H, W; cin >> H >> W;
-    map<ll, ll> hori, ver;
-    ll C, Q; cin >> C >> Q;
-    vector<p> paint(Q);
-    rep(i, 0, Q) {
-        p in; cin >> in.dire;
-        cin >> in.pos >> in.color;
-        in.pos--;
-        paint[i] = in;
-    }
-    reverse(ALL(paint));
-    map<ll, ll> cnt;
-    rep(i, 0, Q) {
-        auto& current = paint[i];
-        if (current.dire == 1) {
-            if (hori.find(current.pos) == hori.end()) {
-                cnt[current.color] += max((ll)0, W - (ll)ver.size());
-                hori[current.pos] = 0;
+    ll N; cin >> N;
+    ll cnt = 0;
+    rep(i, 0, N) {
+        ll in, out; cin >> in >> out;
+        ll otsuri = out - in;
+        map<ll, ll> okane;
+        vector<ll> m{ 500,100,50,10,5,1 };
+        fore(n, m) {
+            while (otsuri - n >= 0) {
+                okane[n]++;
+                otsuri -= n;
             }
         }
-        else {
-            if (ver.find(current.pos) == ver.end()) {
-                cnt[current.color] += max((ll)0, H - (ll)hori.size());
-                ver[current.pos] = 0;
-            }
-        }
+        cnt += okane[(ll)5] + okane[(ll)50];
     }
-    rep(i, 0, C) cout << cnt[i + 1] << endl;
+    cout << cnt << endl;
 }
+
 
 int main(void) {
     std::cin.tie(nullptr);

@@ -41,9 +41,9 @@ T vecsum(vector<T>& vec) {
     return accumulate(ALL(vec), (T)0);
 }
 
-template<class T, class U>
-T vecsum(vector<T>& vec, U K) {
-    U ret = 0;
+template<class T, ll>
+T vecsum(vector<T>& vec, ll K) {
+    ll ret = 0;
     rep(i, 0, K) ret += vec[i];
     return ret;
 }
@@ -56,42 +56,37 @@ struct grid {
 };
 
 //#########################################################################
-struct p {
-    ll color;
-    ll dire;
-    ll pos;
-};
 
 void solve() {
-    ll H, W; cin >> H >> W;
-    map<ll, ll> hori, ver;
-    ll C, Q; cin >> C >> Q;
-    vector<p> paint(Q);
-    rep(i, 0, Q) {
-        p in; cin >> in.dire;
-        cin >> in.pos >> in.color;
-        in.pos--;
-        paint[i] = in;
-    }
-    reverse(ALL(paint));
-    map<ll, ll> cnt;
-    rep(i, 0, Q) {
-        auto& current = paint[i];
-        if (current.dire == 1) {
-            if (hori.find(current.pos) == hori.end()) {
-                cnt[current.color] += max((ll)0, W - (ll)ver.size());
-                hori[current.pos] = 0;
-            }
-        }
-        else {
-            if (ver.find(current.pos) == ver.end()) {
-                cnt[current.color] += max((ll)0, H - (ll)hori.size());
-                ver[current.pos] = 0;
-            }
+    ll A, B; cin >> A >> B;
+    A--; B--;
+    grid<bool> f(9, 9);
+    auto& area = f.field;
+    grid<char> a(3, 3); a.input();
+    auto& available = a.field;
+    vector<pair<ll, ll>> d;
+    rep(i, -1, 2) rep(j, -1, 2) if (available[1 + i][1 + j] == '#') d.emplace_back(make_pair(i, j));
+    queue<ll> que;
+    que.emplace(A * 9 + B);
+    ll h = 9, w = 9;
+    area[A][B] = true;
+    while (!que.empty()) {
+        ll pos = que.front(); que.pop();
+        ll x = pos % h, y = pos / h;
+        area[y][x] = true;
+        rep(i, 0, d.size()) {
+            ll dy, dx;
+            tie(dy, dx) = d[i];
+            if (x + dx < 0 || x + dx >= w || y + dy < 0 || y + dy >= h) continue;
+            if (area[y + dy][x + dx]) continue;
+            else que.emplace((y + dy) * 9 + (x + dx));
         }
     }
-    rep(i, 0, C) cout << cnt[i + 1] << endl;
+    ll cnt = 0;
+    rep(i, 0, h) rep(j, 0, w) if (area[i][j]) cnt++;
+    cout << cnt << endl;
 }
+
 
 int main(void) {
     std::cin.tie(nullptr);

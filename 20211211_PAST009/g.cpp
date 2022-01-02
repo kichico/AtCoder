@@ -41,9 +41,9 @@ T vecsum(vector<T>& vec) {
     return accumulate(ALL(vec), (T)0);
 }
 
-template<class T, class U>
-T vecsum(vector<T>& vec, U K) {
-    U ret = 0;
+template<class T, ll>
+T vecsum(vector<T>& vec, ll K) {
+    ll ret = 0;
     rep(i, 0, K) ret += vec[i];
     return ret;
 }
@@ -56,42 +56,50 @@ struct grid {
 };
 
 //#########################################################################
-struct p {
-    ll color;
-    ll dire;
-    ll pos;
-};
+bool bfs(ll start, ll goal, vector<unordered_set<ll>>& g) {
+    queue<ll> que;
+    que.emplace(start);
+    vector<bool> visited(g.size(), false);
+    while (!que.empty()) {
+        ll n = que.front(); que.pop();
+        for (auto& x : g[n]) if (!visited[x]) {
+            visited[x] = true;
+            if (x == goal) return true;
+            que.emplace(x);
+        }
+    }
+    return false;
+}
+
 
 void solve() {
-    ll H, W; cin >> H >> W;
-    map<ll, ll> hori, ver;
-    ll C, Q; cin >> C >> Q;
-    vector<p> paint(Q);
+    ll N, Q; cin >> N >> Q;
+    vector<unordered_set<ll>> g(N);
+    set<pair<ll, ll>> edges;
+    vector<string> ans;
     rep(i, 0, Q) {
-        p in; cin >> in.dire;
-        cin >> in.pos >> in.color;
-        in.pos--;
-        paint[i] = in;
-    }
-    reverse(ALL(paint));
-    map<ll, ll> cnt;
-    rep(i, 0, Q) {
-        auto& current = paint[i];
-        if (current.dire == 1) {
-            if (hori.find(current.pos) == hori.end()) {
-                cnt[current.color] += max((ll)0, W - (ll)ver.size());
-                hori[current.pos] = 0;
+        ll k, u, v; cin >> k >> u >> v;
+        u--; v--;
+        auto pr = make_pair(min(u, v), max(u, v));
+        if (k == 1) {
+            if (edges.find(pr) == edges.end()) {
+                edges.emplace(pr);
+                g[u].emplace(v); g[v].emplace(u);
+            }
+            else {
+                edges.erase(pr);
+                g[u].erase(v); g[v].erase(u);
             }
         }
         else {
-            if (ver.find(current.pos) == ver.end()) {
-                cnt[current.color] += max((ll)0, H - (ll)hori.size());
-                ver[current.pos] = 0;
-            }
+            bool flg = bfs(u, v, g);
+            if (flg)ans.emplace_back("Yes");
+            else ans.emplace_back("No");
         }
     }
-    rep(i, 0, C) cout << cnt[i + 1] << endl;
+    rep(i, 0, ans.size()) cout << ans[i] << endl;
 }
+
 
 int main(void) {
     std::cin.tie(nullptr);

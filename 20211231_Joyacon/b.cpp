@@ -41,9 +41,9 @@ T vecsum(vector<T>& vec) {
     return accumulate(ALL(vec), (T)0);
 }
 
-template<class T, class U>
-T vecsum(vector<T>& vec, U K) {
-    U ret = 0;
+template<class T, ll>
+T vecsum(vector<T>& vec, ll K) {
+    ll ret = 0;
     rep(i, 0, K) ret += vec[i];
     return ret;
 }
@@ -56,42 +56,30 @@ struct grid {
 };
 
 //#########################################################################
-struct p {
-    ll color;
-    ll dire;
-    ll pos;
-};
 
 void solve() {
-    ll H, W; cin >> H >> W;
-    map<ll, ll> hori, ver;
-    ll C, Q; cin >> C >> Q;
-    vector<p> paint(Q);
-    rep(i, 0, Q) {
-        p in; cin >> in.dire;
-        cin >> in.pos >> in.color;
-        in.pos--;
-        paint[i] = in;
+    string s; cin >> s;
+    deque<char> deq;
+    ll N = s.size();
+    ll R = 0;
+    rep(i, 0, N) {
+        if (s[i] == 'R') R++;
+        else if (R % 2 == 0) deq.push_back(s[i]);
+        else deq.push_front(s[i]);
     }
-    reverse(ALL(paint));
-    map<ll, ll> cnt;
-    rep(i, 0, Q) {
-        auto& current = paint[i];
-        if (current.dire == 1) {
-            if (hori.find(current.pos) == hori.end()) {
-                cnt[current.color] += max((ll)0, W - (ll)ver.size());
-                hori[current.pos] = 0;
-            }
-        }
-        else {
-            if (ver.find(current.pos) == ver.end()) {
-                cnt[current.color] += max((ll)0, H - (ll)hori.size());
-                ver[current.pos] = 0;
-            }
-        }
+    deque<char> ans;
+    ans.push_back(deq.front());
+    deq.pop_front();
+    while (!deq.empty()) {
+        if (deq.front() == ans.back()) deq.pop_front(); ans.pop_back();
+        if (deq.empty()) break;
+        ans.push_back(deq.front()); deq.pop_front();
     }
-    rep(i, 0, C) cout << cnt[i + 1] << endl;
+    string ss; rep(i, 0, ans.size()) ss.push_back(ans[i]);
+    if (R % 2 != 0) reverse(ALL(ss));
+    cout << ss << endl;
 }
+
 
 int main(void) {
     std::cin.tie(nullptr);

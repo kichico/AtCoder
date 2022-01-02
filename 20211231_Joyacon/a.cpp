@@ -56,41 +56,44 @@ struct grid {
 };
 
 //#########################################################################
-struct p {
-    ll color;
-    ll dire;
-    ll pos;
+struct UnionFind {
+    vector<ll> parents;
+    unordered_set<ll> roots;
+    UnionFind(int size) {
+        parents.assign(size, -1);
+        rep(i, 0, size) roots.emplace(i);
+    }
+    ll findRoot(ll x) {
+        if (parents[x] < 0) return x;
+        return parents[x] = findRoot(parents[x]);
+    }
+    bool unite(ll x, ll y) {
+        x = findRoot(x);
+        y = findRoot(y);
+        if (x == y) return false;
+        if (parents[x] > parents[y]) swap(x, y);
+        parents[x] += parents[y];
+        parents[y] = x;
+        roots.erase(y);
+        return true;
+    }
+    ll size(ll x) { return -parents[findRoot(x)]; }
+    bool isSameGroup(ll x, ll y) { return findRoot(x) == findRoot(y); }
 };
 
 void solve() {
-    ll H, W; cin >> H >> W;
-    map<ll, ll> hori, ver;
-    ll C, Q; cin >> C >> Q;
-    vector<p> paint(Q);
-    rep(i, 0, Q) {
-        p in; cin >> in.dire;
-        cin >> in.pos >> in.color;
-        in.pos--;
-        paint[i] = in;
-    }
-    reverse(ALL(paint));
-    map<ll, ll> cnt;
-    rep(i, 0, Q) {
-        auto& current = paint[i];
-        if (current.dire == 1) {
-            if (hori.find(current.pos) == hori.end()) {
-                cnt[current.color] += max((ll)0, W - (ll)ver.size());
-                hori[current.pos] = 0;
-            }
-        }
+    string s; cin >> s;
+    ll N = s.size();
+    UnionFind uf(N);
+    rep(i, 0, N) {
+        if (i == 0 && s[i] == s[i + 1]) uf.unite(i, i + 1);
+        else if (i == N - 1 && s[i] == s[i - 1]) uf.unite(i, i - 1);
         else {
-            if (ver.find(current.pos) == ver.end()) {
-                cnt[current.color] += max((ll)0, H - (ll)hori.size());
-                ver[current.pos] = 0;
-            }
+            if (s[i] == s[i + 1]) uf.unite(i, i + 1);
+            if (s[i] == s[i - 1]) uf.unite(i, i - 1);
         }
     }
-    rep(i, 0, C) cout << cnt[i + 1] << endl;
+    cout << uf.roots.size() - 1 << endl;
 }
 
 int main(void) {

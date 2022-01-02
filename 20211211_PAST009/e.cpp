@@ -41,9 +41,9 @@ T vecsum(vector<T>& vec) {
     return accumulate(ALL(vec), (T)0);
 }
 
-template<class T, class U>
-T vecsum(vector<T>& vec, U K) {
-    U ret = 0;
+template<class T, ll>
+T vecsum(vector<T>& vec, ll K) {
+    ll ret = 0;
     rep(i, 0, K) ret += vec[i];
     return ret;
 }
@@ -56,42 +56,29 @@ struct grid {
 };
 
 //#########################################################################
-struct p {
-    ll color;
-    ll dire;
-    ll pos;
-};
 
 void solve() {
-    ll H, W; cin >> H >> W;
-    map<ll, ll> hori, ver;
-    ll C, Q; cin >> C >> Q;
-    vector<p> paint(Q);
-    rep(i, 0, Q) {
-        p in; cin >> in.dire;
-        cin >> in.pos >> in.color;
-        in.pos--;
-        paint[i] = in;
+    string s; cin >> s;
+    ll ans = 0;
+    ll N = s.size();
+    vector<ll> ref(N);
+    rep(i, 0, N) {
+        if (s[i] == '0') ref[i] = 10;
+        else ref[i] = s[i] - '0';
     }
-    reverse(ALL(paint));
-    map<ll, ll> cnt;
-    rep(i, 0, Q) {
-        auto& current = paint[i];
-        if (current.dire == 1) {
-            if (hori.find(current.pos) == hori.end()) {
-                cnt[current.color] += max((ll)0, W - (ll)ver.size());
-                hori[current.pos] = 0;
-            }
-        }
+    rep(i, 0, N) {
+        if (i == 0) ans += 500;
+        else if (ref[i] == ref[i - 1]) ans += 301;
         else {
-            if (ver.find(current.pos) == ver.end()) {
-                cnt[current.color] += max((ll)0, H - (ll)hori.size());
-                ver[current.pos] = 0;
+            if (((ref[i] <= 5) && (ref[i - 1] <= 5)) || ((ref[i] > 5) && (ref[i - 1] > 5))) {
+                ans += 210;
             }
+            else ans += 100;
         }
     }
-    rep(i, 0, C) cout << cnt[i + 1] << endl;
+    cout << ans << endl;
 }
+
 
 int main(void) {
     std::cin.tie(nullptr);

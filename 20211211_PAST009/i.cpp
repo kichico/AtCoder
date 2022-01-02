@@ -41,9 +41,9 @@ T vecsum(vector<T>& vec) {
     return accumulate(ALL(vec), (T)0);
 }
 
-template<class T, class U>
-T vecsum(vector<T>& vec, U K) {
-    U ret = 0;
+template<class T, ll>
+T vecsum(vector<T>& vec, ll K) {
+    ll ret = 0;
     rep(i, 0, K) ret += vec[i];
     return ret;
 }
@@ -56,42 +56,23 @@ struct grid {
 };
 
 //#########################################################################
-struct p {
-    ll color;
-    ll dire;
-    ll pos;
-};
-
 void solve() {
-    ll H, W; cin >> H >> W;
-    map<ll, ll> hori, ver;
-    ll C, Q; cin >> C >> Q;
-    vector<p> paint(Q);
-    rep(i, 0, Q) {
-        p in; cin >> in.dire;
-        cin >> in.pos >> in.color;
-        in.pos--;
-        paint[i] = in;
+    ll N, M; cin >> N >> M;
+    map<pair<ll, ll>, ll> dist;
+    map<ll, vector<ll>> g;
+    struct e {
+        ll from, to, time;
+    };
+    vector<e> ele(M);
+    rep(i, 0, M) {
+        cin >> ele[i].from >> ele[i].to >> ele[i].time;
+        ele[i].from--; ele[i].to--;
+        g[ele[i].to].emplace_back(ele[i].from);
+        g[ele[i].from].emplace_back(ele[i].to);
     }
-    reverse(ALL(paint));
-    map<ll, ll> cnt;
-    rep(i, 0, Q) {
-        auto& current = paint[i];
-        if (current.dire == 1) {
-            if (hori.find(current.pos) == hori.end()) {
-                cnt[current.color] += max((ll)0, W - (ll)ver.size());
-                hori[current.pos] = 0;
-            }
-        }
-        else {
-            if (ver.find(current.pos) == ver.end()) {
-                cnt[current.color] += max((ll)0, H - (ll)hori.size());
-                ver[current.pos] = 0;
-            }
-        }
-    }
-    rep(i, 0, C) cout << cnt[i + 1] << endl;
+
 }
+
 
 int main(void) {
     std::cin.tie(nullptr);
