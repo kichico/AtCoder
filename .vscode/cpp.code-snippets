@@ -230,5 +230,20 @@
             "};",
         ],
         "description": ""
+    },
+    "to_Binary": {
+        "prefix": "to_Binary",
+        "body": [
+            "string to_Binary(ll n) {",
+            "    string r;",
+            "    while (n != 0) {",
+            "        r += (n % 2 == 0 ? \"0\" : \"2\");",
+            "        n /= 2;",
+            "    }",
+            "    reverse(ALL(r));",
+            "    return r;",
+            "}",
+        ],
+        "description": ""
     }
 }

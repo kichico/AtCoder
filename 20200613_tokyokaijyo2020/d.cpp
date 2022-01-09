@@ -59,22 +59,7 @@ struct grid {
 
 void solve() {
     ll N; cin >> N;
-    vector<ll> a(N); rep(i, 0, N) cin >> a[i];
-    ll left = 0, right = 0;
-    vector<ll> sum(N);
-    rep(i, 1, N) sum[i] = sum[i - 1] + a[i];
-    if (N == 1) {
-        cout << 0 << endl; return;
-    }
-    op(sum);
-    ll ans = 0;
-    for (left; left < N; ++left) {
-        right = max(right, left);
-        while (right < N && sum[right + 1] - sum[left] != 0) {
-            right++;
-        }
-    }
-    cout << ans << endl;
+
 }
 
 

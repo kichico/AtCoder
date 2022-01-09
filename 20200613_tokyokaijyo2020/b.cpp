@@ -58,13 +58,11 @@ struct grid {
 //#########################################################################
 
 void solve() {
-    ll N; cin >> N;
-    ll num = 9;
-    while (N - 400 >= 0) {
-        N -= 200;
-        num--;
-    }
-    cout << num << endl;
+    ll x, y, u, v; cin >> x >> u >> y >> v;
+    ll t; cin >> t;
+    ll dist = abs(x - y);
+    if (x == y) { cout << "YES" << endl; return; }
+    twoText(u * t - v * t >= dist, "YES", "NO");
 }
 
 

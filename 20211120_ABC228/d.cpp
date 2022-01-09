@@ -65,33 +65,40 @@ struct grid {
 
 //#########################################################################
 
+ll find(ll& x, vector<ll>& pos) {
+    //cout << x << " " << pos[x] << endl;
+    if (pos[x] == x) return x;
+    else {
+        return pos[x] = find(pos[x], pos);
+    }
+}
 void solve() {
     ll q;
     cin >> q;
     ll N = 1048576;
     vector<ll> a(N, -1);
-    set<ll> changed;
-    changed.emplace(N + 1);
-    changed.emplace(-1);
+    vector<ll> pos(N); iota(ALL(pos), 0);
     vector<ll> ans;
     rep(i, 0, q) {
         ll t, x;
         cin >> t >> x;
-        x--;
         ll h = x;
+        h--;
         h %= N;
         if (t == 1) {
-            ll left = h, right = N + 1;
             if (a[h] == -1) {
-                changed.emplace(h);
                 a[h] = x;
+                pos[h] = (h + 1) % N;
                 continue;
             }
-            ll next = chan
+            h = find(h, pos);
+            a[h] = x;
+            ll p = h + 1;
+            pos[h] = find(p, pos);
         }
-        else ans.emplace_back(x);
+        else ans.emplace_back(a[h]);
     }
-    fore(x, ans) cout << a[x] << endl;
+    fore(x, ans) cout << x << endl;
 }
 
 int main(void) {

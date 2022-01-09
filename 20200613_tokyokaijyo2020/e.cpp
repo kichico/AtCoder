@@ -58,18 +58,8 @@ struct grid {
 //#########################################################################
 
 void solve() {
-    ld a, b; cin >> a >> b;
-    rep(x, 1, 1001) {
-        ; ll v = (ll)floor((ld)x * (0.08));
-        if (v <= 0) continue;
-        //cout << v << endl;
-        if ((ll)floor((ld)x * (0.08)) == a && (ll)floor((ld)x * (0.1)) == b) {
-            //cout << (ll)floor((ld)x * (a / 100)) << endl;
-            cout << x << endl;
-            return;
-        }
-    }
-    cout << -1 << endl;
+    ll N; cin >> N;
+
 }
 
 
