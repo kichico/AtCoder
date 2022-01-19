@@ -56,32 +56,29 @@ struct grid {
 };
 
 //#########################################################################
-set<ll> generate_tousasuretu() {
-    set<ll> ret{ 111111111111111111 };
-    rep(i, 1, 18) rep(ini, 1, 10) rep(diff, -9, 10) {
-        string gtd = to_string(ini);
-        while (gtd.size() < i) {
-            ll lt = (gtd.back() - '0') + diff;
-            if (lt >= 10 || lt < 0) break;
-            gtd.push_back(lt + '0');
-        }
-        ret.emplace(stoll(gtd));
-    }
-    return ret;
-}
-
-
 
 void solve() {
-    string N; cin >> N;
-    if (N.size() == 1 || N.size() == 2) {
-        cout << N << endl;
-        return;
+    ll N, Q; cin >> N >> Q;
+    vector<ll> a(N); rep(i, 0, N) cin >> a[i];
+    vector<pair<ll, ll>> query(Q); rep(i, 0, Q) cin >> query[i].first >> query[i].second;
+    map<ll, vector<ll>> dict;
+    rep(i, 0, N) {
+        ll v = a[i]; v--;
+        dict[v].push_back(i + 1);
     }
-    ll num = stoll(N);
-    auto st = generate_tousasuretu();
-    cout << *st.lower_bound(num) << endl;
+    vector<ll> ans;
+    for (auto [x, k] : query) {
+        x--;
+        if (dict[x].size() < k) {
+            ans.push_back(-1);
+            continue;
+        }
+        k--;
+        ans.push_back(dict[x][k]);
+    }
+    op(ans);
 }
+
 
 
 int main(void) {

@@ -58,25 +58,25 @@ struct grid {
 //#########################################################################
 
 void solve() {
-    ll N, M; cin >> N >> M;
-    set<ll> red;
-    vector<ll> boal(N, 1);
-    red.emplace(0);
-    rep(i, 0, M) {
-        ll x, y; cin >> x >> y; x--; y--;
-        if (red.find(x) == red.end()) {
-            boal[x]--;
-            boal[y]++;
-            continue;
-        }
-        red.emplace(y);
-        if (boal[x] == 1 && red.find(x) != red.end()) {
-            red.erase(x);
-        }
-        boal[x]--;
-        boal[y]++;
+    ll N; cin >> N;
+    vector<ll> from(N), to(N);
+    rep(i, 0, N) {
+        cin >> from[i] >> to[i];
     }
-    cout << red.size() << endl;
+    vector<pair<ll, ll>> join;
+    rep(i, 0, N) join.emplace_back(from[i], 1);
+    rep(i, 0, N) join.emplace_back(from[i] + to[i], -1);
+    sort(ALL(join));
+    vector<ll> ans(N + 1, 0);
+    ll now = 0;
+    ll player = 0;
+    for (auto [date, inout] : join) {
+        ans[player] += (date - now);
+        now = date;
+        player += inout;
+    }
+    rep(i, 1, N + 1) cout << ans[i] << " ";
+    cout << endl;
 }
 
 

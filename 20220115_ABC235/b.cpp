@@ -56,31 +56,13 @@ struct grid {
 };
 
 //#########################################################################
-set<ll> generate_tousasuretu() {
-    set<ll> ret{ 111111111111111111 };
-    rep(i, 1, 18) rep(ini, 1, 10) rep(diff, -9, 10) {
-        string gtd = to_string(ini);
-        while (gtd.size() < i) {
-            ll lt = (gtd.back() - '0') + diff;
-            if (lt >= 10 || lt < 0) break;
-            gtd.push_back(lt + '0');
-        }
-        ret.emplace(stoll(gtd));
-    }
-    return ret;
-}
-
-
 
 void solve() {
-    string N; cin >> N;
-    if (N.size() == 1 || N.size() == 2) {
-        cout << N << endl;
-        return;
-    }
-    ll num = stoll(N);
-    auto st = generate_tousasuretu();
-    cout << *st.lower_bound(num) << endl;
+    ll N; cin >> N;
+    vector<ll> a(N); rep(i, 0, N) cin >> a[i];
+    ll now = 0;
+    while (now < N - 1 && a[now + 1]>a[now]) now++;
+    cout << a[now] << endl;
 }
 
 

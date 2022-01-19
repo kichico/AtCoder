@@ -56,31 +56,38 @@ struct grid {
 };
 
 //#########################################################################
-set<ll> generate_tousasuretu() {
-    set<ll> ret{ 111111111111111111 };
-    rep(i, 1, 18) rep(ini, 1, 10) rep(diff, -9, 10) {
-        string gtd = to_string(ini);
-        while (gtd.size() < i) {
-            ll lt = (gtd.back() - '0') + diff;
-            if (lt >= 10 || lt < 0) break;
-            gtd.push_back(lt + '0');
-        }
-        ret.emplace(stoll(gtd));
-    }
-    return ret;
-}
-
+unordered_set<ll> checked;
+ll ans = INF;
+ll a, N;
 
 
 void solve() {
-    string N; cin >> N;
-    if (N.size() == 1 || N.size() == 2) {
-        cout << N << endl;
-        return;
+    cin >> a >> N;
+    queue<ll> que;
+    vector<ll> dist(N + 1, -1);
+    que.emplace(1);
+    dist[1] = 0;
+    while (!que.empty()) {
+        ll num = que.front(); que.pop();
+        if (num * a <= N) {
+            que.emplace(num * a);
+            dist[num * a] = dist[num] + 1;
+        }
+        string s = to_string(num);
+        if (s.size() >= 2) {
+            rep(i, 0, s.size()) {
+                string ps{ s.back() };
+                s.pop_back();
+                ll next = stoll(ps + s);
+                if (dist[next] == -1) {
+                    dist[next] = dist[num] + 1;
+                    que.emplace(next);
+                }
+                num = next;
+            }
+        }
     }
-    ll num = stoll(N);
-    auto st = generate_tousasuretu();
-    cout << *st.lower_bound(num) << endl;
+    cout << dist[N] << endl;
 }
 
 

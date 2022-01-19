@@ -58,15 +58,11 @@ struct grid {
 //#########################################################################
 
 void solve() {
-    //char a, b, c, d; cin >> a >> b >> c >> d;
-    vector<char> a(4); rep(i, 0, 4) cin >> a[i];
-    string s; rep(i, 0, 4) s.push_back(a[i]);
-    sort(ALL(s));
-    do {
-        if (s == "1974") { cout << "YES" << endl; return; }
-    }
-    while (next_permutation(ALL(s)));
-    cout << "NO" << endl;
+    string s; cin >> s;
+    reverse(ALL(s));
+    while (s.size() < 4) s.push_back('0');
+    reverse(ALL(s));
+    cout << s << endl;
 }
 
 

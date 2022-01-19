@@ -58,12 +58,12 @@ struct grid {
 //#########################################################################
 
 void solve() {
-    string al = "abcdefghijklmnopqrstuvwxyz";
-    set<char> alpha; rep(i, 0, al.size()) alpha.emplace(al[i]);
-    string s; cin >> s;
-    rep(i, 0, s.size()) alpha.erase(s[i]);
-    if (alpha.empty()) cout << "None" << endl;
-    else cout << *alpha.begin() << endl;
+    ll N; cin >> N;
+    vector<ll> a(5); rep(i, 0, 5) cin >> a[i];
+    sort(ALL(a));
+    ll mini = a.front();
+    ll time = (N + mini - 1) / mini;
+    cout << time + 4 << endl;
 }
 
 

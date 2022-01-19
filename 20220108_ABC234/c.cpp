@@ -59,7 +59,7 @@ struct grid {
 string to_Binary(ll n) {
     string r;
     while (n != 0) {
-        r += (n % 2 == 0 ? "0" : "2");
+        r += (n % 2 == 0 ? "0" : "1");
         n /= 2;
     }
     reverse(ALL(r));
@@ -68,9 +68,9 @@ string to_Binary(ll n) {
 
 void solve() {
     ll N; cin >> N;
-    auto s = toBinary(N);
-    reverse(ALL(s))
-        cout << s << endl;
+    auto s = to_Binary(N);
+    reverse(ALL(s));
+    cout << s << endl;
 }
 
 
