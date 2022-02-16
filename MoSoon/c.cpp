@@ -59,11 +59,18 @@ struct grid {
 
 void solve() {
     ll N; cin >> N;
-    vector<ll> a(5); rep(i, 0, 5) cin >> a[i];
-    sort(ALL(a));
-    ll mini = a.front();
-    ll time = (N + mini - 1) / mini;
-    cout << time + 4 << endl;
+    vector<ll> a(N), b(N), c(N);
+    rep(i, 0, N) cin >> a[i];
+    rep(i, 0, N) cin >> b[i];
+    rep(i, 0, N) {
+        cin >> c[i];
+        c[i]--;
+    }
+    map<ll, ll> cnt;
+    rep(i, 0, N) cnt[b[c[i]]]++;
+    ll ans = 0;
+    rep(i, 0, N) ans += cnt[a[i]];
+    cout << ans << endl;
 }
 
 

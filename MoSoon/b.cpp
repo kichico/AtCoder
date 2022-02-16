@@ -58,12 +58,13 @@ struct grid {
 //#########################################################################
 
 void solve() {
-    ll N; cin >> N;
-    rep(i, 1, 10) rep(j, 1, 10) if (N == i * j) {
-        cout << "Yes" << endl;
-        return;
+    string s; cin >> s;
+    reverse(ALL(s));
+    rep(i, 0, s.size()) {
+        if (s[i] == '6') cout << 9;
+        else if (s[i] == '9') cout << 6;
+        else cout << s[i];
     }
-    cout << "No" << endl;
 }
 
 

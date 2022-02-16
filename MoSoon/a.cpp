@@ -57,12 +57,10 @@ struct grid {
 
 //#########################################################################
 
+
 void solve() {
-    string s; cin >> s;
-    reverse(ALL(s));
-    while (s.size() < 4) s.push_back('0');
-    reverse(ALL(s));
-    cout << s << endl;
+    ll a, b, c; cin >> a >> b >> c;
+    cout << 21 - (a + b + c) << endl;
 }
 
 

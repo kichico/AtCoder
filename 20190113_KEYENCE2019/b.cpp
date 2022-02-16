@@ -1,26 +1,26 @@
 ﻿#include "bits/stdc++.h"
 using namespace std;
-using ll=int64_t;
-using ld=long double;
-using ull=unsigned long long;
+using ll = int64_t;
+using ld = long double;
+using ull = unsigned long long;
 #define ALL(x) x.begin(),x.end()
 #define rep(iter,from,to) for(ll iter=from;iter<to;++iter)
 
-const ll MOD=1e9+7;
-const ll INF=1e17;
+const ll MOD = 1e9 + 7;
+const ll INF = 1e17;
 //#######################################################################
-void op(vector<ll> vec){
-    ll size=(ll)vec.size();
-    for(ll i=0;i<size-1;++i) cout<<vec[i]<<" ";
-    cout<<vec.back()<<endl;
+void op(vector<ll> vec) {
+    ll size = (ll)vec.size();
+    for (ll i = 0; i < size - 1; ++i) cout << vec[i] << " ";
+    cout << vec.back() << endl;
 }
 
-void op(vector<vector<ll>> vec){
-    ll height=(ll)vec.size();
-    ll width=(ll)vec[0].size();
-    for(ll i=0;i<height;++i) {
-        for(ll j=0;j<width-1;++j) cout<<vec[i][j]<<" ";
-        cout<<vec[i].back()<<endl;
+void op(vector<vector<ll>> vec) {
+    ll height = (ll)vec.size();
+    ll width = (ll)vec[0].size();
+    for (ll i = 0; i < height; ++i) {
+        for (ll j = 0; j < width - 1; ++j) cout << vec[i][j] << " ";
+        cout << vec[i].back() << endl;
     }
 }
 
@@ -29,46 +29,41 @@ void twoText(bool identifier, string outTrue, string outFalse) {
     else cout << outFalse << endl;
 }
 
-void twoText(bool identifier){
-    if(identifier) cout<<"Yes"<<endl;
-    else cout<<"No"<<endl;
+void twoText(bool identifier) {
+    if (identifier) cout << "Yes" << endl;
+    else cout << "No" << endl;
 }
 
-void counter(ll& num,ll& increaser,bool checker){
-    if(checker) num+=increaser;
+void counter(ll& num, ll& increaser, bool checker) {
+    if (checker) num += increaser;
 }
 
 template <class T>
-struct grid{
+struct grid {
     vector<vector<T>> field;
-    grid(ll height,ll width){field=vector<vector<T>>(height,vector<T>(width,(T)0));}
-    void input(){rep(i,0,field.size()) rep(j,0,field[i].size()) cin>>field[i][j];}
+    grid(ll height, ll width) { field = vector<vector<T>>(height, vector<T>(width, (T)0)); }
+    void input() { rep(i, 0, field.size()) rep(j, 0, field[i].size()) cin >> field[i][j]; }
 };
 
 //#########################################################################
 
-void solve(){
-    string s;
-    cin>>s;
-    string ref="keyence";
-    if(s==ref) {
-        cout<<"YES"<<endl;
-        return;
+void solve() {
+    string s; cin >> s;
+    ll N = s.size();
+    if (s == "keyence") {
+        cout << "YES" << endl; return;
     }
-    rep(fr,0,s.size()) rep(se,fr,s.size()){
-        string checker;
-        if(fr>0) checker+=s.substr(0,fr);
-        if(se+1<s.size()) checker+=s.substr(se+1);
-        if(checker==ref) {
-            cout<<"YES"<<endl;
-            return;
-        }
+    rep(i, 0, N) rep(j, 0, N - i - 1) {
+        string left = s.substr(0, i);
+        string right = s.substr(i + j + 1, N - (i + j));
+        //cout << "left:" << left << " right:" << right << endl;
+        if (left + right == "keyence") { cout << "YES" << endl; return; }
     }
-    cout<<"NO"<<endl;
+    cout << "NO" << endl;
 }
 
 
-int main(void){
+int main(void) {
     std::cin.tie(nullptr);
     std::ios_base::sync_with_stdio(false);
     std::cout << std::fixed << std::setprecision(15);
