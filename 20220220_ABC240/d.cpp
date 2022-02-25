@@ -57,10 +57,32 @@ struct grid {
 
 //#########################################################################
 
-
 void solve() {
     ll N; cin >> N;
-    rep(i, 0, N) cout << "Long";
+    vector<ll> a(N); rep(i, 0, N) cin >> a[i];
+    ll cnt = 0;
+    vector<ll> ans;
+    ans.emplace_back(a.front());
+    cnt = 1;
+    vector<ll> c(N);
+    c[0] = 1;
+    rep(i, 1, N) {
+        if (a[i] == ans.back()) {
+            cnt++;
+            ans.emplace_back(a[i]);
+            if (cnt == a[i]) {
+                while (!ans.empty() && ans.back() == a[i]) ans.pop_back();
+                cnt = 1;
+            }
+        }
+        else {
+            ans.emplace_back(a[i]);
+            cnt = 1;
+        }
+        c[i] = ans.size();
+        cout << "ans:"; op(ans);
+    }
+    op(c);
 }
 
 

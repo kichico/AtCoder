@@ -9,7 +9,7 @@ using ull = unsigned long long;
 #define forc(variable,container) for(auto& variable:container) cout<<variable<<endl;
 const ll MOD = 1e9 + 7;
 const ll INF = 1e17;
-const vector<ll> dx{ 1,0,-1,0 }, dy{ 0,1,0,-1 };
+const vector<ll> dx{ 2,1,-1,-2,-2,-1,1,2 }, dy{ -1,-2,-2,-1,1,2,2,1 };
 //#######################################################################
 void op(vector<ll> vec) {
     ll size = (ll)vec.size();
@@ -57,10 +57,20 @@ struct grid {
 
 //#########################################################################
 
-
 void solve() {
-    ll N; cin >> N;
-    rep(i, 0, N) cout << "Long";
+    ll a, b, c, d; cin >> a >> b >> c >> d;
+    rep(i, 0, 8) {
+        ll x = a + dx[i], y = b + dy[i];
+        rep(i, 0, 8) {
+            ll nx = x + dx[i], ny = y + dy[i];
+            if (nx == c && ny == d) {
+                cout << "Yes" << endl;
+                return;
+            }
+        }
+    }
+    cout << "No" << endl;
+
 }
 
 

@@ -56,11 +56,29 @@ struct grid {
 };
 
 //#########################################################################
-
+bool isPrime(ll Num) {
+    ll root = sqrt(Num);
+    if (Num == 0 || Num == 1) return false;
+    for (ll i = 2; i <= root; ++i) if (Num % i == 0) return false;
+    return true;
+}
 
 void solve() {
-    ll N; cin >> N;
-    rep(i, 0, N) cout << "Long";
+    ll a, b, c, d; cin >> a >> b >> c >> d;
+    rep(t, a, b + 1) {
+        bool flg = true;
+        rep(s, c, d + 1) {
+            if (isPrime(s + t)) {
+                flg = false;
+                break;
+            }
+        }
+        if (flg) {
+            cout << "Takahashi" << endl;
+            return;
+        }
+    }
+    cout << "Aoki" << endl;
 }
 
 

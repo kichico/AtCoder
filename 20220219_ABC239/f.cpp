@@ -56,11 +56,62 @@ struct grid {
 };
 
 //#########################################################################
-
+struct UnionFind {
+    vector<ll> parents;
+    unordered_set<ll> roots;
+    UnionFind(int size) {
+        parents.assign(size, -1);
+        rep(i, 0, size) roots.emplace(i);
+    }
+    ll findRoot(ll x) {
+        if (parents[x] < 0) return x;
+        return parents[x] = findRoot(parents[x]);
+    }
+    bool unite(ll x, ll y) {
+        x = findRoot(x);
+        y = findRoot(y);
+        if (x == y) return false;
+        if (parents[x] > parents[y]) swap(x, y);
+        parents[x] += parents[y];
+        parents[y] = x;
+        roots.erase(y);
+        return true;
+    }
+    ll size(ll x) { return -parents[findRoot(x)]; }
+    bool isSameGroup(ll x, ll y) { return findRoot(x) == findRoot(y); }
+};
 
 void solve() {
-    ll N; cin >> N;
-    rep(i, 0, N) cout << "Long";
+    ll N, M; cin >> N >> M;
+    vector<ll> d(N); rep(i, 0, N) cin >> d[i];
+    UnionFind uf(N);
+    ll cnt = 0;
+    vector<pair<ll, ll>> edge;
+    rep(i, 0, M) {
+        ll a, b; cin >> a >> b;
+        a--; b--;
+        uf.unite(a, b);
+        d[a]--; d[b]--;
+        if (d[a] < 0 || d[b] < 0) {
+            cout << -1 << endl;
+            return;
+        }
+    }
+    if (N - M - 1 < N - uf.roots.size()) {
+        cout << -1 << endl;
+        return;
+    }
+    map<ll, set<ll>> capa;
+    rep(i, 0, N) capa[d[i]].emplace(i);
+    auto maxx = *capa.rbegin();
+    auto minn = *capa.begin();
+    auto node = maxx.first;
+    auto next = minn.first;
+    while (uf.roots.size() > 1) {
+        while (!capa[node].empty()) {
+            uf.unite(*capa[next].begin(), *capa[node].begin());
+        }
+    }
 }
 
 

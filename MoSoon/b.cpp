@@ -56,15 +56,27 @@ struct grid {
 };
 
 //#########################################################################
+ll cyclic() {
+    ll bunshi, bunbo, keta;
+    cin >> bunshi >> bunbo >> keta;
+    unordered_map<ll, ll> rec;
+    ll cnt = 1;
+    while (rec.find(bunshi % bunbo) == rec.end()) {
+        rec[bunshi % bunbo] = cnt;
+        cnt++;
+        if (cnt == keta) {
+            cout << bunhi / bunbo << endl;
+            return;
+        }
+        bunshi = bunshi % bunbo;
+    }
+
+}
+
 
 void solve() {
-    string s; cin >> s;
-    reverse(ALL(s));
-    rep(i, 0, s.size()) {
-        if (s[i] == '6') cout << 9;
-        else if (s[i] == '9') cout << 6;
-        else cout << s[i];
-    }
+    ll N; cin >> N;
+
 }
 
 

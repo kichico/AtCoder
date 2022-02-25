@@ -57,10 +57,17 @@ struct grid {
 
 //#########################################################################
 
-
 void solve() {
-    ll N; cin >> N;
-    rep(i, 0, N) cout << "Long";
+    ll a, b; cin >> a >> b;
+    if ((a == 9 && b == 10) || (a == 1 && b == 10)) {
+        cout << "Yes" << endl;
+        return;
+    }
+    if (a >= 10) a -= 10;
+    if (b >= 10) b -= 10;
+
+    twoText(abs(a - b) == 1);
+
 }
 
 

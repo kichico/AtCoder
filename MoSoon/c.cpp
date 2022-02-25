@@ -56,21 +56,35 @@ struct grid {
 };
 
 //#########################################################################
+bool check(ll sr, ll sc, ll gr, ll gc) {
+    return (sr + sc == gr + gc) || (sr - sc == gr - gc) || abs(sr - gr) + abs(sc - gc) <= 3;
+}
+
 
 void solve() {
-    ll N; cin >> N;
-    vector<ll> a(N), b(N), c(N);
-    rep(i, 0, N) cin >> a[i];
-    rep(i, 0, N) cin >> b[i];
-    rep(i, 0, N) {
-        cin >> c[i];
-        c[i]--;
+    ll sr, sc, gr, gc; cin >> sr >> sc >> gr >> gc;
+    if (sr == gr && sc == gc) {
+        cout << 0 << endl;
+        return;
     }
-    map<ll, ll> cnt;
-    rep(i, 0, N) cnt[b[c[i]]]++;
-    ll ans = 0;
-    rep(i, 0, N) ans += cnt[a[i]];
-    cout << ans << endl;
+    if (check(sr, sc, gr, gc)) {
+        cout << 1 << endl;
+        return;
+    }
+    else if ((sr + sc) % 2 == (gr + gc) % 2) {
+        cout << 2 << endl;
+        return;
+    }
+    rep(i, -3, 4) rep(j, -3, 4) {
+        ll nr = sr + i;
+        ll nc = sc + j;
+        if (!check(sr, sc, nr, nc)) continue;
+        if (check(nr, nc, gr, gc)) {
+            cout << 2 << endl;
+            return;
+        }
+    }
+    cout << 3 << endl;
 }
 
 

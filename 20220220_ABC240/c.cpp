@@ -57,10 +57,27 @@ struct grid {
 
 //#########################################################################
 
-
 void solve() {
-    ll N; cin >> N;
-    rep(i, 0, N) cout << "Long";
+    ll N, X; cin >> N >> X;
+    vector<ll> a(N), b(N); rep(i, 0, N) cin >> a[i] >> b[i];
+    set<ll> pos{ 0 };
+    vector<set<ll>> dp(N + 1);
+    dp[0] = pos;
+    rep(i, 0, N) {
+        fore(x, dp[i]) {
+            if (x + a[i] <= X) dp[i + 1].emplace(x + a[i]);
+            if (x + b[i] <= X) dp[i + 1].emplace(x + b[i]);
+        }
+    }
+    cout << dp[N].size() << endl;
+    fore(n, dp[N]) {
+        if (n == X) {
+            cout << "Yes" << endl;
+            return;
+        }
+    }
+
+    cout << "No" << endl;
 }
 
 

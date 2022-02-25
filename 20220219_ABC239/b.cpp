@@ -57,10 +57,9 @@ struct grid {
 
 //#########################################################################
 
-
 void solve() {
-    ll N; cin >> N;
-    rep(i, 0, N) cout << "Long";
+    ld N; cin >> N;
+    cout << (ll)floor(N / 10) << endl;
 }
 
 

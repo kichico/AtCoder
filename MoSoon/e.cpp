@@ -56,11 +56,39 @@ struct grid {
 };
 
 //#########################################################################
+ll a, b, c;
+struct p {
+    ld ap, bp, cp;
+};
+ld ex(ll n) {
+    ll sum = a + b + c;
+    return ((ld)n / sum) * (100 - n);
+}
 
+p exp(ll i, ll j, ll k) {
+    ll sum = i + j + k;
+    p pp;
+    pp.ap = (ld)i / sum;
+    pp.bp = (ld)j / sum;
+    pp.cp = (ld)k / sum;
+    return pp;
+}
 void solve() {
-    ll h, w, k; cin >> h >> w >> k;
-    cout << h * k << " " << w * k * k * k << endl;
-
+    cin >> a >> b >> c;
+    vector<vector<vector<p>>> dp(100, vector<vector<p>>(100, vector<p>(100)));
+    rep(i, 0, 100) rep(j, 0, 100) rep(k, 0, 100) {
+        dp[i][j][k] = exp(i, j, k);
+    }
+    ld aa = 0, bb = 0, cc = 0;
+    rep(i, 1, 100) {
+        if (a != 0 && a <= i) aa += dp[i][b][c].ap;
+        if (b != 0 && b <= i) bb += dp[a][i][c].bp;
+        if (c != 0 && c <= i) cc += dp[a][b][i].cp;
+    }
+    cout << aa << " " << bb << " " << cc << endl;
+    //cout << ex(a) << " " << ex(b) << " " << ex(c) << endl;
+    //cout << ex(a) + ex(b) + ex(c) << endl;
+    cout << aa + bb + cc << endl;
 }
 
 
