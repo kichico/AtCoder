@@ -66,7 +66,15 @@ struct grid {
 //#########################################################################
 
 void solve() {
-    ll N; cin >> N;
+    char a, b; cin >> a >> b;
+    if (a == 'H') {
+        cout << b << endl;
+        return;
+    }
+    else {
+        if (b == 'H') cout << 'D' << endl;
+        else cout << 'H' << endl;
+    }
 
 }
 

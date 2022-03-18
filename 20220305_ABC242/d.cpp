@@ -66,8 +66,32 @@ struct grid {
 //#########################################################################
 
 void solve() {
-    ll N; cin >> N;
+    string s; cin >> s;
+    vector<char> c{ 'A','B','C' };
+    ll q; cin >> q;
+    map<char, string> convert;
+    convert['A'] = "BC";
+    convert['B'] = "CA";
+    convert['C'] = "AB";
+    map<pair<char, ll>, string> ans;
+    rep(i, 0, 3) {
+        auto cc = c[i];
+        ans[make_pair(cc, 0)] = to_string(cc);
+        string ss = to_string(cc);
+        rep(j, 1, 60) {
+            string next;
+            rep(k, 0, ss.size()) {
+                next += convert[ss[k]];
+            }
+            ss = next;
+            ans[make_pair(cc, j)] = ss;
+        }
+    }
+    cout << ans[make_pair('A', 59)] << endl;
+    rep(i, 0, q) {
+        //ll t, k; cin >> t >> k;
 
+    }
 }
 
 

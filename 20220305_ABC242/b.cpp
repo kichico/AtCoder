@@ -66,8 +66,9 @@ struct grid {
 //#########################################################################
 
 void solve() {
-    ll N; cin >> N;
-
+    string N; cin >> N;
+    sort(ALL(N));
+    cout << N << endl;
 }
 
 

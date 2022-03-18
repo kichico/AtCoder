@@ -109,11 +109,10 @@ void solve() {
     }
     sort(ALL(depth));
     visited.assign(N, false);
-    ll deepest = depth.back().first;
     ll cnt = 1;
     vector<set<ll>> tree(N);
-    rep(i, 0, N) if (directed[i].empty()) {
-        tree[i].emplace(cnt);
+    rep(i, 0, N) if (directed[depth[i].second].empty()) {
+        tree[depth[i].second].emplace(cnt);
         cnt++;
     }
     auto it = dict.rbegin();

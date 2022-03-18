@@ -9,14 +9,10 @@ using ull = unsigned long long;
 #define forc(variable,container) for(auto& variable:container) cout<<variable<<endl;
 const ll MOD = 1e9 + 7;
 const ll INF = 1e17;
-const vector<ll> dx{ 1,0,-1,0 }, dy{ 0,1,0,-1 };
+const vector<ll> dx{ 1,1,0,-1,-1,-1,0,1 }, dy{ 0,-1,-1,-1,0,1,1,1 };
 //#######################################################################
 void op(vector<ll> vec) {
     ll size = (ll)vec.size();
-    if (vec.empty()) {
-        cout << endl;
-        return;
-    }
     for (ll i = 0; i < size - 1; ++i) cout << vec[i] << " ";
     cout << vec.back() << endl;
 }
@@ -24,10 +20,6 @@ void op(vector<ll> vec) {
 void op(vector<vector<ll>> vec) {
     ll height = (ll)vec.size();
     ll width = (ll)vec[0].size();
-    if (vec.empty()) {
-        cout << endl;
-        return;
-    }
     for (ll i = 0; i < height; ++i) {
         for (ll j = 0; j < width - 1; ++j) cout << vec[i][j] << " ";
         cout << vec[i].back() << endl;
@@ -67,7 +59,30 @@ struct grid {
 
 void solve() {
     ll N; cin >> N;
-
+    grid<char> a(N, N);
+    rep(i, 0, N) {
+        string s; cin >> s;
+        rep(j, 0, N) a.field[i][j] = s[j];
+    }
+    auto area = a.field;
+    rep(i, 0, N * N) {
+        ll r = i / N, c = i % N;
+        rep(j, 0, 8) {
+            ll nr = r, nc = c;
+            ll cnt = 0;
+            rep(k, 0, 6) {
+                if (area[nr][nc] == '#') cnt++;
+                nr += dy[j];
+                nc += dx[j];
+                if (nr < 0 || nc < 0 || nr >= N || nc >= N) break;
+            }
+            if (cnt >= 4) {
+                cout << "Yes" << endl;
+                return;
+            }
+        }
+    }
+    cout << "No" << endl;
 }
 
 

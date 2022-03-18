@@ -5,18 +5,12 @@ using ld = long double;
 using ull = unsigned long long;
 #define ALL(x) x.begin(),x.end()
 #define rep(iter,from,to) for(ll iter=from;iter<to;++iter)
-#define fore(variable,container) for(auto& variable:container)
-#define forc(variable,container) for(auto& variable:container) cout<<variable<<endl;
+
 const ll MOD = 1e9 + 7;
 const ll INF = 1e17;
-const vector<ll> dx{ 1,0,-1,0 }, dy{ 0,1,0,-1 };
 //#######################################################################
 void op(vector<ll> vec) {
     ll size = (ll)vec.size();
-    if (vec.empty()) {
-        cout << endl;
-        return;
-    }
     for (ll i = 0; i < size - 1; ++i) cout << vec[i] << " ";
     cout << vec.back() << endl;
 }
@@ -24,10 +18,6 @@ void op(vector<ll> vec) {
 void op(vector<vector<ll>> vec) {
     ll height = (ll)vec.size();
     ll width = (ll)vec[0].size();
-    if (vec.empty()) {
-        cout << endl;
-        return;
-    }
     for (ll i = 0; i < height; ++i) {
         for (ll j = 0; j < width - 1; ++j) cout << vec[i][j] << " ";
         cout << vec[i].back() << endl;
@@ -44,16 +34,8 @@ void twoText(bool identifier) {
     else cout << "No" << endl;
 }
 
-template <class T>
-T vecsum(vector<T>& vec) {
-    return accumulate(ALL(vec), (T)0);
-}
-
-template<class T, ll>
-T vecsum(vector<T>& vec, ll K) {
-    ll ret = 0;
-    rep(i, 0, K) ret += vec[i];
-    return ret;
+void counter(ll& num, ll& increaser, bool checker) {
+    if (checker) num += increaser;
 }
 
 template <class T>
@@ -64,10 +46,57 @@ struct grid {
 };
 
 //#########################################################################
+ll modpow(ll x, ll n) {
+    ll ans = 1;
+    while (n > 0) {
+        if (n & 1) ans = ans * x % MOD;
+        x = x * x % MOD;
+        n >>= 1;
+    }
+    return ans;
+}
 
 void solve() {
-    ll N; cin >> N;
-
+    ll N, K;
+    cin >> N >> K;
+    ll limit = 1e5;
+    vector<bool> check(limit, false);
+    ll cnt = 0;
+    if (N == 0) {
+        cout << 0 << endl; return;
+    }
+    while (!check[N]) {
+        check[N] = true;
+        string s = to_string(N);
+        ll y = 0; rep(i, 0, s.size()) y += s[i] - '0';
+        N = (N + y) % 100000;
+        cnt++;
+        if (cnt == K) {
+            cout << N << endl;
+            return;
+        }
+    }
+    ll start = N;
+    check.assign(limit, false);
+    ll loop = 0;
+    do {
+        check[N] = true;
+        string s = to_string(N);
+        ll y = 0; rep(i, 0, s.size()) y += s[i] - '0';
+        N = (N + y) % 100000;
+        loop++;
+    }
+    while (start != N);
+    ll ini = cnt - loop;
+    K -= ini;
+    ll rest = K % loop;
+    rep(i, 0, rest) {
+        string s = to_string(N);
+        ll y = 0; rep(i, 0, s.size()) y += s[i] - '0';
+        N = (N + y) % 100000;
+        loop++;
+    }
+    cout << N << endl;
 }
 
 

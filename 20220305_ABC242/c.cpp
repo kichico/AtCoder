@@ -7,7 +7,7 @@ using ull = unsigned long long;
 #define rep(iter,from,to) for(ll iter=from;iter<to;++iter)
 #define fore(variable,container) for(auto& variable:container)
 #define forc(variable,container) for(auto& variable:container) cout<<variable<<endl;
-const ll MOD = 1e9 + 7;
+const ll MOD = 998244353;
 const ll INF = 1e17;
 const vector<ll> dx{ 1,0,-1,0 }, dy{ 0,1,0,-1 };
 //#######################################################################
@@ -67,7 +67,26 @@ struct grid {
 
 void solve() {
     ll N; cin >> N;
-
+    ll ans = 0;
+    vector<vector<ll>> dp(10, vector<ll>(N + 1, 0));
+    rep(i, 1, 10) dp[i][0] = 1;
+    rep(i, 1, N) rep(j, 1, 10) {
+        dp[j][i] += dp[j][i - 1];
+        if (j != 1 && j != 9) {
+            dp[j][i] += dp[j - 1][i - 1] + dp[j + 1][i - 1];
+        }
+        else if (j == 1) {
+            dp[j][i] += dp[j + 1][i - 1];
+        }
+        else dp[j][i] += dp[j - 1][i - 1];
+        dp[j][i] %= MOD;
+    }
+    rep(i, 1, 10) {
+        ans += dp[i][N - 1];
+        //cout << i << ":" << dp[i][N - 1] << endl;
+        ans %= MOD;
+    }
+    cout << ans << endl;
 }
 
 

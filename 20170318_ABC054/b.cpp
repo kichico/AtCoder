@@ -66,8 +66,11 @@ struct grid {
 //#########################################################################
 
 void solve() {
-    ll N; cin >> N;
-
+    ll w, a, b; cin >> w >> a >> b;
+    if (a > b) swap(a, b);
+    ll left = b, right = a + w;
+    if (right - left >= 0) cout << 0 << endl;
+    else cout << left - right << endl;
 }
 
 

@@ -13,10 +13,6 @@ const vector<ll> dx{ 1,0,-1,0 }, dy{ 0,1,0,-1 };
 //#######################################################################
 void op(vector<ll> vec) {
     ll size = (ll)vec.size();
-    if (vec.empty()) {
-        cout << endl;
-        return;
-    }
     for (ll i = 0; i < size - 1; ++i) cout << vec[i] << " ";
     cout << vec.back() << endl;
 }
@@ -24,10 +20,6 @@ void op(vector<ll> vec) {
 void op(vector<vector<ll>> vec) {
     ll height = (ll)vec.size();
     ll width = (ll)vec[0].size();
-    if (vec.empty()) {
-        cout << endl;
-        return;
-    }
     for (ll i = 0; i < height; ++i) {
         for (ll j = 0; j < width - 1; ++j) cout << vec[i][j] << " ";
         cout << vec[i].back() << endl;
@@ -66,8 +58,39 @@ struct grid {
 //#########################################################################
 
 void solve() {
-    ll N; cin >> N;
-
+    ll N, k; cin >> N >> k;
+    vector<ll> a(N); rep(i, 0, N) cin >> a[i];
+    ll maxx = 1e6 * 10;
+    vector<bool> visited(maxx, false);
+    ll sara = 0;
+    ll cnt = 0;
+    do {
+        if (visited[sara % N]) break;
+        visited[sara % N] = true;
+        sara += a[sara % N];
+        cnt++;
+        if (cnt == k) {
+            cout << sara << endl;
+            return;
+        }
+    }
+    while (!visited[sara % N]);
+    ll start = sara % N;
+    ll check = sara % N;
+    k -= cnt;
+    cnt = 0;
+    ll loop = 0;
+    do {
+        sara += a[sara % N];
+        loop += a[sara % N];
+        cnt++;
+        check = sara % N;
+    }
+    while (check != start);
+    sara += loop * ((k / cnt) - 1);
+    k %= cnt;
+    rep(i, 0, k) sara += a[sara % N];
+    cout << sara << endl;
 }
 
 

@@ -66,8 +66,19 @@ struct grid {
 //#########################################################################
 
 void solve() {
-    ll N; cin >> N;
-
+    ll a, b, c, x; cin >> a >> b >> c >> x;
+    if (x <= a) {
+        cout << 1 << endl;
+        return;
+    }
+    if (x > b) {
+        cout << 0 << endl;
+        return;
+    }
+    else {
+        ll p = b - a;
+        cout << (ld)c / p << endl;
+    }
 }
 
 

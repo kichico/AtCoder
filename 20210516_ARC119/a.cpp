@@ -67,7 +67,18 @@ struct grid {
 
 void solve() {
     ll N; cin >> N;
-
+    ll ans = INF;
+    rep(b, 0, 60) {
+        ll limit = N / pow(2, b);
+        rep(a, 0, limit) {
+            cout << a << " " << b << " " << limit << endl;
+            ll c = N - a * pow(2, b);
+            if (c >= 0) {
+                ans = min(a + b + c, ans);
+            }
+        }
+    }
+    cout << ans << endl;
 }
 
 

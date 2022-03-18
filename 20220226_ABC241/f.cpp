@@ -13,10 +13,6 @@ const vector<ll> dx{ 1,0,-1,0 }, dy{ 0,1,0,-1 };
 //#######################################################################
 void op(vector<ll> vec) {
     ll size = (ll)vec.size();
-    if (vec.empty()) {
-        cout << endl;
-        return;
-    }
     for (ll i = 0; i < size - 1; ++i) cout << vec[i] << " ";
     cout << vec.back() << endl;
 }
@@ -24,10 +20,6 @@ void op(vector<ll> vec) {
 void op(vector<vector<ll>> vec) {
     ll height = (ll)vec.size();
     ll width = (ll)vec[0].size();
-    if (vec.empty()) {
-        cout << endl;
-        return;
-    }
     for (ll i = 0; i < height; ++i) {
         for (ll j = 0; j < width - 1; ++j) cout << vec[i][j] << " ";
         cout << vec[i].back() << endl;

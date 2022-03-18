@@ -13,10 +13,6 @@ const vector<ll> dx{ 1,0,-1,0 }, dy{ 0,1,0,-1 };
 //#######################################################################
 void op(vector<ll> vec) {
     ll size = (ll)vec.size();
-    if (vec.empty()) {
-        cout << endl;
-        return;
-    }
     for (ll i = 0; i < size - 1; ++i) cout << vec[i] << " ";
     cout << vec.back() << endl;
 }
@@ -24,10 +20,6 @@ void op(vector<ll> vec) {
 void op(vector<vector<ll>> vec) {
     ll height = (ll)vec.size();
     ll width = (ll)vec[0].size();
-    if (vec.empty()) {
-        cout << endl;
-        return;
-    }
     for (ll i = 0; i < height; ++i) {
         for (ll j = 0; j < width - 1; ++j) cout << vec[i][j] << " ";
         cout << vec[i].back() << endl;
@@ -66,8 +58,56 @@ struct grid {
 //#########################################################################
 
 void solve() {
-    ll N; cin >> N;
-
+    ll q; cin >> q;
+    multiset<ll> a;
+    vector<ll> ans;
+    rep(i, 0, q) {
+        ll c, x, k; cin >> c;
+        if (c == 1) {
+            cin >> x;
+            a.emplace(x);
+        }
+        else if (c == 2) {
+            cin >> x >> k;
+            auto it = a.upper_bound(x);
+            if (it == a.begin()) {
+                ans.emplace_back(-1);
+                continue;
+            }
+            bool flg = true;
+            rep(_, 0, k) {
+                it--;
+                if (it == a.begin() && _ < k - 1) {
+                    ans.emplace_back(-1);
+                    flg = false;
+                    break;
+                }
+            }
+            if (flg) ans.emplace_back(*it);
+        }
+        else {
+            cin >> x >> k;
+            auto it = a.lower_bound(x);
+            auto ite = a.end();
+            ite--;
+            if (it == ite) {
+                ans.emplace_back(-1);
+                continue;
+            }
+            bool flg = true;
+            k--;
+            rep(_, 0, k) {
+                it++;
+                if (it == ite && _ < k - 1) {
+                    ans.emplace_back(-1);
+                    flg = false;
+                    break;
+                }
+            }
+            if (flg) ans.emplace_back(*it);
+        }
+    }
+    forc(x, ans);
 }
 
 

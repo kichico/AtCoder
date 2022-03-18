@@ -58,22 +58,11 @@ struct grid {
 //#########################################################################
 
 void solve() {
-    ll L, Q; cin >> L >> Q;
-    set<ll> wood{ 0,L };
-    vector<ll> ans;
-    rep(i, 0, Q) {
-        ll c, x; cin >> c >> x;
-        if (c == 1) wood.insert(x);
-        else {
-            auto it = wood.upper_bound(x);
-            ll right = *it;
-            it--;
-            ll left = *it;
-            ans.emplace_back(right - left);
-        }
-    }
-    forc(x, ans);
+    ll T; cin >> T;
+    rep(i, 0, T) {
+        ll a, s; cin >> a >> s;
 
+    }
 }
 
 

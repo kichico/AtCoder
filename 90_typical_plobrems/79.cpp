@@ -5,11 +5,9 @@ using ld = long double;
 using ull = unsigned long long;
 #define ALL(x) x.begin(),x.end()
 #define rep(iter,from,to) for(ll iter=from;iter<to;++iter)
-#define fore(variable,container) for(auto& variable:container)
-#define forc(variable,container) for(auto& variable:container) cout<<variable<<endl;
+
 const ll MOD = 1e9 + 7;
 const ll INF = 1e17;
-const vector<ll> dx{ 1,0,-1,0 }, dy{ 0,1,0,-1 };
 //#######################################################################
 void op(vector<ll> vec) {
     ll size = (ll)vec.size();
@@ -24,10 +22,6 @@ void op(vector<ll> vec) {
 void op(vector<vector<ll>> vec) {
     ll height = (ll)vec.size();
     ll width = (ll)vec[0].size();
-    if (vec.empty()) {
-        cout << endl;
-        return;
-    }
     for (ll i = 0; i < height; ++i) {
         for (ll j = 0; j < width - 1; ++j) cout << vec[i][j] << " ";
         cout << vec[i].back() << endl;
@@ -44,16 +38,8 @@ void twoText(bool identifier) {
     else cout << "No" << endl;
 }
 
-template <class T>
-T vecsum(vector<T>& vec) {
-    return accumulate(ALL(vec), (T)0);
-}
-
-template<class T, ll>
-T vecsum(vector<T>& vec, ll K) {
-    ll ret = 0;
-    rep(i, 0, K) ret += vec[i];
-    return ret;
+void counter(ll& num, ll& increaser, bool checker) {
+    if (checker) num += increaser;
 }
 
 template <class T>
@@ -66,8 +52,31 @@ struct grid {
 //#########################################################################
 
 void solve() {
-    ll N; cin >> N;
-
+    ll h, w; cin >> h >> w;
+    grid<ll> a(h, w), b(h, w); a.input(); b.input();
+    auto& af = a.field;
+    ll cnt = 0;
+    vector<ll> dx{ 0,1,0,1 }, dy{ 0,0,1,1 };
+    rep(i, 0, h - 1) rep(j, 0, w - 1) {
+        ll diff = b.field[i][j] - af[i][j];
+        if (diff != 0) {
+            rep(k, 0, 4) {
+                ll ny = i + dy[k], nx = j + dx[k];
+                af[ny][nx] += diff;
+            }
+            cnt++;
+        }
+    }
+    rep(i, 0, h) if (af[i][w - 1] != b.field[i][w - 1]) {
+        cout << "No" << endl;
+        return;
+    }
+    rep(i, 0, w) if (af[h - 1][i] != b.field[h - 1][i]) {
+        cout << "No" << endl;
+        return;
+    }
+    cout << "Yes" << endl;
+    cout << cnt << endl;
 }
 
 
