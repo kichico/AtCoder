@@ -13,6 +13,10 @@ const vector<ll> dx{ 1,0,-1,0 }, dy{ 0,1,0,-1 };
 //#######################################################################
 void op(vector<ll> vec) {
     ll size = (ll)vec.size();
+    if (vec.empty()) {
+        cout << endl;
+        return;
+    }
     for (ll i = 0; i < size - 1; ++i) cout << vec[i] << " ";
     cout << vec.back() << endl;
 }
@@ -20,6 +24,10 @@ void op(vector<ll> vec) {
 void op(vector<vector<ll>> vec) {
     ll height = (ll)vec.size();
     ll width = (ll)vec[0].size();
+    if (vec.empty()) {
+        cout << endl;
+        return;
+    }
     for (ll i = 0; i < height; ++i) {
         for (ll j = 0; j < width - 1; ++j) cout << vec[i][j] << " ";
         cout << vec[i].back() << endl;
@@ -56,31 +64,28 @@ struct grid {
 };
 
 //#########################################################################
+ll gcd(ll a, ll b) {
+    if (b == 0) return a;
+    else return gcd(b, a % b);
+}
+
+
 
 
 void solve() {
-    ll N; cin >> N;
-    ll zero = 0;
-    vector<ll> a; rep(i, 0, N) {
-        ll v; cin >> v;
-        if (v == 0) zero++;
-        else a.emplace_back(v);
-    }
-    sort(ALL(a));
-    set<ll> diff;
-    rep(i, 0, a.size() - 1) {
-        diff.emplace(a[i + 1] - a[i]);
-    }
-    ll mini = *diff.begin();
-    ll cnt = 0;
-    fore(x, diff) {
-        if (x % mini != 0) {
-            cout << "No" << endl;
-            return;
+    ll L, R; cin >> L >> R;
+    ll ans = 0;
+    ll upper = R;
+    if (gcd(L, R) == 1) { cout << R - L << endl; return; }
+    rep(r, 0, 30) {
+        rep(l, 0, 30) {
+            if (L + l >= R - r) break;
+            if (gcd(L + l, R - r) == 1) {
+                ans = max(ans, R - r - (L + l));
+            }
         }
-        if (mini != x) cnt += x / mini;
     }
-    twoText(cnt <= zero);
+    cout << ans << endl;
 }
 
 

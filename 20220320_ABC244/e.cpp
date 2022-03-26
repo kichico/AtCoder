@@ -13,6 +13,10 @@ const vector<ll> dx{ 1,0,-1,0 }, dy{ 0,1,0,-1 };
 //#######################################################################
 void op(vector<ll> vec) {
     ll size = (ll)vec.size();
+    if (vec.empty()) {
+        cout << endl;
+        return;
+    }
     for (ll i = 0; i < size - 1; ++i) cout << vec[i] << " ";
     cout << vec.back() << endl;
 }
@@ -20,6 +24,10 @@ void op(vector<ll> vec) {
 void op(vector<vector<ll>> vec) {
     ll height = (ll)vec.size();
     ll width = (ll)vec[0].size();
+    if (vec.empty()) {
+        cout << endl;
+        return;
+    }
     for (ll i = 0; i < height; ++i) {
         for (ll j = 0; j < width - 1; ++j) cout << vec[i][j] << " ";
         cout << vec[i].back() << endl;
@@ -56,31 +64,57 @@ struct grid {
 };
 
 //#########################################################################
-
-
-void solve() {
-    ll N; cin >> N;
-    ll zero = 0;
-    vector<ll> a; rep(i, 0, N) {
-        ll v; cin >> v;
-        if (v == 0) zero++;
-        else a.emplace_back(v);
+struct createGraph {
+    vector<vector<ll>> graph;
+    createGraph(ll N) {
+        graph.resize(N);
     }
-    sort(ALL(a));
-    set<ll> diff;
-    rep(i, 0, a.size() - 1) {
-        diff.emplace(a[i + 1] - a[i]);
+    void addEdge(ll from, ll to) {
+        graph[from].emplace_back(to);
     }
-    ll mini = *diff.begin();
-    ll cnt = 0;
-    fore(x, diff) {
-        if (x % mini != 0) {
-            cout << "No" << endl;
-            return;
+    void addEdge(pair<ll, ll> pr) {
+        graph[pr.first].emplace_back(pr.second);
+        graph[pr.second].emplace_back(pr.first);
+    }
+    void inputAndAddEdge(ll M) {
+        set<pair<ll, ll>> checker;
+        pair<ll, ll> inserter;
+        rep(i, 0, M) {
+            ll from, to;
+            cin >> from >> to;
+            from--; to--;
+            inserter = make_pair(min(from, to), max(from, to));
+            if (checker.count(inserter) == 0) {
+                addEdge(inserter);
+                checker.insert(inserter);
+            }
         }
-        if (mini != x) cnt += x / mini;
     }
-    twoText(cnt <= zero);
+    void showGrapgh() {
+        rep(i, 0, graph.size()) {
+            string out = to_string(i) + ":";
+            rep(j, 0, graph[i].size()) out += to_string(graph[i][j]) + " ";
+            if (out.back() != ':') out.pop_back();
+            cout << out << endl;
+        }
+    }
+};
+void solve() {
+    ll N, M, K, S, T, X; cin >> N >> M >> K >> S >> T >> X;
+    createGraph g(N);
+    g.inputAndAddEdge(M);
+    S--; T--; X--;
+    vector<vector<vector<ll>>> dp(K + 1, vector<ll>(N, vector<ll>(2, 0)));
+    dp[0][S][0] = S;
+    vector<ll> next;
+    rep(i, 0, g.graph[S].size()) next.emplace_back(g.graph[S][i]);
+    rep(i, 1, K + 1) {
+        vector<ll> neighbor;
+        rep(j, 0, next.size()) {
+            ll node = next[j];
+            if (node != X) dp[i][node][] =
+        }
+    }
 }
 
 

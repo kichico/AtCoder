@@ -7,12 +7,16 @@ using ull = unsigned long long;
 #define rep(iter,from,to) for(ll iter=from;iter<to;++iter)
 #define fore(variable,container) for(auto& variable:container)
 #define forc(variable,container) for(auto& variable:container) cout<<variable<<endl;
-const ll MOD = 1e9 + 7;
+const ll MOD = 998244353;
 const ll INF = 1e17;
 const vector<ll> dx{ 1,0,-1,0 }, dy{ 0,1,0,-1 };
 //#######################################################################
 void op(vector<ll> vec) {
     ll size = (ll)vec.size();
+    if (vec.empty()) {
+        cout << endl;
+        return;
+    }
     for (ll i = 0; i < size - 1; ++i) cout << vec[i] << " ";
     cout << vec.back() << endl;
 }
@@ -20,6 +24,10 @@ void op(vector<ll> vec) {
 void op(vector<vector<ll>> vec) {
     ll height = (ll)vec.size();
     ll width = (ll)vec[0].size();
+    if (vec.empty()) {
+        cout << endl;
+        return;
+    }
     for (ll i = 0; i < height; ++i) {
         for (ll j = 0; j < width - 1; ++j) cout << vec[i][j] << " ";
         cout << vec[i].back() << endl;
@@ -57,30 +65,28 @@ struct grid {
 
 //#########################################################################
 
-
 void solve() {
-    ll N; cin >> N;
-    ll zero = 0;
-    vector<ll> a; rep(i, 0, N) {
-        ll v; cin >> v;
-        if (v == 0) zero++;
-        else a.emplace_back(v);
-    }
-    sort(ALL(a));
-    set<ll> diff;
-    rep(i, 0, a.size() - 1) {
-        diff.emplace(a[i + 1] - a[i]);
-    }
-    ll mini = *diff.begin();
-    ll cnt = 0;
-    fore(x, diff) {
-        if (x % mini != 0) {
-            cout << "No" << endl;
-            return;
+    ll t; cin >> t;
+    vector<ll> ans(t);
+    rep(i, 0, t) {
+        ll N; cin >> N;
+        map<ll, ll> cnt;
+        vector<ll> sum(N);
+        vector<ll> a(N); rep(j, 0, N) {
+            cin >> a[j];
+            if (j == 0) sum[0] = a[0];
+            else sum[j] = sum[j - 1] ^ a[j];
+            cnt[sum[j]]++;
         }
-        if (mini != x) cnt += x / mini;
+        if (cnt[0] == 0 || sum[N - 1] != 0) {
+            ans[i] = 0;
+            continue;
+        }
+        ll v = 1;
+        rep(k, 0, cnt[0] - 1) { v *= 2; v %= MOD; }
+        ans[i] = v;
     }
-    twoText(cnt <= zero);
+    forc(x, ans);
 }
 
 

@@ -9,10 +9,14 @@ using ull = unsigned long long;
 #define forc(variable,container) for(auto& variable:container) cout<<variable<<endl;
 const ll MOD = 1e9 + 7;
 const ll INF = 1e17;
-const vector<ll> dx{ 1,0,-1,0 }, dy{ 0,1,0,-1 };
+const vector<ll> dx{ 1,0,-1,0 }, dy{ 0,-1,0,1 };
 //#######################################################################
 void op(vector<ll> vec) {
     ll size = (ll)vec.size();
+    if (vec.empty()) {
+        cout << endl;
+        return;
+    }
     for (ll i = 0; i < size - 1; ++i) cout << vec[i] << " ";
     cout << vec.back() << endl;
 }
@@ -20,6 +24,10 @@ void op(vector<ll> vec) {
 void op(vector<vector<ll>> vec) {
     ll height = (ll)vec.size();
     ll width = (ll)vec[0].size();
+    if (vec.empty()) {
+        cout << endl;
+        return;
+    }
     for (ll i = 0; i < height; ++i) {
         for (ll j = 0; j < width - 1; ++j) cout << vec[i][j] << " ";
         cout << vec[i].back() << endl;
@@ -57,30 +65,19 @@ struct grid {
 
 //#########################################################################
 
-
 void solve() {
     ll N; cin >> N;
-    ll zero = 0;
-    vector<ll> a; rep(i, 0, N) {
-        ll v; cin >> v;
-        if (v == 0) zero++;
-        else a.emplace_back(v);
-    }
-    sort(ALL(a));
-    set<ll> diff;
-    rep(i, 0, a.size() - 1) {
-        diff.emplace(a[i + 1] - a[i]);
-    }
-    ll mini = *diff.begin();
-    ll cnt = 0;
-    fore(x, diff) {
-        if (x % mini != 0) {
-            cout << "No" << endl;
-            return;
+    string t; cin >> t;
+    ll x = 0, y = 0;
+    ll dir = 0;
+    rep(i, 0, N) {
+        if (t[i] == 'S') {
+            x += dx[dir];
+            y += dy[dir];
         }
-        if (mini != x) cnt += x / mini;
+        else { dir++; dir %= 4; }
     }
-    twoText(cnt <= zero);
+    cout << x << " " << y << endl;
 }
 
 

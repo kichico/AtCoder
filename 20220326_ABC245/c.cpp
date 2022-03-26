@@ -13,6 +13,10 @@ const vector<ll> dx{ 1,0,-1,0 }, dy{ 0,1,0,-1 };
 //#######################################################################
 void op(vector<ll> vec) {
     ll size = (ll)vec.size();
+    if (vec.empty()) {
+        cout << endl;
+        return;
+    }
     for (ll i = 0; i < size - 1; ++i) cout << vec[i] << " ";
     cout << vec.back() << endl;
 }
@@ -20,6 +24,10 @@ void op(vector<ll> vec) {
 void op(vector<vector<ll>> vec) {
     ll height = (ll)vec.size();
     ll width = (ll)vec[0].size();
+    if (vec.empty()) {
+        cout << endl;
+        return;
+    }
     for (ll i = 0; i < height; ++i) {
         for (ll j = 0; j < width - 1; ++j) cout << vec[i][j] << " ";
         cout << vec[i].back() << endl;
@@ -57,30 +65,34 @@ struct grid {
 
 //#########################################################################
 
-
 void solve() {
-    ll N; cin >> N;
-    ll zero = 0;
-    vector<ll> a; rep(i, 0, N) {
-        ll v; cin >> v;
-        if (v == 0) zero++;
-        else a.emplace_back(v);
+    ll N, K; cin >> N >> K;
+    vector<ll> a(N), b(N);
+    rep(i, 0, N) cin >> a[i];
+    rep(i, 0, N) cin >> b[i];
+    vector<vector<ll>> all{ a,b };
+    vector<vector<bool>> x(N, vector<bool>(2, false));
+    x[0][0] = x[0][1] = true;
+    rep(i, 1, N) {
+        rep(j, 0, 2) {
+            if (x[i - 1][j] == false) continue;
+            if (j == 0) {
+                if (abs(a[i] - a[i - 1]) <= K) x[i][0] = true;
+                if (abs(b[i] - a[i - 1]) <= K) x[i][1] = true;
+            }
+            else {
+                if (abs(a[i] - b[i - 1]) <= K) x[i][0] = true;
+                if (abs(b[i] - b[i - 1]) <= K) x[i][1] = true;
+            }
+        }
     }
-    sort(ALL(a));
-    set<ll> diff;
-    rep(i, 0, a.size() - 1) {
-        diff.emplace(a[i + 1] - a[i]);
-    }
-    ll mini = *diff.begin();
-    ll cnt = 0;
-    fore(x, diff) {
-        if (x % mini != 0) {
-            cout << "No" << endl;
+    rep(i, 0, 2) {
+        if (x[N - 1][i]) {
+            cout << "Yes" << endl;
             return;
         }
-        if (mini != x) cnt += x / mini;
     }
-    twoText(cnt <= zero);
+    cout << "No" << endl;
 }
 
 

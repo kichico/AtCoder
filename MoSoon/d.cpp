@@ -58,11 +58,39 @@ struct grid {
 //#########################################################################
 
 void solve() {
-    ll T; cin >> T;
-    rep(i, 0, T) {
-        ll a, s; cin >> a >> s;
-
+    ll N, start; cin >> N >> start;
+    string k; cin >> k;
+    vector<ll> a(N); rep(i, 0, N) {
+        cin >> a[i];
+        a[i]--;
     }
+    ll maxx = 1e6 * 10;
+    start--;
+    vector<bool> visited(maxx, false);
+    ll cnt = 0;
+    ll now = start;
+    do {
+        if (visited[now]) break;
+        visited[now] = true;
+        now = a[now];
+        cnt++;
+    }
+    while (!visited[now]);
+    ll st = now;
+    ll check = now;
+    k -= cnt;
+    cnt = 0;
+    ll loop = 0;
+    do {
+        now += a[now];
+        loop += a[now];
+        cnt++;
+        check = now;
+    }
+    while (check != start);
+    k %= cnt;
+    rep(i, 0, k) now = a[now];
+    cout << now << endl;
 }
 
 

@@ -70,14 +70,10 @@ void solve() {
         else if (c == 2) {
             cin >> x >> k;
             auto it = a.upper_bound(x);
-            if (it == a.begin()) {
-                ans.emplace_back(-1);
-                continue;
-            }
             bool flg = true;
-            rep(_, 0, k) {
+            rep(j, 0, k) {
                 it--;
-                if (it == a.begin() && _ < k - 1) {
+                if (it == a.begin() && j + 1 < k) {
                     ans.emplace_back(-1);
                     flg = false;
                     break;
@@ -88,17 +84,15 @@ void solve() {
         else {
             cin >> x >> k;
             auto it = a.lower_bound(x);
-            auto ite = a.end();
-            ite--;
-            if (it == ite) {
+            if (it == a.end()) {
                 ans.emplace_back(-1);
                 continue;
             }
             bool flg = true;
             k--;
-            rep(_, 0, k) {
+            rep(j, 0, k) {
                 it++;
-                if (it == ite && _ < k - 1) {
+                if (it == a.end()) {
                     ans.emplace_back(-1);
                     flg = false;
                     break;

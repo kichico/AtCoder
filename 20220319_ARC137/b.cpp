@@ -13,6 +13,10 @@ const vector<ll> dx{ 1,0,-1,0 }, dy{ 0,1,0,-1 };
 //#######################################################################
 void op(vector<ll> vec) {
     ll size = (ll)vec.size();
+    if (vec.empty()) {
+        cout << endl;
+        return;
+    }
     for (ll i = 0; i < size - 1; ++i) cout << vec[i] << " ";
     cout << vec.back() << endl;
 }
@@ -20,6 +24,10 @@ void op(vector<ll> vec) {
 void op(vector<vector<ll>> vec) {
     ll height = (ll)vec.size();
     ll width = (ll)vec[0].size();
+    if (vec.empty()) {
+        cout << endl;
+        return;
+    }
     for (ll i = 0; i < height; ++i) {
         for (ll j = 0; j < width - 1; ++j) cout << vec[i][j] << " ";
         cout << vec[i].back() << endl;
@@ -57,30 +65,36 @@ struct grid {
 
 //#########################################################################
 
-
 void solve() {
     ll N; cin >> N;
-    ll zero = 0;
-    vector<ll> a; rep(i, 0, N) {
-        ll v; cin >> v;
-        if (v == 0) zero++;
-        else a.emplace_back(v);
-    }
-    sort(ALL(a));
-    set<ll> diff;
-    rep(i, 0, a.size() - 1) {
-        diff.emplace(a[i + 1] - a[i]);
-    }
-    ll mini = *diff.begin();
-    ll cnt = 0;
-    fore(x, diff) {
-        if (x % mini != 0) {
-            cout << "No" << endl;
-            return;
+    vector<ll> a(N); rep(i, 0, N) cin >> a[i];
+    set<ll> ans;
+    vector<ll> sum(N, a[0]);
+    rep(i, 1, N) sum[i] = sum[i - 1] + a[i];
+    ll current = 0;
+    ans.emplace(sum.back());
+    for (ll left = 0; left < N; ++left) {
+        ll right = left + 1;
+        current = 0;
+        if (left == right) right++;
+        if (a[left] == 0) current++;
+        cout << "before:" << current << endl;
+        while (right < N) {
+            if (ans.find(sum.back() - sum[right - 1] + sum[left]) != ans.end()
+                && ans.find(current + (sum.back() - sum[right - 1] + sum[left])) != ans.end()) break;
+            ans.emplace(sum.back() - sum[right - 1] + sum[left] + current);
+            cout << "add:" << sum.back() - sum[right - 1] + current << endl;
+            cout << "left:" << left << " right:" << right << endl;
+            if (a[right] == 0) current++;
+            right++;
+
         }
-        if (mini != x) cnt += x / mini;
+        cout << "current:" << current << endl;
+        ans.emplace(sum.back() - sum[right - 1] + current);
+        //if (a[left] == 0) current--;
     }
-    twoText(cnt <= zero);
+    forc(x, ans);
+    cout << ans.size() << endl;
 }
 
 

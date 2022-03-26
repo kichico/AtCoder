@@ -1,22 +1,55 @@
 ﻿  test.cpp
-C:\Users\sueki\source\repos\AtCoder\debug\debug\test.cpp(10,20): warning C4244: '初期化中': 'double' から 'll' への変換です。データが失われる可能性があります。
-C:\Users\sueki\source\repos\AtCoder\debug\debug\test.cpp(11,16): warning C4244: '初期化中': 'double' から 'll' への変換です。データが失われる可能性があります。
-C:\Users\sueki\source\repos\AtCoder\debug\debug\test.cpp(16,51): warning C4244: '引数': 'll' から 'const unsigned int' への変換です。データが失われる可能性があります。
-C:\Users\sueki\source\repos\AtCoder\debug\debug\test.cpp(24,56): warning C4244: '引数': 'll' から 'const unsigned int' への変換です。データが失われる可能性があります。
-C:\Users\sueki\source\repos\AtCoder\debug\debug\test.cpp(24,59): warning C4244: '引数': 'll' から 'const unsigned int' への変換です。データが失われる可能性があります。
-C:\Users\sueki\source\repos\AtCoder\debug\debug\test.cpp(25,21): warning C4244: '引数': 'll' から 'const unsigned int' への変換です。データが失われる可能性があります。
-C:\Users\sueki\source\repos\AtCoder\debug\debug\test.cpp(62,18): warning C4244: '引数': 'll' から 'const unsigned int' への変換です。データが失われる可能性があります。
-C:\Users\sueki\source\repos\AtCoder\debug\debug\test.cpp(62,44): warning C4244: '引数': 'll' から 'const unsigned int' への変換です。データが失われる可能性があります。
-C:\Users\sueki\source\repos\AtCoder\debug\debug\test.cpp(63,13): warning C4244: '初期化中': 'double' から 'll' への変換です。データが失われる可能性があります。
-C:\Users\sueki\source\repos\AtCoder\debug\debug\test.cpp(64,26): warning C4244: '引数': 'll' から 'unsigned int' への変換です。データが失われる可能性があります。
-C:\Users\sueki\source\repos\AtCoder\debug\debug\test.cpp(66,13): warning C4244: '引数': 'll' から 'unsigned int' への変換です。データが失われる可能性があります。
-C:\Users\sueki\source\repos\AtCoder\debug\debug\test.cpp(69,24): warning C4244: '引数': 'll' から 'const unsigned int' への変換です。データが失われる可能性があります。
-C:\Users\sueki\source\repos\AtCoder\debug\debug\test.cpp(70,21): warning C4244: '引数': 'll' から 'unsigned int' への変換です。データが失われる可能性があります。
-C:\Users\sueki\source\repos\AtCoder\debug\debug\test.cpp(81,24): warning C4244: '引数': 'll' から 'const unsigned int' への変換です。データが失われる可能性があります。
-C:\Users\sueki\source\repos\AtCoder\debug\debug\test.cpp(86,33): warning C4244: '引数': 'll' から 'const unsigned int' への変換です。データが失われる可能性があります。
+C:\Users\sueki\source\repos\AtCoder\debug\debug\test.cpp(11,20): warning C4244: '初期化中': 'double' から 'll' への変換です。データが失われる可能性があります。
+C:\Users\sueki\source\repos\AtCoder\debug\debug\test.cpp(12,16): warning C4244: '初期化中': 'double' から 'll' への変換です。データが失われる可能性があります。
+C:\Users\sueki\source\repos\AtCoder\debug\debug\test.cpp(17,51): warning C4244: '引数': 'll' から 'const unsigned int' への変換です。データが失われる可能性があります。
+C:\Users\sueki\source\repos\AtCoder\debug\debug\test.cpp(25,56): warning C4244: '引数': 'll' から 'const unsigned int' への変換です。データが失われる可能性があります。
+C:\Users\sueki\source\repos\AtCoder\debug\debug\test.cpp(25,59): warning C4244: '引数': 'll' から 'const unsigned int' への変換です。データが失われる可能性があります。
+C:\Users\sueki\source\repos\AtCoder\debug\debug\test.cpp(26,21): warning C4244: '引数': 'll' から 'const unsigned int' への変換です。データが失われる可能性があります。
+C:\Users\sueki\source\repos\AtCoder\debug\debug\test.cpp(64,22): warning C4244: '引数': 'll' から 'const unsigned int' への変換です。データが失われる可能性があります。
+C:\Users\sueki\source\repos\AtCoder\debug\debug\test.cpp(67,15): warning C4244: '引数': 'll' から 'const unsigned int' への変換です。データが失われる可能性があります。
+C:\Users\sueki\source\repos\AtCoder\debug\debug\test.cpp(70,17): warning C4244: '引数': '_Ty1' から 'const unsigned int' への変換です。データが失われる可能性があります。
+          with
+          [
+              _Ty1=ll
+          ]
+C:\Users\sueki\source\repos\AtCoder\debug\debug\test.cpp(71,17): warning C4244: '引数': '_Ty2' から 'const unsigned int' への変換です。データが失われる可能性があります。
+          with
+          [
+              _Ty2=ll
+          ]
+C:\Users\sueki\source\repos\AtCoder\debug\debug\test.cpp(90,13): warning C4244: '引数': 'll' から 'const unsigned int' への変換です。データが失われる可能性があります。
+C:\Users\sueki\source\repos\AtCoder\debug\debug\test.cpp(90,63): warning C4244: '引数': 'll' から 'const unsigned int' への変換です。データが失われる可能性があります。
+C:\Users\sueki\source\repos\AtCoder\debug\debug\test.cpp(90,66): warning C4244: '引数': 'll' から 'const unsigned int' への変換です。データが失われる可能性があります。
+C:\Users\sueki\source\repos\AtCoder\debug\debug\test.cpp(225,23): warning C4244: '引数': 'll' から 'const unsigned int' への変換です。データが失われる可能性があります。
+C:\Users\sueki\source\repos\AtCoder\debug\debug\test.cpp(235,23): warning C4244: '引数': 'll' から 'const unsigned int' への変換です。データが失われる可能性があります。
+C:\Users\sueki\source\repos\AtCoder\debug\debug\test.cpp(242,33): warning C4244: '引数': 'll' から 'const unsigned int' への変換です。データが失われる可能性があります。
+C:\Users\sueki\source\repos\AtCoder\debug\debug\test.cpp(243,27): warning C4244: '引数': 'll' から 'const unsigned int' への変換です。データが失われる可能性があります。
+C:\Users\sueki\source\repos\AtCoder\debug\debug\test.cpp(245,17): warning C4244: '引数': 'll' から 'const unsigned int' への変換です。データが失われる可能性があります。
+C:\Users\sueki\source\repos\AtCoder\debug\debug\test.cpp(249,63): warning C4244: '引数': 'll' から 'const unsigned int' への変換です。データが失われる可能性があります。
+C:\Users\sueki\source\repos\AtCoder\debug\debug\test.cpp(249,81): warning C4244: '引数': 'll' から 'const unsigned int' への変換です。データが失われる可能性があります。
+C:\Users\sueki\source\repos\AtCoder\debug\debug\test.cpp(249,112): warning C4244: '引数': 'll' から 'const unsigned int' への変換です。データが失われる可能性があります。
+C:\Users\sueki\source\repos\AtCoder\debug\debug\test.cpp(249,130): warning C4244: '引数': 'll' から 'const unsigned int' への変換です。データが失われる可能性があります。
+C:\Users\sueki\source\repos\AtCoder\debug\debug\test.cpp(250,22): warning C4244: '引数': 'll' から 'const unsigned int' への変換です。データが失われる可能性があります。
+C:\Users\sueki\source\repos\AtCoder\debug\debug\test.cpp(251,22): warning C4244: '引数': 'll' から 'const unsigned int' への変換です。データが失われる可能性があります。
+C:\Users\sueki\source\repos\AtCoder\debug\debug\test.cpp(254,21): warning C4244: '引数': 'll' から 'const unsigned int' への変換です。データが失われる可能性があります。
+C:\Users\sueki\source\repos\AtCoder\debug\debug\test.cpp(265,67): warning C4244: '引数': 'll' から 'const unsigned int' への変換です。データが失われる可能性があります。
+C:\Users\sueki\source\repos\AtCoder\debug\debug\test.cpp(265,85): warning C4244: '引数': 'll' から 'const unsigned int' への変換です。データが失われる可能性があります。
+C:\Users\sueki\source\repos\AtCoder\debug\debug\test.cpp(265,116): warning C4244: '引数': 'll' から 'const unsigned int' への変換です。データが失われる可能性があります。
+C:\Users\sueki\source\repos\AtCoder\debug\debug\test.cpp(265,134): warning C4244: '引数': 'll' から 'const unsigned int' への変換です。データが失われる可能性があります。
+C:\Users\sueki\source\repos\AtCoder\debug\debug\test.cpp(266,26): warning C4244: '引数': 'll' から 'const unsigned int' への変換です。データが失われる可能性があります。
+C:\Users\sueki\source\repos\AtCoder\debug\debug\test.cpp(267,26): warning C4244: '引数': 'll' から 'const unsigned int' への変換です。データが失われる可能性があります。
+C:\Users\sueki\source\repos\AtCoder\debug\debug\test.cpp(272,29): warning C4244: '引数': 'll' から 'const unsigned int' への変換です。データが失われる可能性があります。
+C:\Users\sueki\source\repos\AtCoder\debug\debug\test.cpp(273,29): warning C4244: '引数': 'll' から 'const unsigned int' への変換です。データが失われる可能性があります。
+C:\Users\sueki\source\repos\AtCoder\debug\debug\test.cpp(273,52): warning C4244: '引数': 'll' から 'const unsigned int' への変換です。データが失われる可能性があります。
+C:\Users\sueki\source\repos\AtCoder\debug\debug\test.cpp(282,31): warning C4244: '引数': 'll' から 'const unsigned int' への変換です。データが失われる可能性があります。
+C:\Users\sueki\source\repos\AtCoder\debug\debug\test.cpp(306,22): warning C4244: '引数': 'll' から 'const unsigned int' への変換です。データが失われる可能性があります。
+C:\Users\sueki\source\repos\AtCoder\debug\debug\test.cpp(308,21): warning C4244: '引数': 'll' から 'const unsigned int' への変換です。データが失われる可能性があります。
+C:\Users\sueki\source\repos\AtCoder\debug\debug\test.cpp(317,28): warning C4244: '引数': 'll' から 'const unsigned int' への変換です。データが失われる可能性があります。
+C:\Users\sueki\source\repos\AtCoder\debug\debug\test.cpp(317,80): warning C4244: '引数': 'll' から 'const unsigned int' への変換です。データが失われる可能性があります。
+C:\Users\sueki\source\repos\AtCoder\debug\debug\test.cpp(318,57): warning C4244: '引数': 'll' から 'const unsigned int' への変換です。データが失われる可能性があります。
   コード生成しています。
-  100 of 171 functions (58.5%) were compiled, the rest were copied from previous compilation.
-    80 functions were new in current compilation
-    7 functions had inline decision re-evaluated but remain unchanged
+  1 of 519 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    1 functions had inline decision re-evaluated but remain unchanged
   コード生成が終了しました。
   debug.vcxproj -> C:\Users\sueki\source\repos\AtCoder\debug\Release\debug.exe
