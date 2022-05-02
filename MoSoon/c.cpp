@@ -7,9 +7,9 @@ using ull = unsigned long long;
 #define rep(iter,from,to) for(ll iter=from;iter<to;++iter)
 #define fore(variable,container) for(auto& variable:container)
 #define forc(variable,container) for(auto& variable:container) cout<<variable<<endl;
-const ll MOD = 1e9 + 7;
+const ll MOD = 998244353;
 const ll INF = 1e17;
-const vector<ll> dx{ 1,0,-1,0 }, dy{ 0,1,0,-1 };
+const vector<ll> dx{ 1,0,1 }, dy{ 0,1,1 };
 //#######################################################################
 void op(vector<ll> vec) {
     ll size = (ll)vec.size();
@@ -56,10 +56,42 @@ struct grid {
 };
 
 //#########################################################################
-
+struct UnionFind {
+    vector<ll> parents;
+    UnionFind(int size) {
+        parents.assign(size, -1);
+    }
+    ll findRoot(ll x) {
+        if (parents[x] < 0) return x;
+        return parents[x] = findRoot(parents[x]);
+    }
+    bool unite(ll x, ll y) {
+        x = findRoot(x);
+        y = findRoot(y);
+        if (x == y) return false;
+        if (parents[x] > parents[y]) swap(x, y);
+        parents[x] += parents[y];
+        parents[y] = x;
+        return true;
+    }
+    ll size(ll x) { return -parents[findRoot(x)]; }
+    bool isSameGroup(ll x, ll y) { return findRoot(x) == findRoot(y); }
+};
 void solve() {
-    ll N, X, Y; cin >> N >> X >> Y;
-    vector<vector<ll>> dp(N + 1, vector<ll>(N + 1));
+    ll N, M, K; cin >> N >> M >> K;
+    vector<vector<ll>> dp(N + 1, vector<ll>(5001, 0));
+    rep(i, 1, M + 1) dp[0][i] = 1;
+    rep(i, 0, N - 1) rep(j, 1, M + 1) rep(k, 1, M + 1) {
+        dp[i + 1][j + k] += dp[i][k];
+        dp[i + 1][j + k] %= MOD;
+    }
+    ll ans = 0;
+    rep(i, 1, K + 1) {
+        ans += dp[N - 1][i];
+        cout << dp[N - 1][i] << endl;
+        ans %= MOD;
+    }
+    cout << ans % MOD << endl;
 }
 
 

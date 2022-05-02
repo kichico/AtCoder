@@ -56,41 +56,25 @@ struct grid {
 };
 
 //#########################################################################
-
 void solve() {
-    ll N, start; cin >> N >> start;
-    string k; cin >> k;
-    vector<ll> a(N); rep(i, 0, N) {
-        cin >> a[i];
-        a[i]--;
+    ll N, D; cin >> N >> D;
+    set<pair<ll, ll>> kabe;
+    rep(i, 0, N) {
+        ll x, y; cin >> x >> y; kabe.emplace(x, y);
     }
-    ll maxx = 1e6 * 10;
-    start--;
-    vector<bool> visited(maxx, false);
     ll cnt = 0;
-    ll now = start;
-    do {
-        if (visited[now]) break;
-        visited[now] = true;
-        now = a[now];
+    while (!kabe.empty()) {
+        ll l, r; tie(l, r) = *kabe.begin();
+        while (!kabe.empty()) {
+            auto pr = *kabe.begin();
+            if (pr.first <= max((ll)0, r - D)) {
+                kabe.erase(pr);
+            }
+            else break;
+        }
         cnt++;
     }
-    while (!visited[now]);
-    ll st = now;
-    ll check = now;
-    k -= cnt;
-    cnt = 0;
-    ll loop = 0;
-    do {
-        now += a[now];
-        loop += a[now];
-        cnt++;
-        check = now;
-    }
-    while (check != start);
-    k %= cnt;
-    rep(i, 0, k) now = a[now];
-    cout << now << endl;
+    cout << cnt << endl;
 }
 
 

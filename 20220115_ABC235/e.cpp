@@ -56,10 +56,60 @@ struct grid {
 };
 
 //#########################################################################
+struct UnionFind {
+    vector<ll> parents;
+    UnionFind(int size) {
+        parents.assign(size, -1);
+    }
+    ll findRoot(ll x) {
+        if (parents[x] < 0) return x;
+        return parents[x] = findRoot(parents[x]);
+    }
+    bool unite(ll x, ll y) {
+        x = findRoot(x);
+        y = findRoot(y);
+        if (x == y) return false;
+        if (parents[x] > parents[y]) swap(x, y);
+        parents[x] += parents[y];
+        parents[y] = x;
+        return true;
+    }
+    ll size(ll x) { return -parents[findRoot(x)]; }
+    bool isSameGroup(ll x, ll y) { return findRoot(x) == findRoot(y); }
+};
+struct edge {
+    ll from, to, cost, num;
+    bool Additional = false;
+};
+edge in() {
+    edge e; cin >> e.from >> e.to >> e.cost;
+    e.from--; e.to--;
+    return e;
+}
 
 void solve() {
-    ll N; cin >> N;
-
+    ll N, M, Q; cin >> N >> M >> Q;
+    UnionFind uf(N);
+    vector<edge> ed(M + Q);
+    rep(i, 0, M) {
+        ed[i] = in();
+        ed[i].num = -1;
+    }
+    rep(i, 0, Q) {
+        ed[i + M] = in();
+        ed[i + M].Additional = true;
+        ed[i + M].num = i;
+    }
+    vector<string> ans(Q);
+    sort(ALL(ed), [](const edge& fr, const edge& se) { return fr.cost < se.cost; });
+    for (auto [from, to, cost, num, Additional] : ed) {
+        if (Additional) {
+            if (uf.isSameGroup(from, to)) ans[num] = "No";
+            else ans[num] = "Yes";
+        }
+        else if (!uf.isSameGroup(from, to)) uf.unite(from, to);
+    }
+    forc(x, ans);
 }
 
 

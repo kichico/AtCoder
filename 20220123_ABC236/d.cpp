@@ -56,30 +56,40 @@ struct grid {
 };
 
 //#########################################################################
+vector<pair<ll, ll>> current;
+ll ret = 0;
+ll N;
+set<ll> notUsed;
+ll calc(vector<vector<ll>>& a) {
+    if (current.size() == N) {
+        ll v = 0;
+        rep(i, 0, N) {
+            v ^= a[current[i].first][current[i].second];
+        }
+        return v;
+    }
+    ll choosed = *notUsed.begin();
+    notUsed.erase(choosed);
+    auto rest = notUsed;
+    fore(x, rest) {
+        current.emplace_back(choosed, x);
+        notUsed.erase(x);
+        ret = max(ret, calc(a));
+        notUsed.emplace(x);
+    }
+    return ret;
+}
+
 
 void solve() {
-    ll N; cin >> N;
+    cin >> N;
     vector<vector<ll>> a(2 * N - 1);
     rep(i, 0, 2 * N - 1) {
         rep(p, i, 2 * N) {
             ll v; cin >> v; a[i].emplace_back(v);
         }
     }
-    vector<ll> hito(2 * N); rep(i, 0, 2 * N) hito[i] = i;
-    ll ans = 0;
-    do {
-        ll current = 0;
-        vector<ll> h = hito;
-        rep(i, 0, N) {
-            ll fr = h.back(); h.pop_back();
-            ll se = h.back(); h.pop_back();
-            if (fr > se) swap(fr, se);
-            current ^= a[fr][se];
-        }
-        ans = max(ans, current);
-    }
-    while (next_permutation(ALL(hito)));
-    cout << ans << endl;
+    cout << calc(a) << endl;
 }
 
 

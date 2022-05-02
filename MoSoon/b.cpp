@@ -57,30 +57,16 @@ struct grid {
 
 //#########################################################################
 
-
 void solve() {
-    ll N; cin >> N;
-    ll zero = 0;
-    vector<ll> a; rep(i, 0, N) {
-        ll v; cin >> v;
-        if (v == 0) zero++;
-        else a.emplace_back(v);
-    }
-    sort(ALL(a));
-    set<ll> diff;
-    rep(i, 0, a.size() - 1) {
-        diff.emplace(a[i + 1] - a[i]);
-    }
-    ll mini = *diff.begin();
-    ll cnt = 0;
-    fore(x, diff) {
-        if (x % mini != 0) {
-            cout << "No" << endl;
+    string s; cin >> s;
+    rep(i, 0, s.size()) {
+        ll other = s.size() - i - 1;
+        if (s[i] != s[other]) {
+            cout << "NO" << endl;
             return;
         }
-        if (mini != x) cnt += x / mini;
     }
-    twoText(cnt <= zero);
+    cout << "YES" << endl;
 }
 
 
