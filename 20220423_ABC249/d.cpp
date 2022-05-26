@@ -65,23 +65,6 @@ struct grid {
 
 //#########################################################################
 
-ll modpow(ll x, ll n) {
-    ll ans = 1;
-    while (n > 0) {
-        if (n & 1) ans = ans * x % MOD;
-        x = x * x % MOD;
-        n >>= 1;
-    }
-    return ans;
-}
-
-ll com(ll n, ll k, vector<ll> fac_n, vector<ll> fac_k) {
-    if (n == 0 && k == 0) return 1;
-    if (n < k || n < 0) return 0;
-    ll value = fac_k[n - k] * fac_k[k] % MOD;
-    return value * fac_n[n] % MOD;
-}
-
 
 
 
@@ -89,47 +72,17 @@ ll com(ll n, ll k, vector<ll> fac_n, vector<ll> fac_k) {
 void solve() {
     ll N; cin >> N;
     vector<ll> a(N); unordered_map<ll, ll> cnt;
-    vector<bool> included(3e5, false);
-    ll lim = 300001;
-    vector<ll> fac_n(lim);
-    vector<ll> fac_k(lim);
-    fac_n[0] = 1;
-    fac_k[0] = 1;
-    for (ll i = 0; i < lim - 1; ++i) {
-        fac_n[i + 1] = fac_n[i] * (i + 1) % MOD;
-        fac_k[i + 1] = fac_k[i] * modpow(i + 1, MOD - 2) % MOD;
-    }
     rep(i, 0, N) {
         cin >> a[i];
         cnt[a[i]]++;
-        included[a[i]] = true;
     }
     ll ans = 0;
-    fore(x, cnt) {
-        ll v = x.first;
-        rep(j, 1, sqrt(v) + 1) {
-            if (v % j != 0) continue;
-            ll div = v / j;
-            cout << "num:" << v << " div:" << div << " another:" << j << endl;
-            if (included[div] && included[j]) {
-                if (div == j) {
-                    if (cnt[div] == 1) continue;
-                    ll left = cnt[div];
-                    if (div == v) left--;
-                    if (left - 1 <= 0) continue;
-                    ans += left * (left - 1);
-                    cout << "div's:" << left << " another's:" << left - 1 << endl;
-                    cout << "ans:" << ans << endl;
-                }
-                else {
-                    ll left = cnt[div];
-                    ll right = cnt[j];
-                    if (div == v) left--;
-                    if (j == v) right--;
-                    ans += (left * right) * x.second;
-                    cout << "div's:" << left << " another's:" << right << endl;
-                    cout << "ans:" << ans << endl;
-                }
+    rep(i, 0, N) {
+        ll limit = sqrt(a[i]) + 1;
+        rep(j, 1, limit) {
+            if (a[i] % j == 0 && cnt.find(j) != cnt.end() && cnt.find(a[i] / j) != cnt.end()) {
+                if (a[i] / j == j) ans += (cnt[j] * cnt[a[i] / j]);
+                else ans += (cnt[j] * cnt[a[i] / j]) * 2;
             }
         }
     }

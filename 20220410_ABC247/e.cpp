@@ -72,29 +72,32 @@ void solve() {
     }
     ll cnt = 0;
     ll right = 0;
-    rep(left, 0, N) {
-        if (left == right) right++;
-        ll minn = 0;
-        ll maxx = 0;
-        ll curmax = a[left];
-        ll curmin = a[left];
-        if (a[left] == X) maxx++;
-        else if (a[left] == Y) minn++;
-        while (right < N && a[right] <= X && a[right] >= Y) {
-            curmax = max(a[right], curmax);
-            curmin = min(a[right], curmin);
-            if (a[right] == Y) minn++;
-            else if (a[right] == X) maxx++;
-            if (curmax == X && curmin == Y) cnt++;
-            right++;
-        }
-        while (maxx >= 1 && minn >= 1 && left < N) {
-            if (maxx == 1 && a[left] == X) break;
-            else if (minn == 1 && a[left] == Y) break;
-            left++;
+    vector<vector<ll>> sparse;
+    vector<ll> current;
+    rep(i, 0, N) {
+        if ((a[i] < Y || X < a[i]) && !current.empty()) {
+            sparse.push_back(current);
+            current.clear();
         }
     }
-    cout << cnt << endl;
+    ll ans = 0;
+    rep(x, 0, sparse.size()) {
+        auto& b = sparse[x];
+        ll right = 0;
+        rep(left, 0, b.size()) {
+            bool L = false, R = false;
+            if (a[left] == X) R = true;
+            if (a[left] == Y) L = true;
+            if (left == right) right++;
+            while (right < N && !L && !R) {
+                right++;
+                if (a[right] == X) R = true;
+                if (a[right] == Y) L = true;
+            }
+            if (L && R) ans += b.size() - right;
+        }
+    }
+    cout << ans << endl;
 }
 
 

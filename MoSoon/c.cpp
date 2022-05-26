@@ -56,42 +56,52 @@ struct grid {
 };
 
 //#########################################################################
-struct UnionFind {
-    vector<ll> parents;
-    UnionFind(int size) {
-        parents.assign(size, -1);
+vector<pair<ll, ll>> prime_factorize(ll Num) {
+    ll lim = sqrt(Num) + 1;
+    vector<pair<ll, ll>> pr; //pair<primenumber(素数),Exponentiation(べき数)>
+    vector<bool> listprime(lim);
+    for (ll i = 0; i < lim; ++i) listprime[i] = true;
+    ll root = sqrt(Num);
+    ll res = Num;
+    for (ll i = 2; i <= root; ++i) {
+        ll expnum = 0;
+        if (listprime[i]) {
+            while (res % i == 0) {
+                res /= i;
+                expnum++;
+            }
+            for (ll j = i * 2; j <= root; j += i) listprime[j] = false;
+        }
+        if (expnum != 0) pr.emplace_back(make_pair(i, expnum));
     }
-    ll findRoot(ll x) {
-        if (parents[x] < 0) return x;
-        return parents[x] = findRoot(parents[x]);
-    }
-    bool unite(ll x, ll y) {
-        x = findRoot(x);
-        y = findRoot(y);
-        if (x == y) return false;
-        if (parents[x] > parents[y]) swap(x, y);
-        parents[x] += parents[y];
-        parents[y] = x;
-        return true;
-    }
-    ll size(ll x) { return -parents[findRoot(x)]; }
-    bool isSameGroup(ll x, ll y) { return findRoot(x) == findRoot(y); }
-};
+    if (res != 1) pr.emplace_back(make_pair(res, 1));
+    return pr;
+}
+
+
+
+
 void solve() {
-    ll N, M, K; cin >> N >> M >> K;
-    vector<vector<ll>> dp(N + 1, vector<ll>(5001, 0));
-    rep(i, 1, M + 1) dp[0][i] = 1;
-    rep(i, 0, N - 1) rep(j, 1, M + 1) rep(k, 1, M + 1) {
-        dp[i + 1][j + k] += dp[i][k];
-        dp[i + 1][j + k] %= MOD;
+    ll N; string s; cin >> N >> s;
+    ll cnt = 0;
+    fore(c, s) {
+        if (c == 'A' || c == 'G' || c == 'C' || c == 'T') cnt++;
     }
-    ll ans = 0;
-    rep(i, 1, K + 1) {
-        ans += dp[N - 1][i];
-        cout << dp[N - 1][i] << endl;
-        ans %= MOD;
+    if (cnt == 0) { cout << 0 << endl; return; }
+    set<ll> pos;
+    rep(i, 1, N + 1) pos.emplace(i);
+    auto it = pos.lower_bound(cnt); ll ans = 0;
+    while (cnt > 0) {
+        auto c = *it;
+        pos.erase(it);
+        if (c == 'A' || c == 'G' || c == 'C' || c == 'T') {
+            cnt--;
+            it--;
+        }
+        else it++;
+        ans++;
     }
-    cout << ans % MOD << endl;
+    cout << ans << endl;
 }
 
 

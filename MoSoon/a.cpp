@@ -7,7 +7,7 @@ using ull = unsigned long long;
 #define rep(iter,from,to) for(ll iter=from;iter<to;++iter)
 #define fore(variable,container) for(auto& variable:container)
 #define forc(variable,container) for(auto& variable:container) cout<<variable<<endl;
-const ll MOD = 1e9 + 7;
+const ll MOD = 998244353;
 const ll INF = 1e17;
 const vector<ll> dx{ 1,0,-1,0 }, dy{ 0,1,0,-1 };
 //#######################################################################
@@ -56,11 +56,49 @@ struct grid {
 };
 
 //#########################################################################
-void solve() {
-    ll a, b;
-    cin >> a >> b;
-    cout << (a + b) % 24 << endl;
+
+string to_Binary(ll n) {
+    string r;
+    while (n != 0) {
+        r += (n % 2 == 0 ? "0" : "1");
+        n /= 2;
+    }
+    reverse(ALL(r));
+    return r;
 }
+
+ll betterpow(ll x, ll n) {
+    ll ans = 1;
+    while (n > 0) {
+        if (n & 1) ans *= x;
+        x *= x;
+        n >>= 1;
+    }
+    return ans;
+}
+
+ll Bi_to_10(string x) {
+    reverse(ALL(x));
+    ll ret = 0;
+    rep(i, 0, x.size()) if (x[i] == '1') ret += betterpow(2, i);
+    return ret;
+}
+
+void solve() {
+    ll N; cin >> N;
+    string s; cin >> s;
+    ll cnt = 0;
+    fore(c, s) {
+        if (c == 'A' || c == 'G' || c == 'T' || c == 'C') { cnt++; }
+    }
+    vector<bool>
+        ll ans = 0;
+    while (cnt != 0) {
+        remain.erase(cnt);
+        if ()
+    }
+}
+
 int main(void) {
     std::cin.tie(nullptr);
     std::ios_base::sync_with_stdio(false);

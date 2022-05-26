@@ -56,17 +56,32 @@ struct grid {
 };
 
 //#########################################################################
+bool isPrime(ll Num) {
+    ll root = sqrt(Num);
+    if (Num == 0 || Num == 1) return false;
+    for (ll i = 2; i <= root; ++i) if (Num % i == 0) return false;
+    return true;
+}
 
-void solve() {
-    string s; cin >> s;
-    rep(i, 0, s.size()) {
-        ll other = s.size() - i - 1;
-        if (s[i] != s[other]) {
-            cout << "NO" << endl;
-            return;
+vector<ll> enumeratePrime(ll maxx) {
+    vector<bool> notp(maxx + 1, false);
+    vector<ll> ret;
+    rep(i, 2, maxx + 1) {
+        if (notp[i]) continue;
+        if (isPrime(i)) ret.emplace_back(i);
+        ll init = 1;
+        while (init * i <= maxx) {
+            notp[init * i] = true;
+            init++;
         }
     }
-    cout << "YES" << endl;
+    return ret;
+}
+
+void solve() {
+    ll N; cin >> N;
+    string s; cin >> s;
+
 }
 
 

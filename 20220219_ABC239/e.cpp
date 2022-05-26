@@ -126,6 +126,11 @@ void solve() {
     vector<multiset<ll>> subtree(N);
     subtree[0] = dfs(tree, subtree, 0);
     vector<ll> ans(Q);
+    rep(v, 0, N) {
+        cout << v + 1 << ":";
+        fore(x, subtree[v]) cout << x << " ";
+        cout << endl;
+    }
     rep(i, 0, Q) {
         ll v, k; cin >> v >> k;
         v--; k--;

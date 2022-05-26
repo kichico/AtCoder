@@ -107,7 +107,10 @@ void solve() {
             dict[depth[x].first].emplace_back(depth[x].second);
         }
     }
-    sort(ALL(depth));
+    sort(ALL(depth), [](const pair<ll, ll>& fr, const pair<ll, ll>& se) {
+        if (fr.first != se.first) return fr.first > se.first;
+        else return fr.second < se.second;
+    });
     visited.assign(N, false);
     ll cnt = 1;
     vector<set<ll>> tree(N);
